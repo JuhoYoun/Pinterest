@@ -9,3 +9,5 @@ Pycharm 단축키 꿀팁
 If there's an error in the code, pressing ⌥⏎ (option + enter) (macOS), or Alt+Enter (Windows/Linux), can suggest options that will make the code compile.
 -> 만약 어떤 메소드가 아직 import 되지 않았다면 어떤 패키지에서 import 해야하는지도 suggest 함
 
+gitgub 의 gitignore 레포지토리에서는 gitignore 파일을 위한 다양한 템플릿을 제공해준다 이 프로젝트에서는 Global 폴더의 Jetbrains.gitignore 템플릿을 사용하자 (Pycharm IDE 사용하기 때문)
+
