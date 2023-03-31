@@ -17,3 +17,7 @@ SECRET_KEY = "django-insecure--5ej32jnwnzn%jv$gb)z@=e1c@(lvtha!1&o9o9%2z4p4_n16s
 
 이 시크릿 키는 장고 애플리케이션에 하나 씩 배정되고 배포할 때 노출 시키면 안된다. 때문에 파일을 따로 만들어 이 키를 불러 오는 형식으로 다시 만들자. 이를 위한 라이브러리가 이미 존재한다. 
 -> django-environ -> https://django-environ.readthedocs.io/en/latest/index.html
+
+pip install django-environ 설치한다 그리고 다큐먼트에 써있는대로 해보자
+
+Pycharm의 VCS 탭을 누르면 Enable Version Control Integration 이 보이는데 이를 이용하면 Git 을 활성화할 수 있다.
