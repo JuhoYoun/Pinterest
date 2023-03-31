@@ -21,3 +21,11 @@ SECRET_KEY = "django-insecure--5ej32jnwnzn%jv$gb)z@=e1c@(lvtha!1&o9o9%2z4p4_n16s
 pip install django-environ 설치한다 그리고 다큐먼트에 써있는대로 해보자
 
 Pycharm의 VCS 탭을 누르면 Enable Version Control Integration 이 보이는데 이를 이용하면 Git 을 활성화할 수 있다.
+
+Hyper Text : 문서간 이동이 가능하다
+Markup : 써 내려간다
+
+Django Template
+
+1. extend / include
+- extend 는 코드잇 강의 때 배웠다. extends는 기본 템플릿을 만들어 놓고 그것을 가져와서 연정해서 내용을 채워나간다. include 우리가 만들고 있는 html 파일이 있다고 하면은 거기다가 조그만 조각같은 것을 가져와 템플릿 안에다가 박아 넣는다
