@@ -11,3 +11,8 @@ If there's an error in the code, pressing ⌥⏎ (option + enter) (macOS), or Al
 
 gitgub 의 gitignore 레포지토리에서는 gitignore 파일을 위한 다양한 템플릿을 제공해준다 이 프로젝트에서는 Global 폴더의 Jetbrains.gitignore 템플릿을 사용하자 (Pycharm IDE 사용하기 때문)
 
+프로젝트 앱의 settings.py 파일을 보면 다음과 같은 변수가 있다
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = "django-insecure--5ej32jnwnzn%jv$gb)z@=e1c@(lvtha!1&o9o9%2z4p4_n16s"
+
+이 시크릿 키는 장고 애플리케이션에 하나 씩 배정고 배포할 때 노출 시키면 안된다. 때문에 파일을 따로 만들어 이 키를 불러 오는 형식으로 다시 만들자. 
