@@ -37,3 +37,24 @@ Django Template
 4. div 는 가능한 폭을 모두 가져가는 태그라고 생각하면 된다 
 
 5. Pycharm 에서 option key + 커서로 지정한 부분들은 동시에 작업이 가능하다 (꿀팁!)
+
+
+질문. 9강 들은 후 의문점이 있어서 질문드립니다. settings.py 파일에 분명 프로젝트 루트의 templates 폴더로 기본 템플릿 디렉토리 경로를 설정하였는데 ("DIRS": [os.path.join(BASE_DIR, 'templates')],)  accountapp 디렉토리의 view.py 파일에서 html를 렌더링 할 때 (return render(request, 'accountapp/hello_world.html')) 어떻게 'accountapp/hello_world.html' 이라는 input 으로 accountapp/templates/accountapp 경로에 있는 hello_world.html 파일에 접근할 수 있나요?
+
+Chatgpt 답: 
+
+In Django, the web framework looks for templates in a specified set of directories, which are defined in the TEMPLATES setting in the project's settings.py file. By default, Django looks for templates in the templates/ directory of each installed application.
+
+Here's how Django finds the template path:
+
+First, Django looks for the APP_DIRS setting in the TEMPLATES setting. If APP_DIRS is set to True, Django will look for templates in the templates/ directory of each installed application.
+
+If APP_DIRS is False, Django will look for templates in the directories specified in the DIRS setting in the TEMPLATES setting.
+
+If neither APP_DIRS nor DIRS is specified, Django will use a default set of directories: os.path.join(BASE_DIR, 'templates').
+
+BASE_DIR is a setting that specifies the base directory of the project. By default, it is the directory containing the project's settings.py file.
+
+Once Django has determined the set of directories to look for templates, it searches for the template file in each directory in order, looking for a file with the specified name and file extension. If it finds a match, it uses that template to render the response.
+
+In addition to the default behavior, you can also customize the template loading process by writing your own template loaders, which can load templates from alternative sources such as a database or a remote file system.
