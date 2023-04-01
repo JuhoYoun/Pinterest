@@ -73,3 +73,4 @@ So, the resulting expression Path(__file__).resolve().parent.parent gives you th
 This is a useful technique to locate files relative to the current file's location, especially if you need to access other files in the same directory as the current file or in a parent directory.
 
 
+부트스트랩은 html 의 스타일을 그럴듯하게 만들어주는 라이브러리
