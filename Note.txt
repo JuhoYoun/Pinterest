@@ -58,3 +58,18 @@ BASE_DIR is a setting that specifies the base directory of the project. By defau
 Once Django has determined the set of directories to look for templates, it searches for the template file in each directory in order, looking for a file with the specified name and file extension. If it finds a match, it uses that template to render the response.
 
 In addition to the default behavior, you can also customize the template loading process by writing your own template loaders, which can load templates from alternative sources such as a database or a remote file system.
+
+질문. Can you explain this python code Path(__file__).resolve().parent.parent
+
+Chatgpt 답:
+This Python code uses the pathlib module to obtain the path of the current file's parent directory's parent directory. Here's how it works:
+
+Path(__file__) creates a Path object that represents the path of the current file.
+.resolve() resolves any symbolic links, references to parent directories (i.e., ..), and returns an absolute path. This ensures that the path is fully resolved and not a relative path that depends on the current working directory.
+.parent returns the parent directory of the resolved path, which is the directory containing the current file.
+.parent is called again to obtain the parent directory of the directory containing the current file, which is the directory containing the parent directory.
+So, the resulting expression Path(__file__).resolve().parent.parent gives you the path of the parent directory's parent directory of the current file.
+
+This is a useful technique to locate files relative to the current file's location, especially if you need to access other files in the same directory as the current file or in a parent directory.
+
+
