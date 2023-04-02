@@ -136,8 +136,8 @@ Migrations for 'accountapp':
   accountapp/migrations/0001_initial.py
     - Create model HelloWorld
 
-위처럼 마이그레이션 파일이 만들어지고 모델을 만들었다고 뜬다. 하지만 이 파일을 만들었다고 자동으로 db와 연동이 되는 것은 아니고 연동 시켜주는 다른 명령어를 실행해야한다.
--> python manage.py migrate 이러면 db에 적용이 되는것이다.
+위처럼 마이그레이션 파일이 (마이그레이션 파일들은 절대로 맘대로 지우면 안된다) 만들어지고 모델을 만들었다고 뜬다. 하지만 이 파일을 만들었다고 자동으로 db와 연동이 되는 것은 아니고 연동 시켜주는 다른 명령
+어를 실행해야한다. -> python manage.py migrate 이러면 db에 적용이 되는것이다.
 
 settings.py 에 가면 db에 대한 정보를 볼 수 있다. 
 
@@ -148,7 +148,8 @@ DATABASES = {
     }
 }
 
-장고고 기본적으로 제공해주는 sqlite3 을 쓰며 db 파일은 BASE_DIR 디렉토리에 db.sqlite3 이라는 이름의 파일로 존재한다는 뜻.
+장고가 기본적으로 제공해주는 sqlite3 을 쓰며 db 파일은 BASE_DIR 디렉토리에 db.sqlite3 이라는 이름의 파일로 존재한다는 뜻. 나중에 배포를 할 때는 다른 db 을 쓸거지만 지금은 sqlite3 로 진행
+하는데에 무리가 없다.
 
 
 
