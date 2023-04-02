@@ -94,6 +94,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-
-
+settings.py 파일의 STATIC_URL = "static/" 이 라인은 무엇을 의미할까? 개발 서버를 켜고 head 부분으로 가보자 개발자 도구를 열고 코드를 보자
+소스 코드의 <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}"> 부분은 <link rel="stylesheet" type="text/css" href="/static/base.css">
+이렇게 바뀌어 있다 STATIC_URL 변수는 이렇게 웹페이지를 만들 실행할 때 static 파일들의 경로 URL(?)을 만드는데 사용된다. 만약 STATIC_URL 값을 test/ 로 바꾸면 URL도 /test/base.css로 바뀌는것이다.
 
