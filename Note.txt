@@ -84,4 +84,16 @@ settings.py 파일로 가서 STATIC_URL 라인 밑에 다음과 같이 STATIC_RO
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 나중에 python3 manage.py collectstatic 이라는 명령어를 통해 STATIC_ROOT로 프로젝트 안의 모든 static 파일들을 모아준다.
 
-변수나 함수를 지정한 뒤 command key + B 를 누르면 해당 변수나 함수가 처음 선언되어 있는 곳으로 가게 
+변수나 함수를 지정한 뒤 command key + B 를 누르면 해당 변수나 함수가 처음 선언되어 있는 곳으로 가게 된다
+
+이 프로젝트에서는 특정 앱에 종속되어있지 않은 프로젝트 전체에서 관리할 수 있는 static 폴더를 따로 만든다.
+장고 문서에 보면 managing static files 과 관련한 내용이 있다 -> https://docs.djangoproject.com/en/4.1/howto/static-files/
+Static 파일들의 디렉토리를 따로 지정해 줄 수 있다 보통 앱 내부의 static 폴더를 찾는데 임의적으로 static 파일 폴더를 추가해주므로써 앱에 종속되지 않은 static 폴더를 만든다
+settings.py 에 다음과 같이 추가해주자 -> 
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+
+
+
