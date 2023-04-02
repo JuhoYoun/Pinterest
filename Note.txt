@@ -75,3 +75,6 @@ This is a useful technique to locate files relative to the current file's locati
 
 부트스트랩은 html 의 스타일을 그럴듯하게 만들어주는 라이브러리
 get started -> https://getbootstrap.com/docs/5.3/getting-started/introduction/
+
+Google Fonts -> 폰트 링크들을 받을 수 있다
+https://fonts.google.com/?preview.text=Jake%27s%20Home&preview.text_type=custom
