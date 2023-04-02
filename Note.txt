@@ -78,3 +78,8 @@ get started -> https://getbootstrap.com/docs/5.3/getting-started/introduction/
 
 Google Fonts -> 폰트 링크들을 받을 수 있다
 https://fonts.google.com/?preview.text=Jake%27s%20Home&preview.text_type=custom
+
+Static
+settings.py 파일로 가서 STATIC_URL 라인 밑에 다음과 같이 STATIC_ROOT 를 추가하자
+나중에 python3 manage.py collectstatic 이라는 명령어를 통해 STATIC_ROOT로 프로젝트 안의 모든 static 파일들을 모아준다.
+
