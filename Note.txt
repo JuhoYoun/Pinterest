@@ -153,9 +153,17 @@ DATABASES = {
 
 HTTP Protocol
 대표적으로 GET과 POST 가 있다. GET 은 주로 조회를 할 때 쓰인다. 주소 안에서 ? 뒤에 추가적인 parameter를 넣어서 보내준다. POST 같은 경우 서버 내에 어떤 정보를 새로 만들거나 수정할 때 쓰인다.
-GET처럼 주소 안에 parameter를 넣어 보내지 않고 BODY 라는 응답(?) 내부에 있는 몸통에다 데이터를 넣어 보낸다. HTTP는 이 BODY 안에 넣어 보내는데 암호화되어있지 않다. 그래서 중간에 가로채서 볼 수 
-있다. 나중에 암호화하는 법도 배울거다. HTTPS는 암호화되어있다. 
+GET처럼 주소 안에 parameter를 넣어 보내지 않고 어떤 BODY 라는 응답(?) 내부에 있는 몸통에다 데이터를 넣어 보낸다. HTTP는 이 BODY 안에 넣어 보내는데 암호화되어있지 않다. 그래서 중간에 가로채서 볼 
+수 있다. 나중에 암호화하는 법도 배울거다. HTTPS는 암호화되어있다. GET은 우리가 주소에 넣어 보내면 자동적으로 보내지지만 POST는 따로 설정을 해줘야한다. POST를 사용하기 위해서는 html안에 form을 만
+들어줘야한다.
+->
+        <form action="/account/hello_world" method="post">
+            <input type="submit" class="btn btn-primary" value="POST">
+        </form>
 
-
-
-
+이렇게 하면 화면에 버튼이 생성된다. 하지만 버튼을 누르면 뭔가 잘못된거처럼 나온다. django 에서는 post 방식으로 서버에 요청을 보낼 때는 csrf 토큰이라는 것을 항상 form 안에 명시해줘야한다.
+->
+        <form action="/account/hello_world" method="post">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-primary" value="POST">
+        </form>
