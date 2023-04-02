@@ -167,3 +167,5 @@ GET처럼 주소 안에 parameter를 넣어 보내지 않고 어떤 BODY 라는 
             {% csrf_token %}
             <input type="submit" class="btn btn-primary" value="POST">
         </form>
+
+이러면 버튼을 눌렀을 때 에러 화면이 뜨지는 않는다. 하지만 view 에서 이런 post 요청을 처리하는 로직을 만들지 않았기 때문에 버튼을 눌렀을 때 딱히 일어나는것은 없다.
