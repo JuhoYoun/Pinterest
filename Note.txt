@@ -128,5 +128,6 @@ style을 정하는 방법은 세가지가 있다.
 git reset --hard HEAD
 -> 가장 최근에 커밋했던 때로 되돌아간다.
 
-
-
+Connecting model with database
+- python manage.py makemigrations 우리가 models.py 에다가 쓰는 내용을 db와 연동시킬 python 파일로 만들어주는 작업을 한다.
+accocuntapp 의 models.py 에 가서 클래스를 하나 작성해보자. 클래스 하나가 db 에서 테이블 하나가 된다. 
