@@ -141,6 +141,15 @@ Migrations for 'accountapp':
 
 settings.py 에 가면 db에 대한 정보를 볼 수 있다. 
 
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
+
+장고고 기본적으로 제공해주는 sqlite3 을 쓰며 db 파일은 BASE_DIR 디렉토리에 db.sqlite3 이라는 이름의 파일로 존재한다는 뜻.
+
 
 
 
