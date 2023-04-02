@@ -130,4 +130,19 @@ git reset --hard HEAD
 
 Connecting model with database
 - python manage.py makemigrations 우리가 models.py 에다가 쓰는 내용을 db와 연동시킬 python 파일로 만들어주는 작업을 한다.
-accocuntapp 의 models.py 에 가서 클래스를 하나 작성해보자. 클래스 하나가 db 에서 테이블 하나가 된다. 
+accocuntapp 의 models.py 에 가서 클래스를 하나 작성해보자. 클래스 하나가 db 에서 테이블 하나가 된다. 클래스 작성 후 위의 makemigrations 명령어를 입력해보자. 
+
+Migrations for 'accountapp':
+  accountapp/migrations/0001_initial.py
+    - Create model HelloWorld
+
+위처럼 마이그레이션 파일이 만들어지고 모델을 만들었다고 뜬다. 하지만 이 파일을 만들었다고 자동으로 db와 연동이 되는 것은 아니고 연동 시켜주는 다른 명령어를 실행해야한다.
+-> python manage.py migrate 이러면 db에 적용이 되는것이다.
+
+settings.py 에 가면 db에 대한 정보를 볼 수 있다. 
+
+
+
+
+
+
