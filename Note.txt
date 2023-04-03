@@ -232,3 +232,11 @@ Debugging in Pycharm
 Pycharm 에서 Run 탭으로 가서 Edit Configurations으로 가자. 그리고 Add new 를 클릭하고 python을 선택한다. script path 에는 manage.py 를 선택해주고 parameter 에 runserver를 입력
 하고 ok 를 누른다. manage.py 파일을 우클릭하고 Debug 'manage'를 클릭하면 디버깅을 시작할 수 있다. 강의에서는 윈도우를 사용하며 디버깅을 셋업하는 방식이 다르다. 내가 알아낸 방식 외에 다른 방법도
 있는지 확인이 필요하다.
+
+
+Django 는 CRUD 기능을 잘 만드는것으로 유명하다. 그 이유는 CRUD 에 대한 VIEW 를 따로 제공한다. 즉 이 네가지 작업을 쉽게 하기 위한 클래스를 제공한다. 
+-> Create View, Detail View (Read), Update View, Delete View
+
+
+
+
