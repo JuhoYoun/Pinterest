@@ -236,7 +236,6 @@ Pycharm 에서 Run 탭으로 가서 Edit Configurations으로 가자. 그리고 
 
 Django 는 CRUD 기능을 잘 만드는것으로 유명하다. 그 이유는 CRUD 에 대한 VIEW 를 따로 제공한다. 즉 이 네가지 작업을 쉽게 하기 위한 클래스를 제공한다. 
 -> Create View, Detail View (Read), Update View, Delete View
-
-
+이것들을 Class Based View 라고 한다. 이 CBV와 반대되는 개념이 Function Based View 이다. 우리가 위에서 만들었던 hello_world view 가 FBV이다. 
 
 
