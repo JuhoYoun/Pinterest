@@ -209,3 +209,18 @@ def hello_world(request):
 
 위의 코드에서 POST 로 요청했을 시 POST 요청으로 인해 render 된 웹페이지가 브라우저에 보여진다. 이 때 유저가 페이지를 refresh 하면 이전에 행했던 POST 요청이 반복되고 이전과 동일한 HelloWorld
 object이 다시 생성되어버린다. 이를 방지하기 위해서는 POST 요청시 view 에서 웹페이지를 render 하지 않고 get 요청으로 redirect 하면 된다.
+->
+def hello_world(request):
+    # return HttpResponse("Hello World")
+    if request.method == "POST":
+
+        temp = request.POST.get('hello_world_input')
+
+        new_hello_world = HelloWorld()
+        new_hello_world.text = temp
+        new_hello_world.save()
+
+        return HttpResponseRedirect(reverse('accountapp:hello_world'))
+    else:
+        hello_world_list = HelloWorld.objects.all()
+        return render(request, 'accountapp/hello_world.html', context={'hello_world_list': hello_world_list})
