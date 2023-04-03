@@ -65,12 +65,15 @@ Chatgpt 답:
 This Python code uses the pathlib module to obtain the path of the current file's parent directory's parent directory. Here's how it works:
 
 Path(__file__) creates a Path object that represents the path of the current file.
-.resolve() resolves any symbolic links, references to parent directories (i.e., ..), and returns an absolute path. This ensures that the path is fully resolved and not a relative path that depends on the current working directory.
+.resolve() resolves any symbolic links, references to parent directories (i.e., ..), and returns an absolute path. This ensures that the path is fully 
+resolved and not a relative path that depends on the current working directory.
 .parent returns the parent directory of the resolved path, which is the directory containing the current file.
-.parent is called again to obtain the parent directory of the directory containing the current file, which is the directory containing the parent directory.
+.parent is called again to obtain the parent directory of the directory containing the current file, which is the directory containing the parent 
+directory.
 So, the resulting expression Path(__file__).resolve().parent.parent gives you the path of the parent directory's parent directory of the current file.
 
-This is a useful technique to locate files relative to the current file's location, especially if you need to access other files in the same directory as the current file or in a parent directory.
+This is a useful technique to locate files relative to the current file's location, especially if you need to access other files in the same directory as 
+the current file or in a parent directory.
 
 
 부트스트랩은 html 의 스타일을 그럴듯하게 만들어주는 라이브러리
@@ -169,3 +172,23 @@ GET처럼 주소 안에 parameter를 넣어 보내지 않고 어떤 BODY 라는 
         </form>
 
 이러면 버튼을 눌렀을 때 에러 화면이 뜨지는 않는다. 하지만 view 에서 이런 post 요청을 처리하는 로직을 만들지 않았기 때문에 버튼을 눌렀을 때 딱히 일어나는것은 없다.
+
+
+질문. Does post request is repeated if we refresh a web browser?
+
+Chatgpt 답: 
+In general, if you refresh a web page that was loaded via a POST request, most web browsers will re-send the POST request to the server again. This 
+behavior can vary depending on the specific web browser and settings used.
+
+This behavior occurs because the HTTP standard defines that POST requests should not be cached, and therefore most web browsers will re-send the request 
+to ensure that the most up-to-date information is retrieved from the server.
+
+However, some web frameworks, such as Django, implement a feature called the "Post/Redirect/Get" pattern, which can prevent accidental resubmissions of 
+POST requests. This pattern involves redirecting the user to a different page after a successful POST request, which effectively replaces the POST request 
+with a GET request for the new page. This can help to prevent duplicate submissions of the same POST request if the user refreshes the page.
+
+In general, it's good practice to design your web application to handle duplicate requests gracefully, as it's possible for users to accidentally or 
+intentionally resend the same request multiple times. One way to do this is by using unique identifiers or tokens in each POST request and verifying them 
+on the server-side to prevent duplicate submissions.
+
+
