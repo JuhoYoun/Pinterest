@@ -224,3 +224,11 @@ def hello_world(request):
     else:
         hello_world_list = HelloWorld.objects.all()
         return render(request, 'accountapp/hello_world.html', context={'hello_world_list': hello_world_list})
+        
+Debugging in Pycharm
+1. Break point
+
+2. Pycharm debugger
+Pycharm 에서 Run 탭으로 가서 Edit Configurations으로 가자. 그리고 Add new 를 클릭하고 python을 선택한다. script path 에는 manage.py 를 선택해주고 parameter 에 runserver를 입력
+하고 ok 를 누른다. manage.py 파일을 우클릭하고 Debug 'manage'를 클릭하면 디버깅을 시작할 수 있다. 강의에서는 윈도우를 사용하며 디버깅을 셋업하는 방식이 다르다. 내가 알아낸 방식 외에 다른 방법도
+있는지 확인이 필요하다.
