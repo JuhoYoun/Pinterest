@@ -1,2 +1,64 @@
 reverse() vs reverse_lazy
 reverse 의 리턴값은 함수의 parameter로 사용할 수 있지만 클래스의 parameter로 사용할 수는 없다. 하지만 reverse_lazy는 클래스의 parameter로 사용가능하다.
+
+질문 How can I use Django CreateView?
+
+Chatgpt 답:
+
+Django's CreateView is a class-based view that provides an easy way to create a new object in a model. To use CreateView in your Django project, you can follow these steps:
+
+Define your model: First, define the model for which you want to create the form. For example, let's say you have a model named Book with fields title, author, and publication_date.
+
+Define the form: Next, define a form class for your model. You can use Django's built-in ModelForm to create a form based on your model. For example, create a form class named BookForm that is based on the Book model:
+
+python
+Copy code
+from django import forms
+from .models import Book
+
+class BookForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = ['title', 'author', 'publication_date']
+Define the view: Create a CreateView class that extends the django.views.generic.edit.CreateView class. In this class, you need to specify the model, form, and success URL to redirect after creating a new object.
+
+python
+Copy code
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
+from .models import Book
+from .forms import BookForm
+
+class BookCreateView(CreateView):
+    model = Book
+    form_class = BookForm
+    success_url = reverse_lazy('book_list')
+Add URL mapping: Add a URL mapping to map the BookCreateView to a URL. You can use Django's url function or path function to create the URL mapping. For example:
+
+python
+Copy code
+from django.urls import path
+from .views import BookCreateView
+
+urlpatterns = [
+    path('book/create/', BookCreateView.as_view(), name='book_create'),
+]
+Create a template: Create a template for the form. By default, Django's CreateView uses a template named modelname_form.html. So, for our Book model, create a file named book_form.html in your app's templates directory.
+
+html
+Copy code
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Create Book</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create</button>
+</form>
+{% endblock %}
+That's it! You can now navigate to /book/create/ in your web browser to see the form and create a new Book object.
+
+When you submit the form, Django will create a new Book object with the data entered in the form and redirect to the success URL specified in the BookCreateView class.
+
+
