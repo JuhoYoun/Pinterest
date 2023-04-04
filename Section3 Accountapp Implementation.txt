@@ -130,5 +130,8 @@ Login redirect 메카니즘은 우선 LoginView 에서 next 라는 속성 값이
 찾는다. 설정되어있다면 그 주소로 가게되고 그것도 없으면 default로 /profile 로 redirect 되는것이다.
 
 
+Form design adjustment with Bootstrap
+
+
 
 
