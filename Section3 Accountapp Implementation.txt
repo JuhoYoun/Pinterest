@@ -133,7 +133,10 @@ Login redirect 메카니즘은 우선 LoginView 에서 next 라는 속성 값이
 Form design adjustment with Bootstrap
 강의에서는 django-bootstrap4 를 사용하지만 나는 django-bootstrap5 를 사용하겠다. 
 -> https://django-bootstrap5.readthedocs.io/en/latest/installation.html
+이거 보고 설치하자
 
+<input type="submit" class="btn btn-primary rounded-pill col-6 mt-3">
+-> col-6 은 부모 태그의 너비를 12 로 봤을 때 6만큼의 너비를 가져간다는 의미다. mt-3 는 margin top 3배 라는 의미로 현재 탑 마진을 3배로 늘린다는 의미다.
 
 
 
