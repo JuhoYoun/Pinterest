@@ -141,5 +141,31 @@ Form design adjustment with Bootstrap
 이번엔 네이버 폰트를 직접 다운 받아서 써보자 -> https://hangeul.naver.com/font
 원하는 폰트를 다운받아서 BASE_DIR/static/fonts 경로에 넣어준다. fonts 디렉토리 없으니까 만들어준다. 우리는 otf 파일만 쓰자. (open type font)
 otf vs ttf -> https://m.blog.naver.com/oppun/221888199636
+그리고 <head> 태그 안에 다음과 같이 추가해준다.
+<style>
+    @font-face {
+        font-family: 'NanumSquareRoundOTFB';
+        src: local('NanumSquareRoundOTFB'),
+        url("{% static 'fonts/NanumSquareRoundOTFB.otf' %}") format("opentype");
+    }
+    @font-face {
+        font-family: 'NanumSquareRoundOTFEB';
+        src: local('NanumSquareRoundOTFEB'),
+        url("{% static 'fonts/NanumSquareRoundOTFEB.otf' %}") format("opentype");
+    }
+    @font-face {
+        font-family: 'NanumSquareRoundOTFL';
+        src: local('NanumSquareRoundOTFL'),
+        url("{% static 'fonts/NanumSquareRoundOTFL.otf' %}") format("opentype");
+    }
+     @font-face {
+        font-family: 'NanumSquareRoundOTFR';
+        src: local('NanumSquareRoundOTFR'),
+        url("{% static 'fonts/NanumSquareRoundOTFR.otf' %}") format("opentype");
+    }
+</style>
+
+이렇게 하면 다운받은 폰트를 사용할 수 있다.
+
 
 
