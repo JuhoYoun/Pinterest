@@ -1,1 +1,2 @@
-
+reverse() vs reverse_lazy
+reverse 의 리턴값은 함수의 parameter로 사용할 수 있지만 클래스의 parameter로 사용할 수는 없다. 하지만 reverse_lazy는 클래스의 parameter로 사용가능하다.
