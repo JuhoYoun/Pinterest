@@ -125,3 +125,10 @@ urlpatterns = [
 And create a custom_login.html template in your app's templates directory.
 
 
+간단히 만든 Login 기능으로 로그인하면 /account/profile 로 redirect 되는것을 볼 수 있다 (profile 페이지를 안만들어놔서 처음에 에러가 났다)
+Login redirect 메카니즘은 우선 LoginView 에서 next 라는 속성 값이 있나 확인한다. 있으면 next 값으로 redirect 되고 없으면 다음으로는 settings.py의 LOGIN_REDIRECT_URL 이라는 변수값을
+찾는다. 설정되어있다면 그 주소로 가게되고 그것도 없으면 default로 /profile 로 redirect 되는것이다.
+
+
+
+
