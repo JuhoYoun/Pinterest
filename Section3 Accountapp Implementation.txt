@@ -139,4 +139,7 @@ Form design adjustment with Bootstrap
 -> col-6 은 부모 태그의 너비를 12 로 봤을 때 6만큼의 너비를 가져간다는 의미다. mt-3 는 margin top 3배 라는 의미로 현재 탑 마진을 3배로 늘린다는 의미다.
 
 이번엔 네이버 폰트를 직접 다운 받아서 써보자 -> https://hangeul.naver.com/font
-원하는 폰트를 다운받아서 BASE_DIR/static/fonts 경로에 넣어준다. fonts 디렉토리 없으니까 만들어준다.
+원하는 폰트를 다운받아서 BASE_DIR/static/fonts 경로에 넣어준다. fonts 디렉토리 없으니까 만들어준다. 우리는 otf 파일만 쓰자. (open type font)
+otf vs ttf -> https://m.blog.naver.com/oppun/221888199636
+
+
