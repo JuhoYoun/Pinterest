@@ -199,6 +199,6 @@ class AccountDetailView(DetailView):
 위과 같이 target_user 란 이름으로 모델 객체가 넘어왔다.
 
 
-
-
+UpdateView 를 써서 유저 정보를 업데이트할 때는 기존의 유저 생성시 사용했던 UserCreationForm 을 사용하면 업데이트 가능하지 않아야하는 유저 ID 까지 업데이트가 가능해서 다른 폼을 사용해야한다.
+accountapp에서 forms.py 라는 파일을 새로 만들어서 이곳에 앞으로 사용할 form들을 만들자. UserCreationForm 을 상속받아 커스터마이징한 새로운 폼을 만들자.
 
