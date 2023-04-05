@@ -171,8 +171,12 @@ otf vs ttf -> https://m.blog.naver.com/oppun/221888199636
 Account 앱의 AccountDetailView 에서는 특정 유저의 정보를 보는것이므로 계정의 primary key (pk)가 필요하다.
 accountapp 의 urls.py 에 다음과 같이 추가 -> path('detail/<int:pk>', AccountDetailView.as_view(), name='detail'),
 
-
-
+class AccountDetailView(DetailView):
+    model = User
+    context_object_name = 'target_user' # 인자로 넘겨 받은 pk와 일치하는 Model (여기선 User) 객체를 target_user 란 변수로 템플릿에 넘겨준다
+    template_name = 'accountapp/detail.html'
+   
+인자로 넘겨진 pk는 
 
 
 
