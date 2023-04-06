@@ -141,3 +141,45 @@ def function3():
 Django에서는 파이썬의 데코레이터를 이용하여 편리한 기능들을 추가하고 있습니다. 예를 들어, @login_required 데코레이터를 사용하면 로그인한 사용자만 접근할 수 있는 뷰를 만들 수 있습니다. 또한, @cache_page 데코레이터를 사용하면 캐시를 이용하여 뷰의 성능을 향상시킬 수 있습니다.
 
 따라서, 데코레이터는 파이썬에서 제공되는 기본적인 기능이지만, Django에서는 특정 기능들을 더욱 편리하게 사용할 수 있도록 데코레이터를 추가하고 있습니다.
+
+hello_world 뷰를 @login_required를 이용해 바꿔보자
+
+def hello_world(request):
+    # return HttpResponse("Hello World")
+    if request.user.is_authenticated:
+        if request.method == "POST":
+
+            temp = request.POST.get('hello_world_input')
+
+            new_hello_world = HelloWorld()
+            new_hello_world.text = temp
+            new_hello_world.save()
+
+            return HttpResponseRedirect(reverse('accountapp:hello_world'))
+        else:
+            # return render(request, 'accountapp/hello_world.html', context={'text': 'GET METHOD!!!'})
+            hello_world_list = HelloWorld.objects.all()
+            return render(request, 'accountapp/hello_world.html', context={'hello_world_list': hello_world_list})
+    else:
+        return HttpResponseRedirect(reverse('accountapp:login'))
+ 
+ ->
+ 
+ @login_required
+def hello_world(request):
+    # return HttpResponse("Hello World")
+    if request.method == "POST":
+
+        temp = request.POST.get('hello_world_input')
+
+        new_hello_world = HelloWorld()
+        new_hello_world.text = temp
+        new_hello_world.save()
+
+        return HttpResponseRedirect(reverse('accountapp:hello_world'))
+    else:
+        # return render(request, 'accountapp/hello_world.html', context={'text': 'GET METHOD!!!'})
+        hello_world_list = HelloWorld.objects.all()
+        return render(request, 'accountapp/hello_world.html', context={'hello_world_list': hello_world_list})
+
+간단하당
