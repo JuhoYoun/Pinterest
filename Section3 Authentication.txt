@@ -240,6 +240,19 @@ class AccountUpdateView(UpdateView):
     template_name = 'accountapp/update.html'
     
     
+Media 관련 설정 
+다음에 프로필앱을 만들건데 프로필에 이미지도 들어갈것이다. 이미지를 다루려면 설정이 필요하다. settings.py 로 가자
+다음과 같이 추가해주자
+
+# Media Setting
+MEDIA_URL = "media/"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL은 STATIC_URL과 같이 media 파일들에 접근하려면 주소창에 media/ 경로 이하로 접근해야한다는것이고 MEDIA_ROOT은 우리가 media 파일을 서버에 올렸을 때 어느 경로에 저장이 될것인지를
+나타낸다.
+
+그리고 마지막으로 pillow 라이브러리를 설치하자. pillow는 파이썬에서 라이브러리인데 장고에서 이미지를 관리할 때 사용한다.
 
 
 
