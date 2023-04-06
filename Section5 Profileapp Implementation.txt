@@ -78,7 +78,21 @@ create.html 도 만들어준다
 -> NOT NULL constraint failed: profileapp_profile.user_id
 이렇게 뜬다
 
-모델에서 user하는 필드가 분명히 있는데 form에서는 user라는 필드를 포함해주지 않았다. 그 이유는 forms.py에 만든 ProfileCreationForm을 이용한 form으로 user를 받게 되면은 유저가 자신의 계정과
+모델에서 user라는 필드가 분명히 있는데 form에서는 user라는 필드를 포함해주지 않았다. 그 이유는 forms.py에 만든 ProfileCreationForm을 이용한 form으로 user를 받게 되면은 유저가 자신의 계정과
 매칭된 프로파일이 아닌 다른 계정과 매칭된 프로파일을 만들 수 있는 위험 요소가 있기 때문이다. 즉, html의 form 에서 유저를 총해 post 요청이 넘어갈 때 user 필드를 유저가 임의로 다른 값으로 조작해서
-보내면 다른 계정의 유저가 자신이 아닌 다른 사람 계정의 프로파일을 조작할 수 있는것이다. 
+보내면 다른 계정의 유저가 자신이 아닌 다른 사람 계정의 프로파일을 조작할 수 있는것이다. 이를 클라이언트 사이드가 아니라 서버 내에서 구현하려고 우리가 앞에서 일부러 빼놨었다. CreateView 의 
+form_valid 메소드를 이용하여 가능하다.
+->
+class ProfileCreateView(CreateView):
+    model = Profile
+    context_object_name = 'target_profile'
+    form_class = ProfileCreationForm
+    success_url = reverse_lazy('accountapp:hello_world')
+    template_name = 'profileapp/create.html'
+
+    def form_valid(self, form):
+        temp_profile = form.save(commit=False)
+        temp_profile.user = self.request.user
+        temp_profile.save()
+        return super().form_valid(form)
 
