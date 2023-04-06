@@ -67,7 +67,25 @@ class AccountUpdateView(UpdateView):
 self.get_object()는 path('update/<int:pk>', AccountUpdateView.as_view(), name='update'), 이와 같이 pk로 넘겨받은 값에 해당하는 모델 객체를 반환한다
 
 
+class AccountUpdateView(UpdateView):
+    model = User
+    context_object_name = 'target_user'
+    form_class = AccountUpdateForm
+    success_url = reverse_lazy('accountapp:hello_world')  # 계정 만드는데 성공했다면 어느 URL로 redirect 될것인가
+    template_name = 'accountapp/update.html'
 
+    def get(self, *args, **kwargs):
+        if self.request.user.is_authenticated and self.get_object() == self.request.user:
+            return super().get(*args, **kwargs)
+        else:
+            return HttpResponseForbidden()
 
+    def post(self, *args, **kwargs):
+        if self.request.user.is_authenticated and self.get_object() == self.request.user:
+            return super().get(*args, **kwargs)
+        else:
+            return HttpResponseForbidden()
+  
+Redirect 하지말고 forbidden page를 
 
 
