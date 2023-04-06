@@ -74,5 +74,9 @@ create.html 도 만들어준다
 
 그리고 서버를 켜고 실재로 profile을 만드려고 하면 이미지를 업로드하지 못한다. 여기서는 현재 form 태그에 문제가 있다.
 <form action="{% url 'profileapp:create' %}" method="post"> -> <form action="{% url 'profileapp:create' %}" method="post" enctype="multipart/form-data">
-이렇게 해줘야 이미지의 전송이 가능해진다.
+이렇게 해줘야 이미지의 전송이 가능해진다. 그런데 이렇게 고쳐도 프로파일 생성시 에러가 나온다.
+-> NOT NULL constraint failed: profileapp_profile.user_id
+이렇게 뜬다
+
+
 
