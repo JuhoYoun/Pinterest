@@ -226,4 +226,20 @@ class AccountUpdateView(UpdateView):
     
 이러면 위의 코드는 이전의 데코레이터를 사용하기 전의 코드와 동일하지만 더 간단해진다.
 
+이것을 더 줄일 수 있다
+->
+has_ownership = [account_ownership_required, login_required]
+
+@method_decorator(has_ownership, 'get')
+@method_decorator(has_ownership, 'post')
+class AccountUpdateView(UpdateView):
+    model = User
+    context_object_name = 'target_user'
+    form_class = AccountUpdateForm
+    success_url = reverse_lazy('accountapp:hello_world')  # 계정 만드는데 성공했다면 어느 URL로 redirect 될것인가
+    template_name = 'accountapp/update.html'
+    
+    
+
+
 
