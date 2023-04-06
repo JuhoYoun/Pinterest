@@ -45,4 +45,34 @@ class ProfileCreationForm(ModelForm):
 
 이렇게 할 수 있다. Profile 클래스는 user라는 attribute도 가지고 있는데 이는 fields에 포함되어있지 않고 서버에서 처리해줄거다
 
+ProfileCreateView 도 만들어주고
+
+class ProfileCreateView(CreateView):
+    model = Profile
+    context_object_name = 'target_profile'
+    form_class = ProfileCreationForm
+    success_url = reverse_lazy('accountapp:hello_world')
+    template_name = 'profileapp/create.html'
+
+create.html 도 만들어준다
+
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+    <div style="text-align: center; max-width: 500px; margin: 4rem auto;">
+        <div class="mb-4">
+            <h4>Create Profile</h4>
+        </div>
+        <form action="{% url 'profileapp:create' %}" method="post">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <input type="submit" class="btn btn-dark rounded-pill col-6 mt-3">
+        </form>
+    </div>
+{% endblock %}
+
+그리고 서버를 켜고 실재로 profile을 만드려고 하면 이미지를 업로드하지 못한다. 여기서는 현재 form 태그에 문제가 있다.
+<form action="{% url 'profileapp:create' %}" method="post"> -> <form action="{% url 'profileapp:create' %}" method="post" enctype="multipart/form-data">
+이렇게 해줘야 이미지의 전송이 가능해진다.
 
