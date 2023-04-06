@@ -1,1 +1,23 @@
 
+def hello_world(request):
+    # return HttpResponse("Hello World")
+    if request.user.is_authenticated:
+        if request.method == "POST":
+
+            temp = request.POST.get('hello_world_input')
+
+            new_hello_world = HelloWorld()
+            new_hello_world.text = temp
+            new_hello_world.save()
+
+            return HttpResponseRedirect(reverse('accountapp:hello_world'))
+        else:
+            # return render(request, 'accountapp/hello_world.html', context={'text': 'GET METHOD!!!'})
+            hello_world_list = HelloWorld.objects.all()
+            return render(request, 'accountapp/hello_world.html', context={'hello_world_list': hello_world_list})
+    else:
+        return HttpResponseRedirect(reverse('accountapp:login'))
+   
+   
+   위와 같은 function based view 에서는 if request.method == "POST": 이부분처럼 Post 일때와 get 일때 어떻게 동작할지 나눠논거처럼 class based view 에서는 클래스 내부의
+   method 를 통해 동작을 지정할 수 있다. 
