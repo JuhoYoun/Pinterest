@@ -91,8 +91,23 @@ class ProfileCreateView(CreateView):
     template_name = 'profileapp/create.html'
 
     def form_valid(self, form):
-        temp_profile = form.save(commit=False)
+        temp_profile = form.save(commit=False) # 이거는 user를 추가하기 전의 임시 데이터라 commit (데이터에 저장)을 안한거라는데.... 근데  form 객체로 db에 저장이 되나?
         temp_profile.user = self.request.user
         temp_profile.save()
         return super().form_valid(form)
 
+이렇게 하면 된다 메소드의 form 은 post 요청으로 넘어온 ProfileCreationForm 이 form을 말한다. 요청으로 넘어온 form 에는 user 필드가 없다 그래서 user 필드를 추가해주고 폼을 저정한다. 최종적
+으로 그 폼을 반환해준다.
+
+뷰 클래스 안의 메소드에 대해 말하자면 
+
+def form_valid(self, form):
+    return super().form_valid(form)
+
+요렇게 메소드를 만들고 super().form_valid(form) 을 바로 리턴해주면 이건 메소드를 선언안해준것과 똑같다
+
+def form_valid(self, form):
+    -- 여기에다가 정책을 추가 -----
+    return super().form_valid(form)
+
+위처럼 리턴하기 전에 뭔가를 해야 우리가 새로운 동작을 추가해줄 수 있는것이다.
