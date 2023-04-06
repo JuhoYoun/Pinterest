@@ -97,5 +97,39 @@ def decorator(func):
         func()
         print(datetime.now())
     return decorated
+    
+이 decorator를 사용하면
+
+def function1():
+    print(datetime.now())
+    print("Function 1 Start") 
+    print(datetime.now())
+    
+def function2():
+    print(datetime.now())
+    print("Function 2 Start") 
+    print(datetime.now())
+
+def function3():
+    print(datetime.now())
+    print("Function 3 Start") 
+    print(datetime.now())
+
+이 세 함수들을
+->
+
+@decorator
+def function1():
+    print("Function 1 Start") 
 
 
+@decorator
+def function2():
+    print("Function 2 Start") 
+
+
+@decorator
+def function3():
+    print("Function 3 Start") 
+
+이렇게 간단히 할 수 있다.
