@@ -16,4 +16,19 @@ class Profile(models.Model):
     nickname = models.CharField(max_length=20, unique=True, null=True)
     message = models.CharField(max_length=100, null=True)
 
-위와 같이 Profile 모델 클래스를 만들었다.
+위와 같이 Profile 모델 클래스를 만들었다. 
+
+Profile은 우리가 만든 클래스이고 때문에 Django에서 제공해주는 form이 없다.
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    image = models.ImageField(upload_to='profile/', null=True)
+    nickname = models.CharField(max_length=20)
+    
+만약 이렇게 모델을 설정하면은 아래와같이 form 클래스도 만들어줘야하는데
+
+class ProfileCreationForm(forms.Form):
+    image = forms.ImageField(upload_to='profile/', null=True)
+    nickname = forms.CharField(max_length=20)
+    
+Model Form을 활용하면 더 쉽게 할 수 
