@@ -111,3 +111,16 @@ def form_valid(self, form):
     return super().form_valid(form)
 
 위처럼 리턴하기 전에 뭔가를 해야 우리가 새로운 동작을 추가해줄 수 있는것이다.
+
+
+account detail 페이지에 프로파일 이미지를  추가하기 위해 html 파일에 다음의 파일을 추가한다
+<img src="{{ target_user.profile.image.url }}" alt="">
+
+그런데 아직 이미지가 안뜬다 왜일까?
+-> routing 을 안해놔서 그렇다.
+프로젝트앱의 urls.py 에서 media 에 관련된 세팅을 해줘야한다.
+
+
+
+
+
