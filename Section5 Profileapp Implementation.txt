@@ -120,6 +120,20 @@ account detail 페이지에 프로파일 이미지를  추가하기 위해 html 
 -> routing 을 안해놔서 그렇다.
 프로젝트앱의 urls.py 에서 media 에 관련된 세팅을 해줘야한다.
 
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("accounts/", include('accountapp.urls')),
+    path("profiles/", include('profileapp.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+이렇게 바꿔준다
+
+
 
 
 
