@@ -42,4 +42,5 @@ class AccountUpdateView(UpdateView):
             return HttpResponseRedirect(reverse('accountapp:login'))
 
 AccountUpdateView 내부에 메소드를 다음과 같이 넣고 AccountDeleteView 에도 동일하게 추가하자. 지금 하는 부분은 사실 나중에 다 바꿀 부분이긴하다.
-이렇게 하면 update 와 delete 기능에 인증기능을 추가한것이다. 하지만 여기에 한가지 문제가 있다.
+이렇게 하면 update 와 delete 기능에 인증기능을 추가한것이다. 하지만 여기에 한가지 문제가 있다. 일단 한계정으로 로그인만 하면 다른계정의 update와 delete 페이지를 들어갈수 있다. 
+이를 막기 위해 다음과 같이 고치자
