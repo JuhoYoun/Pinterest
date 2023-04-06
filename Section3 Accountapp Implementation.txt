@@ -206,3 +206,23 @@ Understanding Python super() with __init__() methods -> https://www.i2tutorials.
 
 The super() function allows us to avoid using the base class name explicitly. In Python, the super() function is dynamically called as unlike other languages, as it is a dynamic language. The super() function returns an object that represents the parent class.
 
+새로운 폼 
+from django.contrib.auth.forms import UserCreationForm
+
+class AccountUpdateForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['username'].disabled = True
+
+이를 사용한 AccountUpdateView
+->
+class AccountUpdateView(UpdateView):
+    model = User
+    form_class = AccountUpdateForm
+    success_url = reverse_lazy('accountapp:hello_world')  # 계정 만드는데 성공했다면 어느 URL로 redirect 될것인가
+    template_name = 'accountapp/update.html'
+    
+
+
+AccountDeleteView 도 다른 뷰처럼 만들면 된다~
