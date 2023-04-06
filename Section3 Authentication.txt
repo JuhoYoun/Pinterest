@@ -89,5 +89,13 @@ class AccountUpdateView(UpdateView):
 Redirect 하지말고 forbidden page를 띄어주자. 
 
 이렇게 코드를 짰지만 return 문이 너무 많은듯 너무 복잡한거같다. -> decorator 를 사용하여 바꿔보자.
+decorator는 어떤 함수를 받아서 앞이나 뒤를 꾸며준다.
+ex)
+def decorator(func):
+    def decorated(func):
+        print(datetime.now())
+        func()
+        print(datetime.now())
+    return decorated
 
 
