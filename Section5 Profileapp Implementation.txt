@@ -31,4 +31,18 @@ class ProfileCreationForm(forms.Form):
     image = forms.ImageField(upload_to='profile/', null=True)
     nickname = forms.CharField(max_length=20)
     
-Model Form을 활용하면 더 쉽게 할 수 
+Model Form을 활용하면 더 쉽게 할 수 있다
+->
+from django.forms import ModelForm
+
+from profileapp.models import Profile
+
+
+class ProfileCreationForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image', 'nickname', 'message']
+
+이렇게 할 수 있다. Profile 클래스는 user라는 attribute도 가지고 있는데 이는 fields에 포함되어있지 않고 서버에서 처리해줄거다
+
+
