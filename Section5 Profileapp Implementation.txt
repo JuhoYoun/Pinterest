@@ -137,6 +137,24 @@ ProfileCreateView에서 redirect 되는 경로가 success_url = reverse_lazy('ac
 하지만 success_url = reverse_lazy('accountapp:detail') 이렇게 설정하면 될거 같으면 안된다. accountapp의 urls.py 를 보자
 path('detail/<int:pk>', AccountDetailView.as_view(), name='detail'), 여기서 보이듯이 detail/ 뒤에 인자인 pk를 같이 넘겨줘야한다.하지만 class based view 에서
 success_url을 설정하는것만으로는 동적으로 추가적인 데이터를 보내줄 수 가 없다. 이 ProfileCreateView 클래스에 직접적으로 연관있는 파라미터로 넘겨주기 때문이다 (?) 이경우에는 내부 메소드를
-수정해줘야한다.
+수정해줘야한다. 내부 메소드인 get_success_url을 덮어 씌워서 새로운 메소드를 만들것이다. 
+
+class ProfileCreateView(CreateView):
+    model = Profile
+    context_object_name = 'target_profile'
+    form_class = ProfileCreationForm
+    # success_url = reverse_lazy('accountapp:hello_world')
+    template_name = 'profileapp/create.html'
+
+    def form_valid(self, form):
+        temp_profile = form.save(commit=False)
+        temp_profile.user = self.request.user
+        temp_profile.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('accountapp:detail', kwargs={'pk' : self.object.user.pk}) # self.object 이 가르키는 것은 profile object
+
+이렇게 하면 
 
 
