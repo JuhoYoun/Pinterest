@@ -155,6 +155,6 @@ class ProfileCreateView(CreateView):
     def get_success_url(self):
         return reverse('accountapp:detail', kwargs={'pk' : self.object.user.pk}) # self.object 이 가르키는 것은 profile object
 
-이렇게 하면 
+이렇게 하면 끝
 
 
