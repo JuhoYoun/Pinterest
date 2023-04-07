@@ -25,19 +25,15 @@ list.html 코드는 다음과 같다
 {% block content %}
 <style>
     .container div {
-      width: 280px;
+      width: 250px;
       height: 500px;
       background-color: antiquewhite;
       display: flex;
       justify-content: center;
       align-items: center;
-      border-radius: 8px;
+      border-radius: 1rem;
     }
 
-    .container .item1 { height: 200px; }
-    .container .item4 { height: 800px; }
-    .container .item6 { height: 600px; }
-    .container .item11 { height: 400px; }
 </style>
 
 <div class="container">
@@ -58,5 +54,3 @@ list.html 코드는 다음과 같다
 
 <script src="{% static 'js/magicgrid.js' %}"></script>
 {% endblock %}
-
-
