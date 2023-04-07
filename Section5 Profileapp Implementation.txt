@@ -133,8 +133,10 @@ urlpatterns = [
 
 이렇게 바꿔준다. 이렇게 urlpatterns의 path들 뿐만아니라 미디어와 미디어 루트를 연결해야 서버가 미디어파일들을 정상적으로 밷어낼 수 있다.
 
-
-
-
+ProfileCreateView에서 redirect 되는 경로가 success_url = reverse_lazy('accountapp:hello_world') 이렇게 설정되어있는데 사실 account:detail 로 가는 것이 자연스럽다
+하지만 success_url = reverse_lazy('accountapp:detail') 이렇게 설정하면 될거 같으면 안된다. accountapp의 urls.py 를 보자
+path('detail/<int:pk>', AccountDetailView.as_view(), name='detail'), 여기서 보이듯이 detail/ 뒤에 인자인 pk를 같이 넘겨줘야한다.하지만 class based view 에서
+success_url을 설정하는것만으로는 동적으로 추가적인 데이터를 보내줄 수 가 없다. 이 ProfileCreateView 클래스에 직접적으로 연관있는 파라미터로 넘겨주기 때문이다 (?) 이경우에는 내부 메소드를
+수정해줘야한다.
 
 
