@@ -1,2 +1,16 @@
 핀터레스트 같은 게시글들의 카드형 같은 레이아웃을 만들기 위해 Javascript 라이브러리인 MagicGrid를 살펴보자.
 -> https://github.com/e-oj/Magic-Grid
+
+https://jsfiddle.net/eolaojo/4pov0rdf/
+-> 여기서(JSFIDDLE) MagicGrid 를 시뮬레이션할 수 있다
+
+articleapp 을 만들어주고 urls.py 에 일단 TemplateView를 이용해서 테스트해보자
+
+from django.urls import path, include
+from django.views.generic import TemplateView
+
+urlpatterns = [
+    path("lists/", TemplateView.as_view(template_name='articleapp/list.html'), name='list'), # Django에서 기본적으로 제공해준다. 우리가 Template만 지정해주면 나머지는 다 만들어준다
+]
+
+그리고 list.html에 위의 JSFIDDLE 에 있는거처럼 html, css, Javascript를 
