@@ -1,1 +1,2 @@
-
+핀터레스트 같은 게시글들의 카드형 같은 레이아웃을 만들기 위해 Javascript 라이브러리인 MagicGrid를 살펴보자.
+-> https://github.com/e-oj/Magic-Grid/fork
