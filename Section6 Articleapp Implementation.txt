@@ -13,4 +13,50 @@ urlpatterns = [
     path("lists/", TemplateView.as_view(template_name='articleapp/list.html'), name='list'), # Django에서 기본적으로 제공해준다. 우리가 Template만 지정해주면 나머지는 다 만들어준다
 ]
 
-그리고 list.html에 위의 JSFIDDLE 에 있는거처럼 html, css, Javascript를 
+그리고 list.html에 위의 JSFIDDLE 에 있는거처럼 html, css, Javascript를 써줘야한다. 그런데 Javascript는 MagicGrid를 구성하는 부분이 JSFIDDLE에 없어서 MagicGrid 기텁에 가서 
+dist 디렉토리의 magic-grid.cjs.js 파일의 내용을 복사해 우리 프로젝트의 static/js/magicgrid.js 경로에 넣어준다. 이 때 복사한 코드의 맨 마지막 줄에 있는 module.exports = MagicGrid;
+이 부분은 장고가 아닌 다른 프레임웤에 쓰는 부분이므로 필요가 없어서 없애주자 그리고 JSFIDDLE에 있던 javascript 코드도 magicgrid.js 파일 맨 밑에 넣어준다.
+
+list.html 코드는 다음과 같다
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .container div {
+      width: 280px;
+      height: 500px;
+      background-color: antiquewhite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
+    }
+
+    .container .item1 { height: 200px; }
+    .container .item4 { height: 800px; }
+    .container .item6 { height: 600px; }
+    .container .item11 { height: 400px; }
+</style>
+
+<div class="container">
+  <div class="item1">1</div>
+  <div class="item2">2</div>
+  <div class="item3">3</div>
+  <div class="item4">4</div>
+  <div class="item5">5</div>
+  <div class="item6">6</div>
+  <div class="item7">7</div>
+  <div class="item8">8</div>
+  <div class="item9">9</div>
+  <div class="item10">10</div>
+  <div class="item11">11</div>
+  <div class="item12">12</div>
+  <div class="item13">13</div>
+</div>
+
+<script src="{% static 'js/magicgrid.js' %}"></script>
+{% endblock %}
+
+
