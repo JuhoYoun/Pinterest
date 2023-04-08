@@ -115,7 +115,26 @@ list.html 에서 컨테이너 안에 다 지운다 그리도 다음과 같이 �
 위의 코드를 넣어주면 동일해진다. 이렇게 하면 되는 이유는 나중에 카드부분의 레이아웃을 바꾸고 싶으면 card.html만 바꾸면 된다.
 
 다음에는 페이지네이션을 할것인데 일단 게시글을 좀 만들고 view 의 paginate_by 변수를 5로 해보자. 그러면 화면에 5개 게시글 밖에 안보이게 된다. 사실 지금도 url 뒤에 ?page=2 이렇게 데이터를 넘겨
-다른 페이지를 보는게 가능하지만 우리는 페이지 네비게이션 버튼을 만들어야한다.
+다른 페이지를 보는게 가능하지만 우리는 페이지 네비게이션 버튼을 만들어야한다. pagination 부분도 snippets 에서 가져올건데 코드는 이렇다.
+
+<div style="text-align: center; margin: 1rem 0;">
+    {% if page_obj.has_previous %}
+    <a href="{% url 'articleapp:list' %}?page={{ page_obj.previous_page_number }}"
+       class="btn btn-secondary rounded-pill">
+        {{ page_obj.previous_page_number }}
+    </a>
+    {% endif %}
+    <a href="{% url 'articleapp:list' %}?page={{ page_obj.number }}"
+       class="btn btn-secondary rounded-pill active">
+        {{ page_obj.number }}
+    </a>
+    {% if page_obj.has_next %}
+    <a href="{% url 'articleapp:list' %}?page={{ page_obj.next_page_number }}"
+       class="btn btn-secondary rounded-pill">
+        {{ page_obj.next_page_number }}
+    </a>
+    {% endif %}
+</div>
 
 
 
