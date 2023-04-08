@@ -97,5 +97,22 @@ list.html 에서 컨테이너 안에 다 지운다 그리도 다음과 같이 �
   </a>
 </div>
 
+이 코드는 다음과 같이 바꿀 수 있다
+
+<div class="container">
+  {% for article in article_list %}
+  <a href="{% url 'articleapp:detail' pk=article.pk %}">
+    {% include 'snippets/card.html' with article=article %} # snippet.card.html 의 코드를 불러온다. 현재 context의 article은 card.html 코드 내의 article과 같다고 설정한다.
+  </a>
+</div>
+
+그리고 articleapp 내의 템플릿 폴더 내에 snippets 이라는 디렉토리를 만들고 card.html을 만들어 
+
+<div>
+  <img src="{{ article.image.url }}" alt="">
+</div>
+
+위의 코드를 넣어주면 동일해진다.
+
 
 
