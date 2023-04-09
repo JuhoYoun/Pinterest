@@ -11,4 +11,7 @@ class Comment(models.Model):
     content = models.TextField(null=False)
     created_at = models.DateTimeField(auto_now=True)
 
-위의 모델에서 created_at은 자동 생성되고 content는 유저에게 입력을 받을거다. 그리고 article 과 writer는 서버단에서 확인을 할거다.
+위의 모델에서 created_at은 자동 생성되고 content는 유저에게 입력을 받을거다. 그리고 article 과 writer는 서버단에서 확인을 할거다. 이를 위해 우리는 html에 hidden input을 추가할거다.
+<input type="hidden" name="article_pk" value=""> -> article_pk라는 변수명으로 value 내의 값이 서버로 넘어갈것이다.
+
+우리는 코멘트 쓸 수 있는 새로운 페이지로 가는게 아니라 게시글 페이지에 코멘트를 바로 달 수 있어야한다 -> include 
