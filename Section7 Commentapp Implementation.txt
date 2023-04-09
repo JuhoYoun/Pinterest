@@ -20,3 +20,5 @@ articleapp 의 detail.html로 가자 -> {% include 'commentapp/create.html' with
 그리고 위의 추가한 hidden input의 value 값으로 <input type="hidden" name="article_pk" value="{{ article.pk }}"> 이렇게 써주면 된다.
 그런데 위험요소가 있다. 브라우저에서는 value값의 조작이 가능하다. 예를 들어 댓글 달기가 막혀있는 글이 있다고 하자. 댓글 달기가 가능한 다른 글에 가서 브라우저에서 value값을 해당 댓글달기가 불가능한
 글의 pk로 바꾸고 post요청을 보내면은 댓글 달기가 막혀있는 게시글에 댓글 달기가 가능할 수 있다.
+
+일단 commentapp의 create.html 모델, 뷰 등 코드를 쓴 후 commentapp의 creat.html을 include 한 article 앱의 detail 페이지로 가보자.
