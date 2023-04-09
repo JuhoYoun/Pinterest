@@ -2,4 +2,4 @@ Mixin
 
 우리가 CreateView를 사용할 때 CreateView는 form_class 를 가지만 context_object_name는 안가진다 또 우리가 DetailView를 사용할 때 우리는 context_object_name 을 가지지만 
 form_class는 안가진다. 이렇게 어떤 attribute들을 기본으로 가지고 있는지는 뷰마다 다르다. 그런데 우리가 코멘트 기능을 만들 때 이미 존재하는 코멘트들은 볼 수 있어야하고(DetailView) 거기에다가 새로
-운 코멘트를 만들 수 있는 폼도 제공되어야한다. 이럴때 Mixin 이 필요하다. 이러면 CreateView 에 context_object_name을 추가 해줄 수 있고 DetailView에는 form_class를 추가해줄 수 있다.
+운 코멘트를 만들 수 있는 폼도 제공되어야한다. 이럴때 Mixin 이 필요하다. 이러면 FormMixin을 이용해 DetailView에는 form_class를 추가해줄 수 있다.
