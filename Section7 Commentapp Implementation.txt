@@ -51,3 +51,9 @@ class CommentCreateView(CreateView):
 
 다른 부분들 역시 이전에 했던것과 비슷하니 그냥 코드를 보자.
 
+게시글의 디테일 페이지에 등록된 코멘트들을 보여줘야되는데 이 때 article detail view를 따로 건들 필요는 없다. articleapp의 detail.html에 다음과 같이 하면 된다. 
+            {% for comment in target_article.comment.all %}
+                {% include 'commentapp/detail.html' with comment=comment %}
+            {% endfor %}
+
+article 객체와 코멘트 객체는 연결되 있기 때문에 이런식으로 불러올 수 있다. commentapp.detail.html은 따로 만들어줘야한다.
