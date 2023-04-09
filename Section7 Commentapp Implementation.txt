@@ -22,4 +22,32 @@ articleapp 의 detail.html로 가자 -> {% include 'commentapp/create.html' with
 글의 pk로 바꾸고 post요청을 보내면은 댓글 달기가 막혀있는 게시글에 댓글 달기가 가능할 수 있다.
 
 일단 commentapp의 create.html 모델, 뷰 등 코드를 쓴 후 commentapp의 creat.html을 include 한 article 앱의 detail 페이지로 가보자. 
-Parameter "form" should contain a valid Django Form. 이렇게 에러가 뜬다. CreateView에는 form attribute이 없기 때문이다.
+Parameter "form" should contain a valid Django Form. 이렇게 에러가 뜬다. CreateView에는 form attribute이 없기 때문이다. 이 때 FormMixin을 사용해야한다.
+->
+class ArticleDetailView(DetailView, FormMixin):
+    model = Article
+    context_object_name = 'target_article'
+    template_name = 'articleapp/detail.html'
+    form_class = CommentCreationForm
+
+이렇게 하면 이제 게스글에 코멘트 폼이 나온다. 그런데 아직은 코멘트를 적고 서밋 버튼을 누르면 에러가난다. 몇가지 작업을 더 추가해주자.
+CommentCreateView 에 함수를 추가한다.
+
+class CommentCreateView(CreateView):
+    model = Comment
+    form_class = CommentCreationForm
+    template_name = 'commentapp/create.html'
+
+    def form_valid(self, form):
+        temp_comment = form.save(commit=False)
+        temp_comment.article = Article.objects.get(pk=self.request.POST['article_pk'])
+        temp_comment.writer = self.request.user
+        temp_comment.save()
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('articleapp:detail', kwargs={'pk': self.object.article.pk})
+
+다른 부분들 역시 이전에 했던것과 비슷하니 그냥 코드를 보자.
+
