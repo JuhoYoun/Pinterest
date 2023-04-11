@@ -158,3 +158,21 @@ class ProfileCreateView(CreateView):
 이렇게 하면 끝
 
 
+질문 Does Django ImageField have url attribute?
+
+Chatgpt: 
+Yes, the Django ImageField model field has a url attribute. The url attribute returns the URL for the uploaded image file. You can use this attribute to display the uploaded image in your templates. Here is an example:
+
+python
+Copy code
+from django.db import models
+
+class MyModel(models.Model):
+    image = models.ImageField(upload_to='images/')
+
+# Accessing the URL of the uploaded image
+obj = MyModel.objects.first()
+url = obj.image.url
+In this example, the url attribute is accessed by calling obj.image.url, where obj is an instance of MyModel. The upload_to parameter specifies the directory to which the image is uploaded. The ImageField automatically generates a unique filename for the uploaded file and stores it in the specified directory.
+
+
