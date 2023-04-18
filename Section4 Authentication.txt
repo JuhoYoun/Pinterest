@@ -37,7 +37,7 @@ class AccountUpdateView(UpdateView):
 
     def post(self, *args, **kwargs):
         if self.request.user.is_authenticated:
-            return super().get(*args, **kwargs)
+            return super().post(*args, **kwargs)
         else:
             return HttpResponseRedirect(reverse('accountapp:login'))
 
