@@ -93,7 +93,7 @@ class ProfileCreateView(CreateView):
     def form_valid(self, form):
         temp_profile = form.save(commit=False) # 이거는 user를 추가하기 전의 임시 데이터라 commit (데이터에 저장)을 안한거라는데.... 근데  form 객체로 db에 저장이 되나?
         temp_profile.user = self.request.user
-        temp_profile.save()
+        temp_profile.save()  -> 이 부분 근데 구지 필요할까? 어차피 super().form_valid가 호출되면 객체가 저장되는거 아닌가?
         return super().form_valid(form)
 
 이렇게 하면 된다 메소드의 form 은 post 요청으로 넘어온 ProfileCreationForm 이 form을 말한다. 요청으로 넘어온 form 에는 user 필드가 없다 그래서 user 필드를 추가해주고 폼을 저정한다. 최종적
