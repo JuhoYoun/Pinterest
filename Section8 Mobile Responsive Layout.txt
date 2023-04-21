@@ -23,4 +23,5 @@ curl ifconfig.me 명령어를 입력합니다.
 현재 사용 중인 public IP address가 출력됩니다.
 또는 웹 브라우저에서 what is my ip 라고 검색하면, 현재 public IP address를 알려주는 많은 사이트가 있습니다.
 
+그리고 컴퓨터와 같은 WIFI 를 사용하는 모바일에서 http://private_ip_of_computer:8000/articles/list 이렇게 하면 접속할 수 있다
 
