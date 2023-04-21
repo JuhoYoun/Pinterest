@@ -43,3 +43,13 @@ articleapp의 list.html에 다음의 스타일을 추가해준다
   }
   
 그리고 magicgrid를 맨 처음에 설정해 줄 때 gutter 값이 있는데 핀터레스트에는 카드들 간격이 꽤 빡빡하게 되 있다 이 gutter를 30에서 12로 바꿔준다
+
+base.css 가서 다음과 같이 추가해주자
+
+@media screen and (max-width:500px) {
+    html {
+        font-size: 13px;
+    }
+}
+
+기기의 스크린 사이즈가 가로 500px 이하로 떨어지면 html의 기본 폰트 사이즈가 16px에서 13px로 바뀌게 된다. 즉 rem으로 설정된 요소들의 크기가 모두 줄어들게 된다.
