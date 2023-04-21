@@ -28,3 +28,10 @@ curl ifconfig.me 명령어를 입력합니다.
 head.html에 <meta charset="utf-8"> 밑에 다음과 같이 추가해주자
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    -> 디바이스 간격에 맞추어 간격을 맞추고 이니셜 스케일은 1 이고 shrink-to-fit="no" 이 부분은 파이어폭스용 세팅이다.
 이러면 모바일로 접속했을 때도 레이아웃이 좀 괜찬아진다
+
+articleapp의 list.html에 다음의 스타일을 추가해준다
+  .container a {
+    width: 45%;
+    max-width: 250px;
+  }
+-> 카드를 품고 있는 a 태그는 넓이가 상위 태그의 45% 만 차지한다. 그리고 max-width가 250px에서 데스크탑에서 카드 하나가 업청 커질 일도 없다. 
