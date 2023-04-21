@@ -26,7 +26,7 @@ curl ifconfig.me 명령어를 입력합니다.
 그리고 컴퓨터와 같은 WIFI 를 사용하는 모바일에서 http://private_ip_of_computer:8000/articles/list 이렇게 하면 접속할 수 있다
 
 head.html에 <meta charset="utf-8"> 밑에 다음과 같이 추가해주자
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    -> 디바이스 간격에 맞추어 간격을 맞추고 이니셜 스케일은 1 이고 shrink-to-fit="no" 이 부분은 파이어폭스용 세팅이다.
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    -> 디바이스 간격에 맞추어 간격을 맞추고 이니셜 스케일은 1 이고 shrink-to-fit=no 이 부분은 파이어폭스용 세팅이다.
 이러면 모바일로 접속했을 때도 레이아웃이 좀 괜찬아진다
 
 articleapp의 list.html에 다음의 스타일을 추가해준다
@@ -35,3 +35,11 @@ articleapp의 list.html에 다음의 스타일을 추가해준다
     max-width: 250px;
   }
 -> 카드를 품고 있는 a 태그는 넓이가 상위 태그의 45% 만 차지한다. 그리고 max-width가 250px에서 데스크탑에서 카드 하나가 업청 커질 일도 없다. 
+
+그리고 기본적으로 부트스트랩 container에는 패딩이랑 마진이 좀 섞여있는데 그걸 다 없애주자 
+  .container {
+    padding: 0;
+    margin: 0, auto;
+  }
+  
+그리고 magicgrid를 맨 처음에 설정해 줄 때 gutter 값이 있는데 핀터레스트에는 카드들 간격이 꽤 빡빡하게 되 있다 이 gutter를 30에서 12로 바꿔준다
