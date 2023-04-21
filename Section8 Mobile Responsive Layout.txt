@@ -4,5 +4,23 @@ python manage.py runserver == python manage.py runserver 127.0.0.1:8000
 모바일 기기로 내 컴퓨터가 실행한 장고 개발서버에 접속하려면 -> python manage.py runserver 0.0.0.0:8000
 이러면 내 컴퓨터 말고도 다른 컴퓨터에서도 아이피 주소를 기반으로 내 컴퓨터에서 구동되고 있는 서버에 접속할 수 있는 포트가 열리게 된다
 
-그리고 나서 ALLOWED_HOST 를 업데이트 해주고 Connect to WIFI local network server IP
+그 전에 나서 ALLOWED_HOST 를 업데이트 해주고 Connect to WIFI local network server IP 해야한다
 -> ALLOWED_HOSTS = ['*'] 모든 host를 allow 한다는 뜻 배포 때는 신경써줘야하지만 지금은 이렇게 해도 문제 없을듯
+
+질문. 맥에서 현재 나의 private ip address를 보려면 어떻게 해야해?
+Chatgpt 답
+"시스템 환경설정"을 엽니다.
+"네트워크"를 클릭합니다.
+현재 사용 중인 네트워크 연결을 선택합니다. (Wi-Fi 또는 이더넷)
+"고급" 버튼을 클릭합니다.
+"TCP/IP" 탭을 클릭합니다.
+"IPv4 주소" 옆에 표시된 주소가 현재 사용 중인 private IP 주소입니다.
+이 private IP 주소는 같은 로컬 네트워크에 연결된 다른 장치들과 통신할 때 사용됩니다. 하지만 인터넷에서는 공용 IP 주소가 사용됩니다.
+
+질문. 맥에서 현재 나의 public ip address를 보려면 어떻게 해야해?
+터미널을 엽니다.
+curl ifconfig.me 명령어를 입력합니다.
+현재 사용 중인 public IP address가 출력됩니다.
+또는 웹 브라우저에서 what is my ip 라고 검색하면, 현재 public IP address를 알려주는 많은 사이트가 있습니다.
+
+
