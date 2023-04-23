@@ -1,1 +1,3 @@
+<img src="{{ target_user.profile.image.url }}" alt="" style="height: 12rem; width: 12rem; border-radius: 20rem; margin-bottom: 2rem; object-fit: cover;">
 
+object-fit: cover 이 부분은 사진 형태가 스타일에 세팅된 비율에 안맞을 때 원본 사진을 살짝 잘라서 비율에 맞게 크기 조정된 사진이 원본과 심하게 다르지 않게 
