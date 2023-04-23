@@ -1,3 +1,45 @@
 <img src="{{ target_user.profile.image.url }}" alt="" style="height: 12rem; width: 12rem; border-radius: 20rem; margin-bottom: 2rem; object-fit: cover;">
 
 object-fit: cover 이 부분은 사진 형태가 스타일에 세팅된 비율에 안맞을 때 원본 사진을 살짝 잘라서 비율에 맞게 크기 조정된 사진이 원본과 심하게 다르지 않게 
+
+<div style="text-align: center; margin: 1rem 0;">
+    {% if page_obj.has_previous %}
+    <a href="{% url 'articleapp:list' %}?page={{ page_obj.previous_page_number }}"
+       class="btn btn-secondary rounded-pill">
+        {{ page_obj.previous_page_number }}
+    </a>
+    {% endif %}
+    <a href="{% url 'articleapp:list' %}?page={{ page_obj.number }}"
+       class="btn btn-secondary rounded-pill active">
+        {{ page_obj.number }}
+    </a>
+    {% if page_obj.has_next %}
+    <a href="{% url 'articleapp:list' %}?page={{ page_obj.next_page_number }}"
+       class="btn btn-secondary rounded-pill">
+        {{ page_obj.next_page_number }}
+    </a>
+    {% endif %}
+</div>
+
+위의 pagination.html은 href 가 article:list 전용으로 되있다. 
+
+<div style="text-align: center; margin: 1rem 0;">
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}"
+       class="btn btn-secondary rounded-pill">
+        {{ page_obj.previous_page_number }}
+    </a>
+    {% endif %}
+    <a href="?page={{ page_obj.number }}"
+       class="btn btn-secondary rounded-pill active">
+        {{ page_obj.number }}
+    </a>
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}"
+       class="btn btn-secondary rounded-pill">
+        {{ page_obj.next_page_number }}
+    </a>
+    {% endif %}
+</div>
+
+이렇게 바꾸면 어떤 페이지에서든 쓸 수 있다.
