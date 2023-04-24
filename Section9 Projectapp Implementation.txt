@@ -67,8 +67,8 @@ Python 2에서는 MRO를 확인하기 위해 __mro__ 속성을 사용할 수 있
 -> CBV 나 Mixin을 상속할 때도 마찬가지다. 
 Not all mixins can be used together, and not all generic class based views can be used with all other mixins. Here we present a few examples that do work; if you want to bring together other functionality then you’ll have to consider interactions between attributes and methods that overlap between the different classes you’re using, and how method resolution order will affect which versions of the methods will be called in what order.
 
--> Chatgpt 한테 물어본 결과 CBV와 Mixin을 동시에 상속할 경우 겹치는 메소드가 있으면 일반적으로 Mixin것을 상속받는다고 보면된다.
-
+->super()
+https://www.programiz.com/python-programming/methods/built-in/super
 
 class ProjectDetailView(DetailView, MultipleObjectMixin):
     model = Project
@@ -81,7 +81,12 @@ class ProjectDetailView(DetailView, MultipleObjectMixin):
         object_list = Article.objects.filter(project=self.get_object())
         return super(ProjectDetailView, self).get_context_data(object_list=object_list, **kwargs)
 
--> 여기서 get_context_data는 MultipleObjectMixin의 메소드를 상속받은 것이다.
+-> 여기서 get_context_data는 DetailView와 MultipleObjectMixin이 둘 다 가지고 있다. 그런데 지금 DetailView, MultipleObjectMixin 순서로 상속 받으므로 우선 DetailView의
+get_context_data 를 호출한 다음 MultipleObjectMixin의 get_context_data를 호출한다. 내 생각에는 ..... DetailView의 get_context_data는에는 object_list라는 키워드 패러미터가 없
+으므로 get_context_data(object_list=object_list, **kwargs) 이런 식으로 호출 됬을 때도 그냥 기존의 DetailView 의 오리지널 get_context_data가 호출 된것과 똑같고 결과 
+context_object_name인 target_project라는 변수명으로 해당 프로젝트 객체다 템플릿에 전달된다. 하지만 MultipleObjectMixin의 get_context_data에는 object_list라는 키워드패러미터가 
+존재하고 때문에 super(ProjectDetailView, self).get_context_data(object_list=object_list, **kwargs) 이렇게 호출 될 때 object_list가 우리 템플릿에 전달되어 화면으로 나오는것이다.
+
 
 
 
