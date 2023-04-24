@@ -43,3 +43,15 @@ object-fit: cover 이 부분은 사진 형태가 스타일에 세팅된 비율�
 </div>
 
 이렇게 바꾸면 어떤 페이지에서든 쓸 수 있다.
+
+게시글 디테일 페이지 안에서 코멘트를 보여줄 때 html에서 이렇게 했다
+->
+            {% for comment in target_article.comment.all %}
+                {% include 'commentapp/detail.html' with comment=comment %}
+            {% endfor %}
+ 
+하지만 이렇게 템플릿 안에서 특정 객체들을 모두 가져오는 방식은 템플릿 안에서 복잡성을 높여주고 다른 조건을 걸어 여러가지 작업을 하고 싶은 경우 한계가 있다
+때문에 프로젝트 디테일 페이지에서 프로젝트에 속한 게시글들을 보여줄 대는 Mixin을 사용해보자
+->
+
+
