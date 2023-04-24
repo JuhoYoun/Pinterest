@@ -87,6 +87,12 @@ get_context_data 를 호출한 다음 MultipleObjectMixin의 get_context_data를
 context_object_name인 target_project라는 변수명으로 해당 프로젝트 객체다 템플릿에 전달된다. 하지만 MultipleObjectMixin의 get_context_data에는 object_list라는 키워드패러미터가 
 존재하고 때문에 super(ProjectDetailView, self).get_context_data(object_list=object_list, **kwargs) 이렇게 호출 될 때 object_list가 우리 템플릿에 전달되어 화면으로 나오는것이다.
 
+return super(ProjectDetailView, self).get_context_data(object_list=object_list, **kwargs) 이 부분은
+return super().get_context_data(object_list=object_list, **kwargs) 이렇게 쓰는것과 기능적으로 차이가 없다고 Chatgpt가 말한다.
+
+
+
+
 
 
 
