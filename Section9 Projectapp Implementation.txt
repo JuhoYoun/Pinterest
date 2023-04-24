@@ -70,6 +70,20 @@ Not all mixins can be used together, and not all generic class based views can b
 -> Chatgpt 한테 물어본 결과 CBV와 Mixin을 동시에 상속할 경우 겹치는 메소드가 있으면 일반적으로 Mixin것을 상속받는다고 보면된다.
 
 
+class ProjectDetailView(DetailView, MultipleObjectMixin):
+    model = Project
+    context_object_name = 'target_project'
+    template_name = 'projectapp/detail.html'
+
+    paginate_by = 25
+
+    def get_context_data(self, **kwargs):
+        object_list = Article.objects.filter(project=self.get_object())
+        return super(ProjectDetailView, self).get_context_data(object_list=object_list, **kwargs)
+
+-> 여기서 get_context_data는 MultipleObjectMixin의 메소드를 상속받은 것이다.
+
+
 
 
 
