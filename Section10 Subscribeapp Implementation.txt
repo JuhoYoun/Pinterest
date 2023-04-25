@@ -33,6 +33,15 @@ class ProjectDetailView(DetailView, MultipleObjectMixin):
 subscription=subscription 이 부분을 보니까 그냥 키워드 패러미터를 추가적으로 계속 넣어줄 수 있나보다... 그러면 DetailView의 get_context_data 메소드가 호출될 때도 이 키워드 패러미터들이
 들어가는데 중복? 되는 그런 문제는 없나?
 
+subscription = Subscription.objects.filter(user=user, project=project)
+여기서 필터를 보면 이거는 AND 이다 user=ser AND project=project 인 Subscription 객체를 가져오는것이다
+우리는 AND 말고 OR 이나 WHERE (SQL)도 어떻게 구현하는지 배워볼거다 
+
+
+
+
+
+
 
 margin: 4rem auto 1.5rem auto;
 이렇게 쓰면 위보다 시계 반향으로 위 오른쪽 아래 왼쪽 을 의미한다.
