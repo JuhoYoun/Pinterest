@@ -1,1 +1,7 @@
-WYSIWYG : What You See Is What You Get
+WYSIWYG : What You See Is What You Get 보는대로 글이 써진다
+
+Chatgpt:
+WYSIWYG는 What You See Is What You Get의 약자로서, 사용자가 문서를 편집할 때 사용자가 편집 중인 문서의 최종 모양과 레이아웃이 편집 화면에 정확히 표시되도록 하는 인터페이스를 의미합니다. WYSIWYG 편집기는 사용자가 문서를 작성하면서 해당 문서의 실제 모양을 볼 수 있도록 하며, 마크업 언어와 같은 복잡한 코드를 직접 작성하지 않아도 문서를 만들 수 있도록 도와줍니다. 대표적인 WYSIWYG 편집기로는 Microsoft Word, Adobe Dreamweaver, Google Docs 등이 있습니다.
+
+이번에는 WYSIWYG 라는 것을 우리 사이트에 적용해볼것이다 가능하면 나의 의도대로 쓸 수 있는? 게시판 기능이란다 글을 크게도 굵게도 또는 밑줄도 긋는등의 기능을 추가한다
+우리는 오픈소스를 쓸거다
