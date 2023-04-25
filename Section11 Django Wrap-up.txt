@@ -36,6 +36,17 @@ Medium Editor : https://github.com/yabwe/medium-editor
 
 이렇게 바꿔준다.
 
+class ArticleCreationForm(ModelForm):
+    content = forms.CharField(widget=forms.Textarea(attrs={'class': 'editable text-left',
+                                                           'style': 'height: auto;'}))
+
+    class Meta:
+        model = Article
+        fields = ['title', 'image', 'project', 'content']
+        
+Django의 forms는 사용자가 입력한 데이터를 쉽게 검증하고 처리할 수 있는 기능을 제공하는데, 이때 필드에 지정한 위젯(widget)은 해당 필드의 입력 양식을 HTML로 렌더링하는 역할을 합니다. Django에서 제공하는 위젯에는 TextInput, NumberInput, CheckboxInput 등이 있으며, 사용자 정의 위젯도 만들 수 있습니다.
+
+Textarea 위젯은 사용자가 긴 텍스트를 입력할 수 있는 입력 필드를 렌더링합니다. 이 위젯은 주로 TextField와 같은 모델 필드에 사용되며, 사용자가 긴 내용을 입력할 때에는 단순한 텍스트 필드보다 더 편리합니다. Textarea 위젯은 cols와 rows를 사용하여 텍스트 상자의 크기를 제어할 수 있습니다. 위의 코드에서는 추가적으로 'editable text-left'과 'style: height: auto;'를 옵션으로 지정하여 사용자가 글을 작성할 때 편리하도록 렌더링합니다.
 
 
 
