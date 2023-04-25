@@ -1,1 +1,12 @@
+Subscribe 기능을 RedirectView를 이용해 만들어보자 RedirectView를 쓰는 이유는 구독할 때 따로 폼을 통한 입력 사항 없이 구독 요청을 받자마자 처리할 것을 처리하고 리다이렉트 하기 때문이다.
 
+모델에서 
+class Subscription(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='subscription')
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='subscription')
+
+    class Meta:
+        unique_together = {'user', 'project'}
+
+-> unique_together = {'user', 'project'} 이 부분은 user와 project 조합은 unique하다는 뜻이다. 즉 유저는 어떤 하나의 프로젝트에 대해서 단 하나의 subscription 객체만 가진다. 프로젝트
+하나를 여러번 구독하는건 말이 안된다.
