@@ -37,7 +37,7 @@ Medium Editor : https://github.com/yabwe/medium-editor
 이렇게 바꿔준다.
 
 class ArticleCreationForm(ModelForm):
-    content = forms.CharField(widget=forms.Textarea(attrs={'class': 'editable text-left',
+    content = forms.CharField(widget=forms.Textarea(attrs={'class': 'editable text-left',  <!-- bootstrap5 에서는 text-start -->
                                                            'style': 'height: auto;'}))
 
     class Meta:
