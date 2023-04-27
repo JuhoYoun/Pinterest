@@ -79,6 +79,13 @@ class Project(models.Model):
     def __str__(self):
         return f'{self.title}'
         
-이런식으로 프로젝트 모델에 __str__ 함수를 설정해주면 앞으로는 프로젝트 타이틀이 대신 
+이런식으로 프로젝트 모델에 __str__ 함수를 설정해주면 앞으로는 프로젝트 타이틀이 대신 나온다.
+
+Material Icons : https://fonts.google.com/icons
+구글에서 무료로 제공하는 아이콘 패키지
+
+
+
+
 
 
