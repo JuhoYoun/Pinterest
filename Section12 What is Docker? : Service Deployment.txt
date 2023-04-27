@@ -1,6 +1,13 @@
 Docker is everywhere 
 Docker is fast
+Develop Fast
+Deploy Fast
+Build Fast
+Ship Fast
+Maintain Fast
 
 Docker는 가상화(virtualization)에 기반이 되있다.
-Docker는 우리가 사용하는 OS(내 경우에는 MacOS) 위에 다른 시스템을 얹어서 가상화를 할 때 기존의 방법과 달리 성능 하락이 거의 없다. 가상화된 다른 시스템(예를 들이 리눅스)를 사용하는 것이 마치 
-기존 OS인 Host OS (MacOS)를 사용하는것과 같은 속도가 나온다.
+Docker는 우리가 사용하는 OS(내 경우에는 MacOS) 위에 다른 시스템을 얹어서 가상화를 할 때 기존의 방법(예를 들어 virtual machine)과 달리 성능 하락이 거의 없다. 가상화된 다른 시스템(예를 들이 리눅
+스)를 사용하는 것이 마치 기존 OS인 Host OS (MacOS)를 사용하는것과 같은 속도가 나온다. 예를들어 어떤 Linux 시스템의 Docker Image가 있다면 이 것을 어느 OS 위에서 돌리던 똑같은 환경의 리눅스 컨
+테이너를 만들 수 있다.
+
