@@ -20,4 +20,8 @@ VULTR - VPS 서버를 렌드해주는 업체
 
 VPS - Virtual Private Server
 
-Physical Server를 하나 빌리는것은 너무 비싸다 그래서 우리는 보통 이 물리적인 서버 하나를 여러개로 분리해놓은 가상 서버 하나를 빌
+Physical Server를 하나 빌리는것은 너무 비싸다 그래서 우리는 보통 이 물리적인 서버 하나를 여러개로 분리해놓은 가상 서버 하나를 빌렸다
+
+VULTR에서 가상서버 하나를 빌렸다 그 서버에 접근해보자 터미널을 열고
+
+ssh root@ipaddress 그리고 이어서 password 까지 입력하면 ssh를 통해 가상서버에 접근하게 된다.
