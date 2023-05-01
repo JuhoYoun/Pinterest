@@ -20,4 +20,4 @@ VULTR - VPS 서버를 렌드해주는 업체
 
 VPS - Virtual Private Server
 
-Physical Server를 하나 빌리는것은 너무 비싸다 그래서 우리는 보통 이 물리적인 서버 하나를 여러개로 분리해놓은 가상 서버 하나를 빌리게
+Physical Server를 하나 빌리는것은 너무 비싸다 그래서 우리는 보통 이 물리적인 서버 하나를 여러개로 분리해놓은 가상 서버 하나를 빌
