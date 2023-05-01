@@ -22,6 +22,12 @@ VPS - Virtual Private Server
 
 Physical Server를 하나 빌리는것은 너무 비싸다 그래서 우리는 보통 이 물리적인 서버 하나를 여러개로 분리해놓은 가상 서버 하나를 빌렸다
 
-VULTR에서 가상서버 하나를 빌렸다 그 서버에 접근해보자 터미널을 열고
+VULTR에서 가상서버 하나를 빌리는데 Docker ubuntu 20.0.4 로 만들고 그 서버에 접근해보자 터미널을 열고
 
-ssh root@ipaddress 그리고 이어서 password 까지 입력하면 ssh를 통해 가상서버에 접근하게 된다.
+ssh root@ipaddress 그리고 이어서 password 까지 입력하면 ssh를 통해 가상서버에 접근하게 된다. 
+
+ssh가 안깔려 있다면 openssh를 설치해야한다. 또 Putty 를 사용해서도 원격 서버에 접속할 수 있다.
+
+터미널에서 docker라고 처보자 docker가 깔려있는것을 확인할 수 있다
+
+docker container ls 현재 돌고 있는 docker 컨테이너가 무엇인지 보여준다
