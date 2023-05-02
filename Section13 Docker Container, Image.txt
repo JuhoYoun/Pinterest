@@ -12,3 +12,5 @@ docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /va
 
 docker ps -> 실행되있는 container 보여준다
 docker restart portainer -> portainer 컨테이너를 재시작한다
+
+https://localhost:9443  localhost 는 VULTR 가상서버 ip 주소 -> 이렇게 하면 웹브라우저에서 접근 가능하다 
