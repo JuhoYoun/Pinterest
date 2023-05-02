@@ -3,3 +3,9 @@ Image라는 것을 어디서 가져올까? -> 우리가 직접 만들수도 있�
 첫번째 이미지로 portainer라는 소프트웨어다 이것은 docker를 GUI로 바꿔주는 소프트웨어이다 dockerhub에서 portainer 공식 image를 가져워 우리의 가상서버에 portainer container를 만들것이다
 
 dockerhub에 가서 portainer로 검색 portainer-ce 버전을 받자 (community edition) -> portainer-ce 클릭 -> deploy container
+뭔 일 있는지 페이지 에러 뜬다 ㅋㅋ 그냥 여기로 -> https://docs.portainer.io/start/install-ce/server/docker/linux
+
+docker volume create portainer_data
+docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
+
+이 두 커맨드로 설치하면 된다 근데 여기서 두번째 커맨드의 -p 8000:8000 이 부분은 지워주자 8000번 포트를 사용한다는건데 우리는 9443 포트만 쓴다
