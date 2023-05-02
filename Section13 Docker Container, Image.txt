@@ -28,4 +28,7 @@ local -> container 를 보면 portainer 이미지를 이용한 컨테이너 하�
  NGINX
  NGINX 소픝웨어를 도커허브에서 이미지를 가져와 실재 컨테이너를 만들어볼것이다 위에 설명한것과 같이 포트를 연결해보자 portainer GUI에서 한번 해보자
  container list를 가보자 -> add container 
- name은 원하는대로 쓰고 image에 nginx라고 입력
+ name은 원하는대로 쓰고 image에 nginx라고 입력 그리고 Always pull the image 클릭
+Manual network port publishing -> publish a new network port 
+host 80 container 80
+그리고 Deploy the container 눌러주자
