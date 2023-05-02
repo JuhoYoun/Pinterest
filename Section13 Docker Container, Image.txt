@@ -1,1 +1,4 @@
+Image라는 것을 어디서 가져올까? -> 우리가 직접 만들수도 있고 여러가지 방법이 있긴한데 우리는 Dockerhub라는것을 사용할것이다 우리가 올리는 Image뿐만 아니라 여러 기업들의 Image가 올라가있다
+이 Imagae들을 받아 새로운 Image를 만들거나 새로운 container를 만드는 등 활용할 수 있다
+첫번째 이미지로 portainer라는 소프트웨어다 이것은 docker를 GUI로 바꿔주는 소프트웨어이다 dockerhub에서 portainer 공식 image를 가져워 우리의 가상서버에 portainer container를 만들것이다
 
