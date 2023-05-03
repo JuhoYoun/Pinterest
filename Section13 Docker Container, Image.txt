@@ -36,7 +36,7 @@ host 80 container 80
 다음에는 Django 컨테이너를 만들거다 nginx 처럼 공식 이미지가 있는것이 아니라 우리의 소스를 넣어야된다
 Django 컨테이너를 만드는 과정은 다음과 같다
 1. Upload source to Github
-2. Write Dockerfile
+2. Write Dockerfile -> 이미지를 만드는 설계서
 3. Build Image
 4. Run Container
 
