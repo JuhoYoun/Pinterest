@@ -40,6 +40,8 @@ Django 컨테이너를 만드는 과정은 다음과 같다
 3. Build Image
 4. Run Container
 
+일단 Github에 가서 새로운 repository를 하나 생성한다 생성시 나오는 화면에 우리가 만든 소스코드를 어떻게 이 레포지토리에 올리는지 설명이 나와있다
+
 
 
 
