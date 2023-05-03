@@ -58,7 +58,7 @@ git branch -M main: Git branch를 새로 만들고, 기존의 main branch를 새
 git push -u origin main: 변경된 로컬 브랜치를 원격 저장소의 main 브랜치에 push합니다. -u 옵션은 이후에 push할 때 기본으로 원격 저장소의 main 브랜치로 push 하도록 설정하는 것입니다.
 이 과정을 마치면 GitHub의 원격 저장소에 코드가 업로드되어 공개됩니다.
 
-
+branch이름을 master에서 main으로 바꾸게됬는데 최근에 master라고 쓰는것을 지양하는것 
 
 
 
