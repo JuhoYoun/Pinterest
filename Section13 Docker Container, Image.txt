@@ -123,6 +123,11 @@ cmd에 다가 이 장고 컨테이너가 실행될 때마다 실행되야되는 
 예를 들어 python manage.py runserver 0.0.0.0:8000 (사실 나중에 nginx랑 연동하면 이거 말고 다른 명령어를 쓴다)
 
 
+Write Dockerfile
+일단 우리 프로젝트 루트에다 dockerfile 파일을 새로 만들어준다
+FROM 구문을 이용해 base image를 선택하는데 애초에 파이썬이 깔려있는 image를 base image로 사용하여 파이썬을 까는 과정을 생략할것이다
+dockerhub에 가서 python 검색 클릭해 들어가고 tags 로 가서 파이썬 3.9.0을 찾자 (나는 로컬에서 3.8.9로 한거 같은데... 그냥 여기선 3.9.0으로 가보자)
+
 
 
 
