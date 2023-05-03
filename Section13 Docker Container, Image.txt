@@ -60,6 +60,36 @@ git push -u origin main: 변경된 로컬 브랜치를 원격 저장소의 main 
 
 branch이름을 master에서 main으로 바꾸게됬는데 최근에 master라고 쓰는것을 지양하는것 
 
+error message :
+User
+remote: Support for password authentication was removed on August 13, 2021.
+remote: Please see https://docs.github.com/en/get-started/getting-started-with-git/about-remote-repositories#cloning-with-https-urls for information on currently recommended modes of authentication.
+fatal: Authentication failed for 'https://github.com/JuhoYoun/My-Home.git/'
+
+Chatgpt:
+이 오류는 2021년 8월 13일 이후로 GitHub에서 암호 인증 지원을 중단했기 때문에 발생합니다. 대신에 개인 액세스 토큰(Personal Access Token)을 사용해야 합니다.
+
+해결 방법:
+
+GitHub 계정으로 로그인하고 오른쪽 상단에 있는 프로필 아이콘을 클릭합니다.
+드롭다운 메뉴에서 'Settings'를 선택합니다.
+왼쪽 메뉴에서 'Developer settings'를 선택하고, 'Personal access tokens'을 선택합니다.
+'Generate new token' 버튼을 클릭합니다.
+토큰 이름을 입력하고 권한을 선택합니다.
+'Generate token' 버튼을 클릭합니다.
+생성된 토큰 값을 안전한 장소에 보관합니다.
+터미널에서 git clone, push, pull 등을 수행할 때, HTTPS URL 대신에 액세스 토큰을 사용합니다.
+예시:
+
+shell
+Copy code
+$ git clone https://github.com/username/repo.git
+Username: your_username
+Password: your_token
+
+
+
+
 
 
 
