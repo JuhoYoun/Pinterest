@@ -31,4 +31,4 @@ local -> container 를 보면 portainer 이미지를 이용한 컨테이너 하�
  name은 원하는대로 쓰고 image에 nginx라고 입력 그리고 Always pull the image 클릭
 Manual network port publishing -> publish a new network port 
 host 80 container 80
-그리고 Deploy the container 눌러주자
+그리고 Deploy the container 눌러주자 컨테이너가 생성된다 -> https://localhost:80 으로 가면 nginx welcome 페이지를 볼 수 
