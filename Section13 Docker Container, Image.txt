@@ -93,7 +93,31 @@ pip list -> 지금까지 가상환경에 깔았던 패키지들이 나온다 이
 -> pip freeze > requirements.txt
 이러면 패키지들 정보가 requirements.txt에 담긴다 이것도 git commit 해주자 그리고 git push
 
-Dockerfile
+Dockerfile = how to make an image
+어떤 os를 이용해 어떤 내용을 설치할것이고 그 내용에서 어떤 환경을 설정을 바꿔줄지에 등등에 대한 모든 설정이 dokerfile 안에 들어간다
+
+dockerfile command 
+FROM
+RUN
+WORKDIR
+EXPOSE
+CMD
+
+FROM
+-> Select Base Image 베이스 이미지를 무엇을 쓸지 정해주는 커맨드
+클래스가 기존의 클래스를 상속받아 새로운 클래스를 만들 수 있는것처험 이미지도 기존의 이미지를 상속받아 새로운 이미지를 만드는것이 가능하다
+
+RUN
+-> 말그대로 커맨드를 실행시켜준다는 의미
+ pip list, pip install 이런 커맨드들을 run과 함께 마치 리눅스를 명령어를 사용하는것처럼 쓴다?
+ 
+ 
+
+
+
+
+
+
 
 
 
