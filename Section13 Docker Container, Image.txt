@@ -88,8 +88,12 @@ Username: your_username
 Password: your_token
 
 
-우리는 처음에 파이참 환경을 구축할 때 
+우리는 처음에 파이참 환경을 구축할 때 가상 환경을 만들었고 그 안에 관련 패키지를 넣었다
+pip list -> 지금까지 가상환경에 깔았던 패키지들이 나온다 이 패키지들은 우리가 새로 만드는 장고 컨테이너에도 깔아줘야한다 때문에 이 패키지들에 대한 정보를 남겨야한다
+-> pip freeze > requirements.txt
+이러면 패키지들 정보가 requirements.txt에 담긴다 이것도 git commit 해주자 그리고 git push
 
+Dockerfile
 
 
 
