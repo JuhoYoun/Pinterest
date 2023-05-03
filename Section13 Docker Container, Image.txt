@@ -42,6 +42,23 @@ Django 컨테이너를 만드는 과정은 다음과 같다
 
 일단 Github에 가서 새로운 repository를 하나 생성한다 생성시 나오는 화면에 우리가 만든 소스코드를 어떻게 이 레포지토리에 올리는지 설명이 나와있다
 
+…or push an existing repository from the command line
+git remote add origin https://github.com/JuhoYoun/My-Home.git
+git branch -M main
+git push -u origin main
+
+이걸 이용하자
+
+chatgpt:
+
+이 명령어들은 GitHub에 새로운 Git repository를 만들고, 로컬에서 작성한 코드를 원격 저장소로 push하는 과정입니다.
+
+git remote add origin https://github.com/JuhoYoun/My-Home.git: 새로운 Git repository를 생성하고 원격 저장소 URL을 설정합니다.
+git branch -M main: Git branch를 새로 만들고, 기존의 main branch를 새로운 branch로 이름을 변경합니다.
+git push -u origin main: 변경된 로컬 브랜치를 원격 저장소의 main 브랜치에 push합니다. -u 옵션은 이후에 push할 때 기본으로 원격 저장소의 main 브랜치로 push 하도록 설정하는 것입니다.
+이 과정을 마치면 GitHub의 원격 저장소에 코드가 업로드되어 공개됩니다.
+
+
 
 
 
