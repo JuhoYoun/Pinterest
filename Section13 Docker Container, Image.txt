@@ -158,6 +158,11 @@ EXPOSE 8000 -> 8000번 포트를 열어준다
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"] -> 장고 컨테이너가 생성될 때마다 실행되는 커맨드, 리스트형태로 써준다
 
 
+그런데 이렇게 Dockerfile 을 작성해줘도 웹사이트가 실행되지 않을것이다 현재 .env 파일이 없다 (SECRET_KEY 를 불러와야한다) .env 파일은 gitignore에 포함되어있다
+
+일단은 임시로 .env 파일을 만들어주자 이건 나중에 고칠거다 마이그레이션 하기 전에 .env 파일을 만드는 커맨드를 쓰자
+-> RUN echo "SECRET_KEY=django-insecure--5ej32jnwnzn%jv$gb)z@=e1c@(lvtha!1&o9o9%2z4p4_n16s" > .env
+
 
 
 
