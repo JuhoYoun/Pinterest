@@ -163,6 +163,10 @@ CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"] -> 장고 컨테이너�
 일단은 임시로 .env 파일을 만들어주자 이건 나중에 고칠거다 마이그레이션 하기 전에 .env 파일을 만드는 커맨드를 쓰자
 -> RUN echo "SECRET_KEY=django-insecure--5ej32jnwnzn%jv$gb)z@=e1c@(lvtha!1&o9o9%2z4p4_n16s" > .env
 
+자 이젠 portainer로 가서 이미지를 생성해보자 local -> images -> build a new images -> upload -> select files -> dockerfile 선택
+그리고 컨테이너 이름을 django_container_image:1 이라고 해주자 그리고 build the image
+이미지를 처음 만들 때 시간이 좀 걸린다 나중에 살짝 이미지를 바꾸고 다시 만들면 훨씬 빠르다
+
 
 
 
