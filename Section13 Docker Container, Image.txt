@@ -155,6 +155,9 @@ RUN python manage.py migrate  -> sqlite3 파일은 gitignore에 들어가 있다
 
 EXPOSE 8000 -> 8000번 포트를 열어준다
 
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"] -> 장고 컨테이너가 생성될 때마다 실행되는 커맨드, 리스트형태로 써준다
+
+
 
 
 
