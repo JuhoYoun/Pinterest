@@ -145,13 +145,13 @@ Chatgpt:
 
 WORKDIR = /home/  -> docker 컨테이너의 개별적인 파일 시스템을 가지고 대개 처음 만들면 home이라는 디렉토리가 있다 이 디렉토리를 working directory로 만들어준다
 
-RUN git clone https://github.com/JuhoYoun/My-Home.git
+RUN git clone https://github.com/JuhoYoun/My-Home.git  ->  이 working directory에다가 장고 소스코드를 가져온다
 
-WORKDIR = /home/MY-HOME/
+WORKDIR = /home/MY-HOME/  ->  소스코드를 가져오면 MY-HOME이라는 디렉토리가 생기기 때문에 이 디렉토리를 working directory로 바꿔준다
 
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt  -> 이 디렉토리에 필요한 패키지들을 설치해준다
 
-RUN python manage.py migrate
+RUN python manage.py migrate  -> 
 
 EXPOSE 8000
 
