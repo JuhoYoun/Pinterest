@@ -143,11 +143,11 @@ Chatgpt:
 
 하지만 이것은 이미지의 설정 및 운영 체제에 따라 다를 수 있습니다. 따라서 컨테이너 내부의 파일 시스템 구조를 확인하기 위해서는 해당 이미지에 대한 문서 또는 도커 이미지 내부를 확인해야 합니다.
 
-WORKDIR = /home/  -> docker 컨테이너의 개별적인 파일 시스템을 가지고 대개 처음 만들면 home이라는 디렉토리가 있다 이 디렉토리를 working directory로 만들어준다
+WORKDIR /home/  -> docker 컨테이너의 개별적인 파일 시스템을 가지고 대개 처음 만들면 home이라는 디렉토리가 있다 이 디렉토리를 working directory로 만들어준다
 
 RUN git clone https://github.com/JuhoYoun/My-Home.git  ->  이 working directory에다가 장고 소스코드를 가져온다
 
-WORKDIR = /home/MY-HOME/  ->  소스코드를 가져오면 MY-HOME이라는 디렉토리가 생기기 때문에 이 디렉토리를 working directory로 바꿔준다
+WORKDIR /home/MY-HOME/  ->  소스코드를 가져오면 MY-HOME이라는 디렉토리가 생기기 때문에 이 디렉토리를 working directory로 바꿔준다
 
 RUN pip install -r requirements.txt  -> 이 디렉토리에 필요한 패키지들을 설치해준다
 
