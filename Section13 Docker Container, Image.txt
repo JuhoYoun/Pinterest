@@ -191,6 +191,15 @@ If you’re using Linux or MacOS and install both pywatchman and the Watchman se
 gunicorn의 다른 커맨드로 바꿀것이다
 
 What is gunicorn?
+nginx 컨테이너와 django 컨테이너의 인터페이스 역할을 한다
+
+내 컴퓨터의 소스로 가서 pip install gunicorn 그리고 pip freeze > requirements.txt 그리고 gitub에다가 해당 사항을 업데이트한다 (Dockerfile은 여기서 빼고 commit 했다 왜? )
+그리고 이제 이미지를 만들어야되는데 Dockerfile을 고쳐주자 
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"] 이 부분을
+CMD ["gunicorn", "pinterest.wsgi", "--bind", "0.0.0.0:8000"]
+이렇게 
+
+
 
 
 
