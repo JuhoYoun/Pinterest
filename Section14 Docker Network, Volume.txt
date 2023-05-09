@@ -8,3 +8,6 @@ nginx 컨테이너에서 http://django_container_gunicorn:8000 이런식으로 �
 
 일단 portainer 컨테이너 빼고 기존의 nginx와 django 컨테이너 다 지워주자 강의에서 다시 할게 있어서 지우라 그랬다 portainer에서 network로 가서 네트워크를 만들어보자 -> Add Network
 name은 nginx-django 라고 해주고 나머지는 건드릴 필요없다 create network 눌러서 만들어주자
+
+그리고 컨테이너를 만들어주자 우선 django_image_gunicorn:1 이미지를 이용해 django_container_gunicorn을 만드는데 유저의 요청을 nginx 컨테이너에서 먼저 받고 이 장고 컨테이너로 넘겨줄거기 때문데 포트 설정이 필요없다
+그리고 네트워크를 설정해준다 Network 탭을 누르고 가서 Network 항목에 방금 만든 nginx-django을 선택한다
