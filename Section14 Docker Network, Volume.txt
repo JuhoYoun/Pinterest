@@ -75,6 +75,13 @@ gunicorn과 django 조합은 dynamic한 컨텐츠를 제공하기 위한 조합�
 1. Collect static content from django container
 2. Synchronize static content with nginx container
 
+내 컴퓨터의 프로젝트 루트로 가서 python manage.py collectstatic
+staticfiles라는 폴더에 정적 파일들이 모여진다 이것을 nginx랑 연결시켜줘야한다 일단 내 로컬에 staticfiles 폴더는 지워주고 Dockerfile로 가자
+
+RUN python manage.py migrate 다음에
+RUN python manage.py collectstatic 추가해준다
+
+이 Dockerfile을 이용해 새로운 이미지를 
 
 
 
