@@ -81,8 +81,21 @@ staticfiles라는 폴더에 정적 파일들이 모여진다 이것을 nginx랑 
 RUN python manage.py migrate 다음에
 RUN python manage.py collectstatic 추가해준다
 
-이 Dockerfile을 이용해 새로운 이미지를 
+이 Dockerfile을 이용해 새로운 이미지를 만들어주자
 
+정적 파일들을 nginx 컨테이너와 동기화하는법? -> docker volume
+
+Docker Volume
+다른 컨테이너 안에 있는 데이터를 공유할 수 있는 기능
+
+2 types of volume
+1. bind volume
+- Host server (VULTR) 와 컨테이너의 파일이나 경로를 동기화 시켜준다
+2. named volume
+- 도커 안에서 이름이 달려있는 새로운 볼륨을 만든다 그리고 이 볼륨을 컨테이너에 붙여서 동기화할 수 있다 이 볼륨은 컨테이너 안에서는 특정한 디렉토리가 나오고 도커 내에서는 말 그대로 볼륨으로 도커가 알아서 관리한다 이 볼륨의 특징인
+이 볼륨이 붙어있는 컨테이너가 사라진다고 해도 볼륨이 사라지지 않고 그 데이터를 유지한다
+
+Named Volume을 이용해서 static 볼륨과 media 볼륨을 만들어 django 컨테이너와 nginx 컨테이너에 연결할것이다 이러면 nginx 에서 static 혹은 이미지 파일들은 장고 컨테이너에 요청을 보내지 않고 바로 응답할 수 있다
 
 
 
