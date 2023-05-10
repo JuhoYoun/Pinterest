@@ -1,1 +1,5 @@
 Database detachment with MariaDB
+
+지금은 db가 장고 컨테이너 안의 sqlite3 파일로 구동되지만 마리아 db 컨테이너를 따로 만들어 관리하도록하자 그리고 이 마리아 db 컨테이너에 볼륨을 설정해 컨테이너 유무에 상관 없이 데이터가 유지되도록 하자
+
+그런데 이렇게 하면되면 VPS 서버(마리아db)와 내 로컬 서버(sqlite)의 환경이 다르게 된다 다시말해 local environment와 deploy environment가 달라진다 그래서 나중에 이 환경들에 대한 세팅을 분리시키는 작업이 필요하다
