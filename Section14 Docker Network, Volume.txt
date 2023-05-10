@@ -118,7 +118,58 @@ volume        static-local       writable
 container     /data/media/       Volume
 volume        media-local        writable
   
-기존에 nginx.conf를 위한 바인드 볼륨을 설정했던것도 잊지 말고 꼭 해주자
+기존에 nginx.conf를 위한 바인드 볼륨을 설정했던것도 잊지 말고 꼭 해주자 그리고 추가적으로 nginx.conf를 좀 수정해주자
+
+worker_processes auto;
+
+events {
+}
+http {
+    server {
+        listen 80;
+
+        include mime.types;
+
+        location /static/ {
+            alias /data/static/;
+        }
+
+        location /media/ {
+            alias /data/media/;
+        }
+
+        location / {
+            proxy_pass http://django_container_gunicorn:8000;
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+    }
+}
+
+
+간단히 말해 
+
+        location / {
+            proxy_pass http://django_container_gunicorn:8000;
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+        
+이 부분만 있다면 nginx로 들어오는 모든 url 경로의 모든 요청(정적인것과 동적인것 모두)을 장고 컨테이너로 다시 보내게 되는데
+
+        location /static/ {
+            alias /data/static/;
+        }
+
+        location /media/ {
+            alias /data/media/;
+        }
+
+앞에 이 부분을 추가해주므로써 /static/ 과 /media/ url 경로로 들어오는 요청을 nginx의 /data/static/ 과 /data/media/ 의 데이터로 응답해주게된다
+
+include mime.types;  -> include 구문을 이용해 mime.types 의 내용을 여기도 박아 넣는거라는데 이 내용이 뭔지는 알아서 공부하란다 서버의 통신이 어떻게 된다는건데 이 라인 없으면 작동 안한다 
+filezilla 를 통해 수정된 nginx.conf 파일을 다시 
+
 
 그리고 deply the container!
   
