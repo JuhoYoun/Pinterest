@@ -104,14 +104,23 @@ Creating Docker Volume
 이름은 static 그리고 나머지 항목은 건들지 말고 create the volume 눌러서 만든다 같은 방식을 media 라는 볼륨도 하나 만든다 이 볼륨들 장고 컨테이너와 nginx 컨테이너를 만들 때 연결할것이다
 django 컨테이너를 만들 때 나머지는 기존과 동일할게 하고 Volume으로 들어가 volume mapping 에 볼륨 두개를 추가한다 
 ->
-container     /home/My-Home/staticfiles      Volume
+container     /home/My-Home/staticfiles/      Volume
 volume        static-local                   writable
-container     /home/My-Home/media            Volume
+container     /home/My-Home/media/            Volume
 volume        media-local                    writable
 
+그리고 deploy the container!
+
+이번에는 nginx 컨테이너를 만들자 기존과 동일하게 설정하고 volume으로 가서 역시 두개를 추가한다  
+->
+container     /data/static/      Volume
+volume        static-local       writable
+container     /data/media/       Volume
+volume        media-local        writable
   
-  
-  
+기존에 nginx.conf를 위한 바인드 볼륨을 설정했던것도 잊지 말고 꼭 해주자
+
+그리고 deply the container!
   
   
   
