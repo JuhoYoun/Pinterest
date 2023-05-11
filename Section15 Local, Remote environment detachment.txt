@@ -19,4 +19,5 @@ portainer로 가서 바로 컨테이너를 만들어주자 name은 mariadb라고
 강의에서는 여기까지 하고 일단 컨테이너를 만들어 구동되는지 확인하였다
 
 일단 local environmnet 설정과 deploy environment 설정을 분리 하는 작업을 한후 컨테이너를 연동하는 작업을 진행하자
-소스에서 프로젝트 앱 내부의 settings.py 의 설정들을 나누어여한다 프로젝트앱 내부에 새로운 파이썬 패키지를 만들것이다 settings 라는 이름으로 만들자
+소스에서 프로젝트 앱 내부의 settings.py 의 설정들을 나누어여한다 프로젝트앱 내부에 새로운 파이썬 패키지를 만들것이다 settings 라는 이름으로 만들자 그리고 settings.py를 settings 디렉토리 안에 넣는다
+그리고 settings 디렉토리 안에 local.py와 deploy.py를 만든다
