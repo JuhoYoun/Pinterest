@@ -14,3 +14,5 @@ Starting a MariaDB instance with the latest version is simple:
 $ docker run --detach --name some-mariadb --env MARIADB_USER=example-user --env MARIADB_PASSWORD=my_cool_secret --env MARIADB_ROOT_PASSWORD=my-secret-pw  mariadb:latest
 
 이렇게 써 있다 여기 보면 env 즉 환경 변수를 설정해 줘야한다고 한다 MARIADB_USER, MARIADB_PASSWORD, MARIADB_ROOT_PASSWORD 이 변수들의 값을 설정해줘야한다
+
+portainer로 가서 바로 컨테이너를 만들어주자 name은 mariadb라고 해주고 image에 mariadb:10.9 라고 해주자 버전을 명시하지 않으면 가장 최신것이 설치된다 그리고 Env로 가서 위의 세 변수들을 설정해주자
