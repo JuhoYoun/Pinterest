@@ -41,4 +41,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# Database
+# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
+
 base.py에서 위의 내용을 잘라서 local.py에 넣어준다 그리고 맨 위에 from .base import *  이렇게 해준다 
