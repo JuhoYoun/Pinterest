@@ -6,3 +6,11 @@ Database detachment with MariaDB
 
 일단 mariadb 컨테이너를 만들자
 
+dockerhub
+-> https://hub.docker.com/_/mariadb
+
+Starting a MariaDB instance with the latest version is simple:
+
+$ docker run --detach --name some-mariadb --env MARIADB_USER=example-user --env MARIADB_PASSWORD=my_cool_secret --env MARIADB_ROOT_PASSWORD=my-secret-pw  mariadb:latest
+
+이렇게 써 있다 여기 보면 env 즉 환경 변수를 설정해 줘야한다고 한다 MARIADB_USER, MARIADB_PASSWORD, MARIADB_ROOT_PASSWORD 이 변수들의 값을 설정해줘야한다
