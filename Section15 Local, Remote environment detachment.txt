@@ -20,5 +20,25 @@ portainer로 가서 바로 컨테이너를 만들어주자 name은 mariadb라고
 
 일단 local environmnet 설정과 deploy environment 설정을 분리 하는 작업을 한후 컨테이너를 연동하는 작업을 진행하자
 소스에서 프로젝트 앱 내부의 settings.py 의 설정들을 나누어여한다 프로젝트앱 내부에 새로운 파이썬 패키지를 만들것이다 settings 라는 이름으로 만들자 그리고 settings.py를 settings 디렉토리 안에 넣고 base.py라고 바꾸자
-그리고 settings 디렉토리 안에 local.py와 deploy.py를 만든다
+그리고 settings 디렉토리 안에 local.py와 deploy.py를 만든다  base.py에서 개발환경이랑 배포환경이 같은 부분은 빼낼 필요 없다 하지만 다른 부분은 빼내서 local.py와 base.py로 나눠 넣어야한다
 
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+
+# Take environment variables from .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = env('SECRET_KEY')
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+ALLOWED_HOSTS = ['*']
+
+base.py에서 위의 내용을 잘라서 local.py에 넣어준다 그리고 맨 위에 from .base import *  이렇게 해준다 
