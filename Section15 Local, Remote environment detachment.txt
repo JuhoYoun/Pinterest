@@ -80,7 +80,13 @@ DATABASES = {
     }
 }
 
-mariadb 자체가 mysql에서 파생되었다 때문에 여기서 mysql 엔진을 쓴다
+mariadb 자체가 mysql에서 파생되었다 때문에 여기서 mysql 엔진을 쓴다 나중에 네트워크를 통해서 장고랑 마리아디비 컨테이너를 연결해줄것이기 때문에 HOST에는 도메인이자 컨테이너 이름인 mariadb라고 쓴다
+
+그리고 base.py에 이 부분을 고쳐주자
+BASE_DIR = Path(__file__).resolve().parent.parent -> BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+또 manage.py도 고쳐준다
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pinterest.settings") -> os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pinterest.settings.local")
 
 
 
