@@ -132,7 +132,7 @@ $ docker run --name some-mariadb -v /my/own/datadir:/var/lib/mysql -e MARIADB_RO
 The -v /my/own/datadir:/var/lib/mysql part of the command mounts the /my/own/datadir directory from the underlying host system as /var/lib/mysql inside the container, where MariaDB by default will write its data files.
 #######################################################################
 
-
+위의 내용을 참고해서 볼륨을을 만들 때 container 경로를 /var/lib/mysql 로 한다 volume에는 우리가 방금 만든 django_homepage_database로 설정하자
 
 DATABASES = {
     'default': {
