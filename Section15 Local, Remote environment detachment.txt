@@ -90,6 +90,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent -> BASE_DIR = Path(__file__).r
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pinterest.settings") -> os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pinterest.settings.local")
 여기선 로컬환경이기 때문에 settings 디렉토리 안의 local.py를 불러와야한다
 
+----------------------------------------------------------------
+강좌 61강에 오류가 있습니다.
+
+
+
+Docker 이미지를 만든 이후, django 컨테이너를 배포하면서
+다른 설정은 만지지 않고 network 설정만 작성하고 강좌를 진행하는데,
+
+Volume도 설정을 해주셔야 합니다.
+
+
+편집과정에서 잘린건지, 저렇게만 설정해도 왜 정상적으로 작동되었는지는 저도 현재는 확인이 힘듭니다.
+하지만 Nginx와 volume을 공유해야만 static 및 media 파일들을 정상적으로 요청할 수 있기 때문에, 볼륨 설정도 꼭 해주시길 바랍니다.
+
+
+
+강좌 오류로 불편을 드려 죄송합니다!
+----------------------------------------------------------------------
 
 
 
