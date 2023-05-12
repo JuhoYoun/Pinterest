@@ -84,10 +84,11 @@ mariadb 자체가 mysql에서 파생되었다 때문에 여기서 mysql 엔진�
 
 그리고 base.py에 이 부분을 고쳐주자
 BASE_DIR = Path(__file__).resolve().parent.parent -> BASE_DIR = Path(__file__).resolve().parent.parent.parent
+원래 settings.py였던 base.py 위치가 바뀌었기 때문
 
 또 manage.py도 고쳐준다
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pinterest.settings") -> os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pinterest.settings.local")
-
+여기선 로컬환경이기 때문에 settings 디렉토리 안의 local.py를 불러와야한다
 
 
 
