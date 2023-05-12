@@ -51,4 +51,41 @@ DATABASES = {
     }
 }
 
-base.py에서 위의 내용을 잘라서 local.py에 넣어준다 그리고 맨 위에 from .base import *  이렇게 해준다 
+base.py에서 위의 내용을 잘라서 local.py에 넣어준다 그리고 맨 위에 from .base import *  이렇게 해준다 이러면 local 환경은 됬다 local.py 내용을 deploy.py로 복붙한뒤 배포환경에 맞게 바꿔주자
+https://docs.djangoproject.com/en/4.1/ref/settings/#databases 여기 가보면 이렇게 써 있다
+
+When connecting to other database backends, such as MariaDB, MySQL, Oracle, or PostgreSQL, additional connection parameters will be required. See the ENGINE setting below on how to specify other database types. This example is for PostgreSQL:
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mydatabase',
+        'USER': 'mydatabaseuser',
+        'PASSWORD': 'mypassword',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
+
+이를 참고해서 이렇게 만들자 
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django_homepage',
+        'USER': 'jake',
+        'PASSWORD': 'Teddy2020!!!!',
+        'HOST': 'mariadb',
+        'PORT': '3306',
+    }
+}
+
+
+
+
+
+
+
+
+
+
