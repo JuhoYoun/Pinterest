@@ -80,6 +80,8 @@ DATABASES = {
     }
 }
 
+mariadb 자체가 mysql에서 파생되었다 때문에 여기서 mysql 엔진을 쓴다
+
 
 
 
