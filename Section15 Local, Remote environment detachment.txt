@@ -136,6 +136,8 @@ The -v /my/own/datadir:/var/lib/mysql part of the command mounts the /my/own/dat
 -v /my/own/datadir:/var/lib/mysql 여기서는 바운드 볼륨으로 되있긴 한데 호스트 내에서늬 디렉토리 -> /my/own/datadir  그리고 컨테이너 내에서의 디렉토리 -> /var/lib/mysql 라는 
 위의 내용을 참고해서 볼륨을을 만들 때 container 경로를 /var/lib/mysql 로 한다 volume에는 우리가 방금 만든 django_homepage_database로 설정하자
 
+그리고 마지막으로 Env 즉 환경 변수들을 설정해줘야한다 deploy.py 의 내용에 맞게 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
