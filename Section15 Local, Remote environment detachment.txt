@@ -149,7 +149,8 @@ DATABASES = {
     }
 }
 
-
+MYSQL_ROOT_PASSWORD 는 적당히 만들고  MYSQL_DATABASE 에는 django_homepage  MYSQL_USER 에는 jake 그리고  MYSQL_PASSWORD 에는 Teddy2020!!!!를 쓰면 된다
+그리고 컨테이너를 
 
 
 
