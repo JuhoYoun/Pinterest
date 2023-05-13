@@ -150,7 +150,10 @@ DATABASES = {
 }
 
 MYSQL_ROOT_PASSWORD 는 적당히 만들고  MYSQL_DATABASE 에는 django_homepage  MYSQL_USER 에는 jake 그리고  MYSQL_PASSWORD 에는 Teddy2020!!!!를 쓰면 된다
-그리고 컨테이너를 
+그리고 컨테이너를 디플로이하자
+* 나는 10.9 버전으로 할려다가 컨테이너가 잘 안만들어져서 10.5 버전으로 다시 했더니 됬다
+* 나는 MYSQL_ROOT_PASSWORD MYSQL_DATABASE MYSQL_USER MYSQL_PASSWORD 말고 MARIADB_ROOT_PASSWORD MARIADB_DATABASE MARIADB_USER MARIADB_PASSWORD 를 변수명으로 사용했다 다커허브 가면 이제 이렇게 사용할 수 있다고 써있다
+
 
 
 
