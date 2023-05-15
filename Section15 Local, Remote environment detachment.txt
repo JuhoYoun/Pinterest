@@ -160,9 +160,10 @@ RUN python manage.py migrate 이 부분은 우리가 로컬에서 원래 파일�
 컨테이너 생성되어 장고 컨테이너와 마이라디비 컨테이너가 연결되기 전이기 때문에 이 명령어를 쓸 수 없다 때문에 이 단계를 CMD 쪽으로 보내줘야한다
 CMD ["gunicorn", "pinterest.wsgi", "--bind", "0.0.0.0:8000"]
 ->
+CMD ["bash", "-c", "python manage.py migrate --settings=pinterest.settings.deploy && gunicorn pinterest.wsgi --env DJANGO_SETTINGS_MODULE=pinterest.settings.deploy --bind 0.0.0.0:8000"]
 
 
-또 강의에서는 캐시때문에 WORKDIR /home/  뒤에 RUN echo "testing" 이라는 라인을 넣었는데 나는 그냥 기존 이미지를 다 지우고 다시 
+또 강의에서는 캐시때문에 WORKDIR /home/  뒤에 RUN echo "testing" 이라는 라인을 넣었는데 나는 그냥 기존 이미지를 다 지우고 다시 하자 
 
 
 
