@@ -158,6 +158,9 @@ MYSQL_ROOT_PASSWORD 는 적당히 만들고  MYSQL_DATABASE 에는 django_homepa
 
 RUN python manage.py migrate 이 부분은 우리가 로컬에서 원래 파일형 db (sqlite)를 쓰고 있었기 때문에 이렇게 이미지 내에서 마이그레이트가 가능했던것이다 마리아디비 컨테이너를 사용하게 되면 이 명령어가 실행될 때는
 컨테이너 생성되어 장고 컨테이너와 마이라디비 컨테이너가 연결되기 전이기 때문에 이 명령어를 쓸 수 없다 때문에 이 단계를 CMD 쪽으로 보내줘야한다
+CMD ["gunicorn", "pinterest.wsgi", "--bind", "0.0.0.0:8000"]
+->
+
 
 또 강의에서는 캐시때문에 WORKDIR /home/  뒤에 RUN echo "testing" 이라는 라인을 넣었는데 나는 그냥 기존 이미지를 다 지우고 다시 
 
