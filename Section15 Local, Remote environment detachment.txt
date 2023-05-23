@@ -166,6 +166,10 @@ gunicorn 참고 링크 https://docs.gunicorn.org/en/latest/run.html
 
 또 강의에서는 캐시때문에 WORKDIR /home/  뒤에 RUN echo "testing" 이라는 라인을 넣었는데 나는 그냥 기존 이미지를 다 지우고 다시 하자 
 
+그리고 mariadb와 연동을 하기 위해서 다음의 명령어를 추가하자 -> RUN pip install mysqlclient 
+이 부분은 로컬 환경에서도 venv에 mysqlclient 라이브러리를 설치한 후 requirements.txt로 따로 뻬서 한꺼번에 설치하게 할 수도 있지만 일단 이 프로젝트에서는 로컬환경에서는 sqlite를 쓰므로 구지 venv 안에 mysqlclient를 깔지 않고 
+Dockerfile 에 RUN pip install mysqlclient 를 추가해서 따로 설치해주도록 해보자 
+
 
 
 
