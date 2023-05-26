@@ -3,8 +3,10 @@ AWS 과금 주의
 
 추가적인 강의
 
-1. AWS EC2 Deployment
-2. Domain Configuration
-3. HTTPS Configuration
-4. Github Private Repo
-5. Like System Update
+1. AWS EC2 Deployment - 우리가 했던 과정을 VULTR 말고 AWS 에서 다시 해보기
+2. Domain Configuration - 도메인을 사서 해당 도메인을 AWS EC2 instance 와 연결한다
+3. HTTPS Configuration - HTTPS 보안 기능 
+4. Github Private Repo - github repo를 private으로 돌렸을 우리가 해왔던 과정에 어떤 문제가 생기는지 ... 클론이나 그런 기능들을 하던 방식대로 사용할 수 없다
+5. Like System Update - 좋아요 기능 추가 
+
+
