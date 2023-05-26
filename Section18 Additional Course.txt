@@ -10,3 +10,10 @@ AWS 과금 주의
 5. Like System Update - 좋아요 기능 추가 
 
 
+AWS EC2 Deployment
+ 
+VULTR의 경우 ssh로 접속할 때 id와 password를 인자로 넘겨줘 해당 서버에 접속했다 AWS에서는 보안상 PEM 같은 key file을 이용해서 서버에 접속하는것이 권장된다 (id/password 도 되긴한다)
+VULTR에서는 도커가 이미 깔려있는 서버를 대여 받아 시작했지만 AWS 에는 도커가 깔려 있지 않아 직접 깔아줘야한다 
+AWS도 포트가 있는데 default로 이 포트들이 방화벽으로 (firewall) 모두 막혀있다 때문에 포트를 사용해야할 때 포트를 열어주는 설정을 해줘야한다
+
+
