@@ -1,1 +1,11 @@
+Let's encrypt의 Certbot 컨테이너는 강의 처음에 만든다고 해놓고 안만들었다 ssl 인증서가 도메인 기반이기 때문에 도메인은 사야된다고 안했다 어이가 없다 
 
+Course Limitation 
+
+1. Test code 를 하나도 안적었다 
+
+2. django admin 장고 어드민을 커스터마이징 해서 우리가 관리하기 쉽게 만드는 방법이 있는데 하나도 안했덴다 
+
+3. ssl(https) SSL 그러니까 https 적용하는 방법도 안건드렸다 
+
+4. Nginx Configuration nginx 설정도 최소한의것만 했다 
