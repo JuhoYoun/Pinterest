@@ -38,3 +38,19 @@ This key is not known by any other names
 Are you sure you want to continue connecting (yes/no/[fingerprint])? 
 
 이렇게 메세지가 뜬다 yes 를 타입해 접속하자
+강의에서는 이러면 접속 되는데 나는 아래와 같은 에러 메세지가 뜬다
+#########
+The authenticity of host '54.215.96.40 (54.215.96.40)' can't be established.
+ED25519 key fingerprint is SHA256:OOvvGghl080csg1bicigc3NpgNA511NFUAUXi5VYJBo.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '54.215.96.40' (ED25519) to the list of known hosts.
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Permissions 0644 for 'aws_jake.pem' are too open.
+It is required that your private key files are NOT accessible by others.
+This private key will be ignored.
+Load key "aws_jake.pem": bad permissions
+ubuntu@54.215.96.40: Permission denied (publickey).
+##########
