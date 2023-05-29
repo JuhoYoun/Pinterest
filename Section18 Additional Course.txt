@@ -70,7 +70,7 @@ chmod 400 aws_jake.pem
 ###############
 
 연결되면 일단 도커가 깔려 있는지 확인한다 
--> sudo docker 
+-> sudo docker 또는 docker
 도커가 안깔려 있는걸 볼 수 있다 도커를 깔아줘야한다
 
 #######
@@ -149,4 +149,4 @@ Upgrade Docker Engine
 To upgrade Docker Engine, follow the installation instructions, choosing the new version you want to install.
 ##############################
 
-
+도커가 깔렸으면 이제 portainer도 깔아보자 
