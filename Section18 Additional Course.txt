@@ -158,6 +158,8 @@ To upgrade Docker Engine, follow the installation instructions, choosing the new
 자 이제 포트와 아이피 주소를 이용해서 aws 의 portainer 컨테이너에 접속해보자 -> 54.215.96.40:9443
 접속이 되지 않는다 포트가 막혀있기 때문이다 왜냐하면 ec2 인스턴스를 만들 때 기본적으로 ssh를 제외한 모든 포트를 firewall 로 막혀있기 때문이다 이 포트를 열어줘야한다 aws console 로 가서 ec2 인스턴스 페이지로 들어간다 
 그리고 Security로 가서 Security groups 를 클릭한다 그리고 inbound rule을 수정해주면 된다 Type은 Custom TCP 그리고 source에 0.0.0.0/0 으로 해서 모든 아이피에서 접근 가능하게 했는데 특정 아이피로만 접속 가능하게 할 수 도 있다
-그리고 다시 웹브라우저를 통해서 접속해본다 이상하게 내가 하면 portainer container를 재실행 하라고 나온다 그러면 sudo docker restart portainer 재실행해주고 접속하면 admin 계정으로 만들고 진행 가능하다 
+그리고 다시 웹브라우저를 통해서 접속해본다 이상하게 내가 하면 portainer container를 재실행 하라고 나온다 그러면 sudo docker restart portainer 재실행해주고 접속하면 admin 계정으로 만들고 진행 가능하다
+시작할 때 보니까 hello world 이미지랑 컨테이너가 디폴트로 깔려있네? ㅋㅋ 지워준다 그리고 마지막으로 swarm을 시작해준다 -> docker swarm init
+이전에 VULTR 에서 할 때는 /home/django_course 디렉토리로 가서 swarm을 시작해줬는데 지금 이 디렉토리도 없고 강의도 그냥 /home/ubuntu 에 깔아줬으니 나도 
 
 
