@@ -72,6 +72,7 @@ chmod 400 aws_jake.pem
 연결되면 일단 도커가 깔려 있는지 확인한다 
 -> sudo docker 
 도커가 안깔려 있는걸 볼 수 있다 도커를 깔아줘야한다
+
 #######
 chat gpt
 sudo docker 명령어는 Docker를 관리자 권한으로 실행하려고 할 때 사용합니다. Docker는 컨테이너 기반의 오픈소스 가상화 플랫폼입니다. Docker를 사용하면 개발환경, 라이브러리, 의존성 등을 컨테이너에 포장하여 어떤 환경에서도 동일하게 실행할 수 있습니다.
@@ -86,7 +87,66 @@ sudo docker stop: 실행중인 컨테이너를 중지합니다.
 이러한 명령어를 사용하여 Docker를 이용할 수 있습니다. 도움이 필요하시면 추가 질문을 주시면 감사하겠습니다.
 #######
 
+도커 문서로 가서 어떻게 우분투에서 어떻게 도커를 설치하는지 보자 -> https://docs.docker.com/engine/install/ubuntu/
+이부분을 참조하자
+
+###########################
+Install using the apt repository
+Before you install Docker Engine for the first time on a new host machine, you need to set up the Docker repository. Afterward, you can install and update Docker from the repository.
+
+Set up the repository
+Update the apt package index and install packages to allow apt to use a repository over HTTPS:
 
 
+ sudo apt-get update
+ sudo apt-get install ca-certificates curl gnupg
+Add Docker’s official GPG key:
+
+
+ sudo install -m 0755 -d /etc/apt/keyrings
+ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+ sudo chmod a+r /etc/apt/keyrings/docker.gpg
+Use the following command to set up the repository:
+
+
+ echo \
+  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+Note
+
+If you use an Ubuntu derivative distro, such as Linux Mint, you may need to use UBUNTU_CODENAME instead of VERSION_CODENAME.
+
+Install Docker Engine
+Update the apt package index:
+
+
+ sudo apt-get update
+Install Docker Engine, containerd, and Docker Compose.
+
+Latest
+Specific version
+
+To install the latest version, run:
+
+
+ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+Verify that the Docker Engine installation is successful by running the hello-world image.
+
+
+ sudo docker run hello-world
+This command downloads a test image and runs it in a container. When the container runs, it prints a confirmation message and exits.
+
+You have now successfully installed and started Docker Engine.
+
+Tip
+
+Receiving errors when trying to run without root?
+
+The docker user group exists but contains no users, which is why you’re required to use sudo to run Docker commands. Continue to Linux postinstall to allow non-privileged users to run Docker commands and for other optional configuration steps.
+
+Upgrade Docker Engine
+To upgrade Docker Engine, follow the installation instructions, choosing the new version you want to install.
+##############################
 
 
