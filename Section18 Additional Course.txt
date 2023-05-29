@@ -54,3 +54,17 @@ This private key will be ignored.
 Load key "aws_jake.pem": bad permissions
 ubuntu@54.215.96.40: Permission denied (publickey).
 ##########
+##########
+위의 문제에 대한 chatgpt 해결법 진짜 먹힌다
+
+이 오류 메시지는 개인키 파일의 권한이 너무 개방적으로 설정되어 있어, AWS가 이를 안전하지 않다고 판단한 것을 나타냅니다. AWS는 이 파일이 현재 사용자에게만 읽기 권한을 부여하도록 요구합니다.
+
+이 문제를 해결하기 위해서는 파일 권한을 변경해야 합니다. 현재 사용자만이 이 파일을 읽을 수 있도록 파일 권한을 400 또는 600으로 설정하면 됩니다.
+
+리눅스나 MacOS에서 다음 명령어를 실행하면 이를 수행할 수 있습니다:
+
+bash
+Copy code
+chmod 400 aws_jake.pem
+이 명령어를 실행한 후 다시 SSH 연결을 시도해보세요. 이제 AWS EC2 인스턴스에 연결할 수 있어야 합니다.
+###############
