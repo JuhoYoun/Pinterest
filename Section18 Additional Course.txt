@@ -190,7 +190,9 @@ stack 이 완성되면 aws console 로 가서 80번 포트를 열어준다 그�
 이제 HTTPS 보안 설정 하는 법을 배워보자 HTTPS 는 도메인 기반의 기술이라 도메인을 먼저 연결해줘야한다 강의에서는 gabia 라는 도메인 업체를 사용했다 도메인을 구입하면 이 도메인을 aws 의 route53 이라는 서비스에 연결할것이다 
 그리고 route53 에서 우리가 돌리가 있는 ec2 인스턴스로 연결시켜주는 작업을 할것이다 일단 aws console로 가서 servie -> networking & content delivery -> route 53으로 간다 
 그리고 DNS management 아래 Create hosted zone을 클릭 거기에 산 도메인을 적고 Public hosted zone 을 선택하고 create 하면 된다 Private hosted zone 같은 경우 아마존 내부에서 쓰는 도메인을 새로 설정하는 느낌이다
-
+Hosted zone 을 보면 타입에 NS 라는게 있는데 name server 란 뜻이다 이게 아마존에서 이 도메인으로 설정해준 name server 인데 도메인과 route 53 을 연결해주는 사이 정도로 생각하면 된다
+gabia에 가서 도메인 변경을 누르고 이 name server들을 입력해주자 이러면 도메인과 route 53을 연결했다 
+이제 route 53과 ec2를 연결해주는 과정이 필요하다 
 
 
 
