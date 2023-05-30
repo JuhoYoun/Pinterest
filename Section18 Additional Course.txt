@@ -208,7 +208,10 @@ ipv4를 선택했다 scheme 은 internet-facing 그대로 한다 그리고 리�
 HTTPS는 보안용 프로토콜이기 때문에 인증서가 필요하다 aws를 사용하면 알아서 만들어주는 방식이다 Default SSL/TLS certificate 섹션에 자동으로 되있는 From ACM 으로 하면 우리가 설정한 도메인을 인증해주는 인증서를 자동으로 발급해주고
 그것을 관리해준다 Security groups 설정은 ec2 인스턴스로 들어가서 ec2 인스턴스가 어떤 보안그룹으로 설정되있는지 확인하고 같은 보안 그룹으로 설정해준다 
 Listeners and routing 섹션으로 가면 create target group이 있는지 그걸 눌러서 새 대상그룹을 만들어준다 이름은 강의처럼 그냥 webserver 라고 하고 target type은 우리는 ec2랑 연결하는거니까 instance로 해준다 
-
+Next 를 눌러면 Register targets이 나오는데 Available instances 에 우리가 연결하고 싶은 ec2 를 선택해주고 include as pending below를 누르면 Targets 리스트 안에 들어간다 로드밸런스에 연결될 인스턴스를 등록한거다
+그리고 create target group을 누르면 target group이  생성된다  아까 추가한 리스너 두개 HTTP 와 HTTPS 의 Default action 으로 방금 만든 webserver target group을 선택해준다 
+그리고 보다보니 강의때의 aws 랑 지금 aws가 많이 다르다 Default SSL/TLS certificate 여기에 From ACM 옆에 Select a certificate 이라고 되있는데 강의에서는 이 부분이 자동으로 채워져있는데 내가할 때는 비어있다 
+나는 Request new ACM certificate 를 눌러서 Request a certificate 누른후 Fully qualified domain name 여기에 내 도메인 치고 나머지는 디폴트로 하고 request 눌러서 certificate 을 
  
 
 
