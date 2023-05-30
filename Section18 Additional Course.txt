@@ -178,8 +178,13 @@ docker swarm init 명령은 현재 디렉토리의 위치와는 관계없이 실
 이전에는 파일질라에 아이피 유저네임 그리고 패스워드를 입력해 접속했다면 지금 우리는 ssh로 aws 접속시 pem 파일을 이용해 접속하고 있다 파일질라에서도 다른 방식으로 접속해야 한다 우선 파일질라 Host 라고 써 있는 부분 위쪽의 site manager 아이콘
 을 클릭한다 그리고 new site를 눌러서 사이트 설정을 추가해보자 프로토콜은 SFTP 호스트에 aws 아이피 주소 포트는 22번 Logon Type 에 키 파일을 선택한다 User에 Ubuntu 그리고 키 파일을 선택해준다 그리고 Connect! 그러면 aws에 접속됬다
 파일질라로 home 디렉토리 아래에 django_course 라는 디렉토리를 만들어주려 하는데 안된다 root 유저가 아니라 ubuntu 유저로 접속했기 때문이다 그러면 터미널로 가서 ssh로 다시 aws에 접속하자 그리고 home 디렉토리로 가서 
--> sudo mkdir django_course  이렇게 sudo 권한으로 django_course 디렉토리를 만들어준다 
+-> sudo mkdir django_course 이렇게 sudo 권한으로 django_course 디렉토리를 만들어준다 
+자 이제 파일질라를 보면 django_course 디렉토리가 생겼다 하지만 그렇다고 nginx.conf 파일을 지금 옮길 수 있는것은 아니다 이것도 권한 문제이다 ubuntu 유저에게 권한을 추가적으로 주는 과정이 필요하다 
+home 디렉토리로 가서 다음의 명령어를 입력하자 
+-> sudo chmod 777 django_course/
+이러면 ubuntu 유저에게 이 경로에서의 권한을 준거다 자 그러면 파일질라를 통해서 nginx.conf 를 /home/django_course 경로로 보내줄 수 있다 
 
+자 그럼 이제 장고 이미지를 만들어준다 portainer 로 가서 기존에 했던거 처럼 dockerfile을 이용해서 장고 이미지를 만들어준다 그러면 이제 stack을 만들수 있다  
 
 
 
