@@ -192,7 +192,7 @@ stack 이 완성되면 aws console 로 가서 80번 포트를 열어준다 그�
 그리고 DNS management 아래 Create hosted zone을 클릭 거기에 산 도메인을 적고 Public hosted zone 을 선택하고 create 하면 된다 Private hosted zone 같은 경우 아마존 내부에서 쓰는 도메인을 새로 설정하는 느낌이다
 Hosted zone 을 보면 타입에 NS 라는게 있는데 name server 란 뜻이다 이게 아마존에서 이 도메인으로 설정해준 name server 인데 도메인과 route 53 을 연결해주는 사이 정도로 생각하면 된다
 gabia에 가서 도메인 변경을 누르고 이 name server들을 입력해주자 이러면 도메인과 route 53을 연결했다 
-이제 route 53과 ec2를 연결해주는 과정이 필요하다 
+이제 route 53과 ec2를 연결해주는 과정이 필요하다 방금 등록한 hosted zone 을 클릭해서 들어가면 create record를 눌러서 새 레코드를 생성해야한다 
 
 
 
