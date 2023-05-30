@@ -201,7 +201,15 @@ AWS 에서 HTTPS를 쓰는 법을 배워보자 HTTPS는 HTTP의 보안 버전이
 서버로 전달되냐면 단순히 유저가 서버에 보내고 끝내는게 아니라 네트워크 안에는 수많은 서버가 있고 우리가 타게팅한 그 서버로 전달되기 위해서는 여러가지 서버를 거치게 된다 문제는 중간 단계에 있는 서버에서 해커라던지 중간 탈취자가 그 정보를
 들여도 볼 수 있다 일반 HTTP 프로토콜에선 이게 가능하다 하지만 HTTPS 는 BODY 안의 내용들을 암호화한다 때문에 중간에 누가 들여다 봐도 무슨 내용인지 모르게한다
 
-AWS에서는 Load balancer 라는것을 만들어줘야 HTTPS를 사용할 수 
+AWS에서는 Load balancer 라는것을 만들어줘야 HTTPS를 사용할 수 있다 최근 추세는 서버에 부하를 줄이려고 같은 서버를 여러개 두는 scale out 방식으로 보강을 한다 이 때 서버들이 다 정상적으로 동작하도록 부하 분산을 해주는게 중요하다 
+이렇게 부하를 분산해주는게 로드 밸런서이다 이제 aws에서 로드 밸런서를 만들어보자 services -> ec2 로 가면 왼쪽에 Load Balacning 이라고 써있는게 있다 그 아래에 Load Balancer 를 클릭한다 그리고 create load balancer 클릭
+그리고 http https 로드밸런서 타입을 선택해준다 Application Load Balancer 와 Network Load Balancer 는 OSI 계층상에서 어느 계층에서 동작하는지를 간단하게 표현한거다 이름은 jake_balancer 라고 하고 ip address 타입은
+ipv4를 선택했다 scheme 은 internet-facing 그대로 한다 그리고 리스너는 HTTP 가 디폴트로 있는데 HTTPS도 추가해준다 그리고 Network mapping에 mapping에는 두개 다 선택해준다 
+HTTPS는 보안용 프로토콜이기 때문에 인증서가 필요하다 aws를 사용하면 알아서 만들어주는 방식이다 Default SSL/TLS certificate 섹션에 자동으로 되있는 From ACM 으로 하면 우리가 설정한 도메인을 인증해주는 인증서를 자동으로 발급해주고
+그것을 관리해준다 Security groups 설정은 ec2 인스턴스로 들어가서 ec2 인스턴스가 어떤 보안그룹으로 설정되있는지 확인하고 같은 보안 그룹으로 설정해준다 
+Listeners and routing 섹션으로 가면 create target group이 있는지 그걸 눌러서 새 대상그룹을 만들어준다 이름은 강의처럼 그냥 webserver 라고 하고 target type은 우리는 ec2랑 연결하는거니까 instance로 해준다 
+
+ 
 
 
 
