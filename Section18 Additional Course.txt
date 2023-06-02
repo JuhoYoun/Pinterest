@@ -213,7 +213,9 @@ Next 를 눌러면 Register targets이 나오는데 Available instances 에 우�
 그리고 보다보니 강의때의 aws 랑 지금 aws가 많이 다르다 Default SSL/TLS certificate 여기에 From ACM 옆에 Select a certificate 이라고 되있는데 강의에서는 이 부분이 자동으로 채워져있는데 내가할 때는 비어있다 
 나는 Request new ACM certificate 를 눌러서 Request a certificate 누른후 Fully qualified domain name 여기에 내 도메인 치고 나머지는 디폴트로 하고 request 눌러서 certificate 을 request 해줬다 
 그리고 해당 certificate이 펜딩이라고 나오는데 일단 certificate 클릭하고 들어가서 Create records in Route 53  이걸 눌러서 해당 도메인으로 레코드를 만들어줬더니 이제 로드밸런서 생성시 certificate 입력하는 곳에 방금 만든 
-certificate이 떠서 선택할 수 있었다 그리고 로드밸런서 생성 버튼을 
+certificate이 떠서 선택할 수 있었다 그리고 로드밸런서 생성 버튼을 눌러 생성한다 여기가 끝이 아니다 route 53 으로 가서 해당 hosted zone 으로 가서 레코드를 추가해준다 레코드네임에는 www.teddyyounhan.com 레코드 타입 A 그리고
+alias 에 체크해주고 application classic load balancer 선택 그리고 지역 선택한 후 우리가 만든 로드밸런서를 선택해준다 강의에서는 evaluate target health 도 체크해줬다 나는 이미 만들어논 www.teddyyounhan.com 레코드가 있어서
+이를 에딧해줬다 그리고 마지막으로 ec2 인스턴스의 443 포트를 열어주자 자 이렇게 하면 강의에서는 웹사이트에 https로 접속하면 https 가 되고 인증서도 잘 되는데 나는 인증서가 valid 하지 않다고 뜬다 왜이럴까?
  
 
 
