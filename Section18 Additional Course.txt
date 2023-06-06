@@ -216,6 +216,9 @@ Next 를 눌러면 Register targets이 나오는데 Available instances 에 우�
 certificate이 떠서 선택할 수 있었다 그리고 로드밸런서 생성 버튼을 눌러 생성한다 여기가 끝이 아니다 route 53 으로 가서 해당 hosted zone 으로 가서 레코드를 추가해준다 레코드네임에는 www.teddyyounhan.com 레코드 타입 A 그리고
 alias 에 체크해주고 application classic load balancer 선택 그리고 지역 선택한 후 우리가 만든 로드밸런서를 선택해준다 강의에서는 evaluate target health 도 체크해줬다 나는 이미 만들어논 www.teddyyounhan.com 레코드가 있어서
 이를 에딧해줬다 그리고 마지막으로 ec2 인스턴스의 443 포트를 열어주자 자 이렇게 하면 강의에서는 웹사이트에 https로 접속하면 https 가 되고 인증서도 잘 되는데 나는 인증서가 valid 하지 않다고 뜬다 왜이럴까?
+-> certificate 를 만들 때 도메인에 www.teddyyounhan.com 이렇게 www 섭도메인을 추가해서 등록하고 해야한다 왜냐하먄 로드밸런서를 가리키는 A 타입 dns 레코드가 www.teddyyounhan.com으로 등록되있기 때문인것 같다 
+teddyyounhan.com 으로된 A 타입 dns 레코드는 이미 AWS ec2 인스턴스인 54.215.96.40를 직접 가르키고 있어서 로드밸런서용 dns 레코드를 추가할 때는 teddyyounhan.com 으로는 못하고 www 를 섭도메인으로 추가해서 하였다
+certificate은 로드밸런서를 통해? https 방식으로 접속할 때 쓰이는것이므로 certificate을 등록할 때 로드밸런서용 dns 레코드인 www.teddyyounhan.com으로 등록하는게 맞다라는것이 내 생각
  
 #################################################################################################
 chatgpt에 물어본 aws https 설정 과정 
