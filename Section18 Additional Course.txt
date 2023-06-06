@@ -516,8 +516,8 @@ RUN mkdir /root/.ssh/
 ADD 명령어는 호스트의 파일을 컨테이너 안에 복사해준다 ./.ssh 이렇게 한 이유는 상대경로를 넣어준건데 /ubuntu/home/ 경로에서 이 명령어를 실행시키기 때문에 이렇게 했다 
 그런데 id_rsa 는 개인 키인데 이 파일은 누구에게도 보여주면 안되는 파일이다 이거를 이미지 안에다 넣어놨다는 것은 다른 사람이 이 이미지를 확보했을 때 그 이미지를 확보한 사람도 이 개인키를 볼 수 있다는 것이다 그래서 이 이미지가 공개된토
 레포지토리에 올라가면 안된다  이 다음에는 권한을 추가적으로 넣어줄것이다 -> RUN chmod 600 /root/.ssh/id_rsa. 그리고 known_hosts 파일도 만들어준다 ->  RUN touch /root/.ssh/known_hosts
-그리고 위에서 했던대로 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
-이렇게 하면 앞에서 했던 내용들을 도커파일에 모두 
+그리고 위에서 했던대로 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts   그리고 git clone 부분도 RUN git clone git@github.com:JuhoYoun/My-Home.git 이렇게 바꿔준다
+이렇게 하면 앞에서 했던 내용들을 도커파일에 모두 적용했다 
 
 
 
