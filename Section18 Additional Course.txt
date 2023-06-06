@@ -563,4 +563,44 @@ django message와 db transaction 이라는 기능을 짚고 넘어갈거다 장�
 자 일단 article 모델에 좋아요가 몇개 찍혔는지에 대한 칼럼을 추가해주자 
 -> like = models.IntegerField(default=0) 정수형 필드이고 기본값은 0 이다 
 
-그리고 likeapp을 따로 만들어준다 -> python3 manage.py startapp likeapp
+그리고 likeapp을 따로 만들어준다 -> python3 manage.py startapp likeapp 그리고 base.py 에다가 likeapp을 추가한다 그리고 프로젝트 앱의 urls.py에 path("likes/", include('likeapp.urls')), 이걸 추가 
+likeapp 앱 디렉토리 밑에 urls.py 도 만들어준다 
+
+그리고 models.py를 써주자
+
+from django.contrib.auth.models import User
+from django.db import models
+
+from articleapp.models import Article
+
+
+# Create your models here.
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='like')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='like')
+
+    class Meta:
+        unique_together = ('user', 'article')
+
+어떤 유저가 어떤 게시글에 좋아요를 찍었다는 것은 하나만 존재해야한다 즉 like 테이블에서 어떤 로우의 user와 article 조합은 unique 하다 -> class Meta 안에 명시해줬다
+이제 마이그레이트를 진행해보면 ( python3 manage.py makemigrations) 에러가 뜨는데 article에 like 이라는 필드가 이미 있어서 충돌이 된다고 뜬다 그래서 강의에서는 
+
+from django.contrib.auth.models import User
+from django.db import models
+
+from articleapp.models import Article
+
+
+# Create your models here.
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='like_record')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='like_record')
+
+    class Meta:
+        unique_together = ('user', 'article')
+
+이렇게 
+
+
+
+
