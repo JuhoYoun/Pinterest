@@ -463,6 +463,9 @@ ssh-keygen -t rsa -b 4096 -C "juho.youn.work@gmail.com"  이러면 rsa 방식의
 그렇게 되면 이제 키가 생성된것을 볼 수 있다 .ssh 디렉토리 안에 들어가면 키 파일이 생성된것을 볼 수 있다 우리가 등록을 해야되는것은 id_rsa.pub  이 파일이다 id_rsa 는 개인 키인데 우리가 보안에 아주 중요하게 생각해야되는 키라고 한다 
 id_rsa.pub 은 공개 키라고 해서 다른 공동 개발자에게 공유할 수 있는 키이다 자 이제 이것을 어떻게 넣느냐? 
 
+cat id_rsa.pub 라고 치면 이 내용을 출력할 수 있다 그리고 나온 내용을 복사에서 기텁에 등록을 한다 기텁에 https://github.com/settings/keys 로 간다 여기서 우리가 만든 SSH 키를 등록할 수 있다 
+New ssh key -> title 은 대충 써 주고 방금 복사한 키를 넣고 등록한다 
+
 
 
 
