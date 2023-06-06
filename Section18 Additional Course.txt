@@ -518,6 +518,33 @@ ADD 명령어는 호스트의 파일을 컨테이너 안에 복사해준다 ./.s
 레포지토리에 올라가면 안된다  이 다음에는 권한을 추가적으로 넣어줄것이다 -> RUN chmod 600 /root/.ssh/id_rsa. 그리고 known_hosts 파일도 만들어준다 ->  RUN touch /root/.ssh/known_hosts
 그리고 위에서 했던대로 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts   그리고 git clone 부분도 RUN git clone git@github.com:JuhoYoun/My-Home.git 이렇게 바꿔준다
 이렇게 하면 앞에서 했던 내용들을 도커파일에 모두 적용했다 
+->
+FROM python:3.9.0
+
+RUN mkdir /root/.ssh/
+
+# 이미지를 가지는 사람은 private key 또한 입수 가능 !
+ADD ./.ssh/id_rsa /root/.ssh/id_rsa
+
+RUN chmod 600 /root/.ssh/id_rsa
+
+RUN touch /root/.ssh/known_hosts
+
+RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
+
+WORKDIR /home/
+
+RUN git clone git@github.com:JuhoYoun/My-Home.git
+
+WORKDIR /home/My-Home/
+
+RUN pip install -r requirements.txt
+
+RUN pip install mysqlclient
+
+EXPOSE 8000
+
+CMD ["bash", "-c", "python manage.py collectstatic --noinput --settings=pinterest.settings.deploy && python manage.py migrate --settings=pinterest.settings.deploy && gunicorn pinterest.wsgi --env DJANGO_SETTINGS_MODULE=pinterest.settings.deploy --bind 0.0.0.0:8000"]
 
 이렇게 도커 파일을 만들었으면 이제 이걸로 이미지를 만드는데 portainer 에서 하는 대신 command line에서 하자 portainer에서는 되는게 있고 안되는게 있어 이 경우 커맨드 라인으로 진행한다 일단 도커 파일을 파일질라를 통해서 
 aws 호스트에 업로드 시켜줄것이다 vim 에디터로 파일에 쓰는 방법도 있는데 강의에서는 강의 내용이 많아지는게 싫어서 그렇게 안해줬다 일단 /ubuntu/ 디렉토리에 도커 파일을 올려준다 
@@ -525,3 +552,15 @@ aws 호스트에 업로드 시켜줄것이다 vim 에디터로 파일에 쓰는 
 -> sudo docker image build -t django_image_gunicorn:1 .  
 -t 는 이미지의 이름을 정하는 옵션이고 마지막의 . 는 현재 경로로 Dockerfile이 있는 곳을 명시한다
 
+
+
+
+자 이제는 우리 웹사이트에 좋아요 기능을 추가해보자
+누가 어떤 게시글에 좋아요를 눌렀다는 정보는 Unique 해야한다 한 유저는 하나의 게시글에 하나의 좋아요만 남길 수 있다 -> 메타 클래스를 사용해서 안에다 unique 를 설정해준다 그리고 이 기능을 만들면서 
+django message와 db transaction 이라는 기능을 짚고 넘어갈거다 장고 메세지는 어떤 메세지를 유저에게 보내줄 때 쓰는 메세지 프레임워크이고 DB transaction은 두가지 일을 한꺼번에 하는데 그 두가지 일이 모두 다 정상적으로 처리될 수 있을
+때만 해당 일들이 처리되게 하는 그런 내용이다 
+
+자 일단 article 모델에 좋아요가 몇개 찍혔는지에 대한 칼럼을 추가해주자 
+-> like = models.IntegerField(default=0) 정수형 필드이고 기본값은 0 이다 
+
+그리고 likeapp을 따로 만들어준다 -> python3 manage.py startapp likeapp
