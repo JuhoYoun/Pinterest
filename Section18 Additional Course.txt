@@ -468,10 +468,22 @@ New ssh key -> title 은 대충 써 주고 방금 복사한 키를 넣고 등록
 
 자 이제 ssh, rsa key 를 통한 git clone이 가능해진다  git clone https://github.com/JuhoYoun/My-Home.git 이게 https를 통해 유저와 패스워드를 치고 들어간다면 
 git clone git@github.com:JuhoYoun/My-Home.git 이것은 ssh와 rsa key를 이용해 git clone을 한다 
-위의 명령어를 치면 일단 기텁에 대한 인증? 이 없다고 나오면서 are you sure you want to continue connecting? 이라고 나오는데 yes 하면 진행된다 그런데 우리의 목표는 방금 이 기텁에 대한 인증? 을 묻는 과정까지 안나오게
-하는것이기 때문에 git clone 하기 전에 추가적으로 작업을 해주자 우리는 github.com 이라는 이 주소가 알아진 호스트다 라는것을 명시해야한다 즉 known_hosts 라는 파일을 새로 만들어야한다 
+위의 명령어를 치면 일단 기텁에 대한 인증? 이 없다고 나오면서 are you sure you want to continue connecting? 이라고 나오는데 yes 하면 진행된다 (지우기 귀찮으니 하진 말자) 
+그런데 우리의 목표는 방금 이 기텁에 대한 인증? 을 묻는 과정까지 안나오게 하는것이기 때문에 git clone 하기 전에 추가적으로 작업을 해주자 우리는 github.com 이라는 이 주소가 알아진 호스트다 라는것을 명시해야한다 
+즉 known_hosts 라는 파일을 새로 만들어야한다 
+-> touch /home/ubuntu/.ssh/known_hosts
 
-
+그리고 이 파일에다가 작업을 해줘야한다
+우선 ssh-keyscan github.com >> /home/ubuntu/.ssh/known_hosts  -> 이렇게 ssh-keyscan 을 이용해서 github.com 에 대한 키를 /home/ubuntu/.ssh/known_hosts에 만들어준다 
+그러면
+# github.com:22 SSH-2.0-babeld-25b13a56
+# github.com:22 SSH-2.0-babeld-25b13a56
+# github.com:22 SSH-2.0-babeld-25b13a56
+# github.com:22 SSH-2.0-babeld-25b13a56
+# github.com:22 SSH-2.0-babeld-25b13a56
+이런식으로 뭔가가 뜨는걸 볼 수 있다 그리고 cat /home/ubuntu/.ssh/known_hosts 이렇게 출력해보면 github.com에 대한 rsa 키가 생긴것을 볼 수 있다 
+이제 aws ubuntu 에서 git clone git@github.com:JuhoYoun/My-Home.git 이 명령어를 쓸 때 퍼블릭 레포지토리를 받는것처럼 자동으로 받을 수 있게 되었다 
+자 다음에는 위의 과정들을 도커파일에 어떻게 적용할지 
 
 
 
