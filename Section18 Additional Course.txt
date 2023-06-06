@@ -440,6 +440,18 @@ AWS Management Console에 로그인한 후, "Route 53" 서비스를 찾아서 �
 
 #########################################################################################
 
+Private Github Repo, 그리고 RSA 키 등록
+
+지금까지 우리가 도커에서 장고 소스코드를 이용해 장고 이미지를 만들고 컨테이너를 만들 때 제약이 없었는데 기텁의 소스코드 레포지토리가 퍼블릭이었기 때문이다 만약 이 레포지토리가 프라이빗이라면 제약이 생긴다
+git clone 을 할 때 자격 증명을 요구한다 (need credentials) 근데 RUN git clone https://github.com/JuhoYoun/My-Home.git 이 라인과 같이 git clone 하는 부분은 dockerfile에 있고 장고 이미지는 
+이 dockerfile을 이용해 도커 내에서 자동으로 생성된다 때문에 git clone 시 credential이 필요할 때 개발자가 interactive하게 credential을 제공해 줄 수 없는 문제가 있다 -> RSA Key
+
+RSA key를 만들어 credential이 필요할 때 아이디와 비번을 제공지 않고 이 키를 제공해주므로서 credential 을 제공할 수 있다 
+
+1. Generate RSA Key
+2. Register RSA Key to Githun
+3. 마지막으로 이 키를 사용해서 이미지 만드는 프로세스를 정상화시킨다 
+
 
 
 
