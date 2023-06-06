@@ -447,10 +447,14 @@ git clone 을 할 때 자격 증명을 요구한다 (need credentials) 근데 RU
 이 dockerfile을 이용해 도커 내에서 자동으로 생성된다 때문에 git clone 시 credential이 필요할 때 개발자가 interactive하게 credential을 제공해 줄 수 없는 문제가 있다 -> RSA Key
 
 RSA key를 만들어 credential이 필요할 때 아이디와 비번을 제공지 않고 이 키를 제공해주므로서 credential 을 제공할 수 있다 
+일단 소스코드의 레포지토리를 프라이빗으로 바꾸자
 
+그리고 다음의 과정이 필요하다 
 1. Generate RSA Key
 2. Register RSA Key to Githun
-3. 마지막으로 이 키를 사용해서 이미지 만드는 프로세스를 정상화시킨다 
+3. 마지막으로 이 키를 사용해서 이미지 만드는 프로세스를 정상화시킨다
+
+
 
 
 
