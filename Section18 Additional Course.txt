@@ -485,5 +485,34 @@ git clone git@github.com:JuhoYoun/My-Home.git 이것은 ssh와 rsa key를 이용
 이제 aws ubuntu 에서 git clone git@github.com:JuhoYoun/My-Home.git 이 명령어를 쓸 때 퍼블릭 레포지토리를 받는것처럼 자동으로 받을 수 있게 되었다 
 자 다음에는 위의 과정들을 도커파일에 어떻게 적용할지 
 
+도커파일 수정
+
+일단 기존의 도커파일은 이렇다
+################################
+FROM python:3.9.0
+
+WORKDIR /home/
+
+RUN git clone https://github.com/JuhoYoun/My-Home.git
+
+WORKDIR /home/My-Home/
+
+RUN pip install -r requirements.txt
+
+RUN pip install mysqlclient
+
+EXPOSE 8000
+
+CMD ["bash", "-c", "python manage.py collectstatic --noinput --settings=pinterest.settings.deploy && python manage.py migrate --settings=pinterest.settings.deploy && gunicorn pinterest.wsgi --env DJANGO_SETTINGS_MODULE=pinterest.settings.deploy --bind 0.0.0.0:8000"]
+################################
+
+잴 처음에 해야되는 것은 ssh 키 파일이 들어가는 경로를 하나 만들어줘야한다 
+->
+RUN mkdir /root/.ssh/
+
+위에서 rsa 키를 직접 만들 때는 /home/ubuntu/.ssh/ 경로에 만들었는데 이건 우리가 ubuntu 유저로 접속했었기 때문이고 컨테이너 내부에서는 root 계정으로 모든 것을 실행하기 때문에 root 디렉토리 밑에 관련 ssh 파일을 넣어줘야한다
+그 다음으로는 우리가 github에 저장했던 그 키를 방금 만든 디렉토리에 넣어주자 호스트 서버 (aws 인가보다) 안에 있는 rsa 파일을 이미지를 만들 때 사용하는 컨테이너 안에다가 복사해주는 작업을 넣어준다
+-> ADD ./.ssh/id_rsa /root/.ssh/id_rsa
+
 
 
