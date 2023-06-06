@@ -456,7 +456,7 @@ RSA key를 만들어 credential이 필요할 때 아이디와 비번을 제공�
 
 우선 RSA 키를 만들어주자
 
-ssh-keygen 이라는 명령어를 통해 키를 생성한다 
+ssh-keygen 이라는 명령어를 통해 키를 생성한다 aws ec2 로 접속해서 /home/ubuntu/ 디렉토리로 가자
 ssh-keygen -t rsa -b 4096 -C "juho.youn.work@gmail.com"  이러면 rsa 방식의 암호화 코드를 만들라는 것인데 여기서 -b 4096은 비트 수를 정해주는것인데 간단히 말해 암호화의 정도를 정해주는것이다 기본은 2048이다 그리고 -C 를
 치면 코멘트를 달 수 있는데 그냥 내 메일 주소를 남겨줬다 이렇게 입력하면 다음엔 rsa 키를 어디다 저장할지에 대한 경로를 입력하라고 한다 강의에서 이 명령어를 실행시키는 디렉토리가 /home/ubuntu 인데 그냥 아무것도 안쓰고 엔터를 치면 
 /home/ubuntu/.ssh/id_rsa 경로에 생성된다 그리고 다음에는 enter passphrase 를 치라고 하는데 이걸 설정하면 이 rsa 키를 가지고 추가적인 비밀번호를 설정할 수 있는데 우리는 자동화할려는 목적이기 때문에 이 과정은 엔터를 치고 그냥 생략한다
@@ -465,6 +465,11 @@ id_rsa.pub 은 공개 키라고 해서 다른 공동 개발자에게 공유할 �
 
 cat id_rsa.pub 라고 치면 이 내용을 출력할 수 있다 그리고 나온 내용을 복사에서 기텁에 등록을 한다 기텁에 https://github.com/settings/keys 로 간다 여기서 우리가 만든 SSH 키를 등록할 수 있다 
 New ssh key -> title 은 대충 써 주고 방금 복사한 키를 넣고 등록한다 
+
+자 이제 ssh, rsa key 를 통한 git clone이 가능해진다  git clone https://github.com/JuhoYoun/My-Home.git 이게 https를 통해 유저와 패스워드를 치고 들어간다면 
+git clone git@github.com:JuhoYoun/My-Home.git 이것은 ssh와 rsa key를 이용해 git clone을 한다 
+위의 명령어를 치면 일단 기텁에 대한 인증? 이 없다고 나오면서 are you sure you want to continue connecting? 이라고 나오는데 yes 하면 진행된다 그런데 우리의 목표는 방금 이 기텁에 대한 인증? 을 묻는 과정까지 안나오게
+하는것이기 때문에 git clone 하기 전에 추가적으로 작업을 해주자 우리는 github.com 이라는 이 주소가 알아진 호스트다 라는것을 명시해야한다 즉 known_hosts 라는 파일을 새로 만들어야한다 
 
 
 
