@@ -696,6 +696,44 @@ WARNING	A failure did not occur but may be imminent
 ERROR	An action was not successful or some other failure occurred
 The MESSAGE_LEVEL setting can be used to change the minimum recorded level (or it can be changed per request). Attempts to add messages of a level less than this will be ignored.
 
+위의 내용을 읽어보고 이제 likeapp 의 뷰로 가서 LikeArticleView를 고쳐주자
+
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
+from django.utils.decorators import method_decorator
+from django.views.generic import RedirectView
+
+from articleapp.models import Article
+from likeapp.models import Like
+
+
+# Create your views here.
+@method_decorator(login_required, 'get')
+class LikeArticleView(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse('articleapp:detail', kwargs={'pk': kwargs['pk']})
+
+    def get(self, *args, **kwargs):
+        user = self.request.user
+        article = get_object_or_404(Article, pk=kwargs['pk'])
+
+        if Like.objects.filter(user=user, article=article).exists():
+            messages.add_message(self.request, messages.ERROR, 'You cannot like a article more than once.')
+            return HttpResponseRedirect(reverse('articleapp:detail', kwargs={'pk': kwargs['pk']}))
+        else:
+            Like(user=user, article=article).save()
+
+        article.like += 1
+        article.save()
+
+        messages.add_message(self.request, messages.SUCCESS, 'Liked')
+
+        return super(LikeArticleView, self).get(self.request, *args, **kwargs)
+
+
 
 
 
