@@ -600,7 +600,52 @@ class LikeRecord(models.Model):
         unique_together = ('user', 'article')
 
 이렇게 like_record 로 바꿔줬는데 나는 그게 마음에 안들어서 article의 like = models.IntegerField(default=0) 이것을 num_like = models.IntegerField(default=0) 이렇게 바꿔줄거다
-그리고  python3 manage.py makemigrations  이렇게 해줬다
+그리고  python3 manage.py makemigrations  , python3 manage.py migrate 이렇게 해줬다
+
+자 다음엔 article 앱의 detial.html 로 가서 좋아요 버튼을 만들자
+h1 과 h5 태그 사이에 다음과 같이 버튼을 추가했다
+            <div style="height: 2rem;">
+                <a href="#">
+                    <i style="vertical-align: middle; font-size: 1.2rem; color: #f77;">
+
+                    </i>
+                </a>
+                <span style="vertical-align: middle; font-size: 1.2rem;">
+                    {{ target_article.like }}
+                </span>
+            </div>
+
+다음으로는 likeapp의 뷰를 만들어주자
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
+from django.utils.decorators import method_decorator
+from django.views.generic import RedirectView
+
+from articleapp.models import Article
+from likeapp.models import Like
+
+
+# Create your views here.
+@method_decorator(login_required, 'get')
+class LikeArticleView(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse('articleapp:detail', kwargs={'pk': kwargs['pk']})
+
+    def get(self, *args, **kwargs):
+        user = self.request.user
+        article = get_object_or_404(Article, pk=kwargs['pk'])
+
+        if Like.objects.filter(user=user, article=article).exists():
+            return HttpResponseRedirect(reverse('articleapp:detail', kwargs={'pk': kwargs['pk']}))
+        else:
+            Like(user=user, article=article).save()
+
+        article.like += 1
+        article.save()
+
+        return super(LikeArticleView, self).get(self.request, *args, **kwargs)
 
 
 
