@@ -659,5 +659,44 @@ urlpatterns = [
     path('article/like/<int:pk>', LikeArticleView.as_view(), name='article_like')
 ]
 
+자 이렇게 하면 일단 좋아요 기능은 완성됬다
+
+
+
+Django Message 적용 및 응용
+현재 좋아요를 눌렀을 때 성공했는지 실패했는지 여부가 안나온다 장고메세지를 이용해 성공 혹은 실패 여부를 메세지로 디테일뷰 상단에 보여주자
+장고 메세지 문서 -> https://docs.djangoproject.com/en/4.2/ref/contrib/messages/
+공식 문서에서 다음의 내용들을 잘 읽어 보자
+
+Enabling messages¶
+Messages are implemented through a middleware class and corresponding context processor.
+
+The default settings.py created by django-admin startproject already contains all the settings required to enable message functionality:
+
+'django.contrib.messages' is in INSTALLED_APPS.
+
+MIDDLEWARE contains 'django.contrib.sessions.middleware.SessionMiddleware' and 'django.contrib.messages.middleware.MessageMiddleware'.
+
+The default storage backend relies on sessions. That’s why SessionMiddleware must be enabled and appear before MessageMiddleware in MIDDLEWARE.
+
+The 'context_processors' option of the DjangoTemplates backend defined in your TEMPLATES setting contains 'django.contrib.messages.context_processors.messages'.
+
+If you don’t want to use messages, you can remove 'django.contrib.messages' from your INSTALLED_APPS, the MessageMiddleware line from MIDDLEWARE, and the messages context processor from TEMPLATES.
+
+Message levels¶
+The messages framework is based on a configurable level architecture similar to that of the Python logging module. Message levels allow you to group messages by type so they can be filtered or displayed differently in views and templates.
+
+The built-in levels, which can be imported from django.contrib.messages directly, are:
+
+Constant	Purpose
+DEBUG	Development-related messages that will be ignored (or removed) in a production deployment
+INFO	Informational messages for the user
+SUCCESS	An action was successful, e.g. “Your profile was updated successfully”
+WARNING	A failure did not occur but may be imminent
+ERROR	An action was not successful or some other failure occurred
+The MESSAGE_LEVEL setting can be used to change the minimum recorded level (or it can be changed per request). Attempts to add messages of a level less than this will be ignored.
+
+
+
 
 
