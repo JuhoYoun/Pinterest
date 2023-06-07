@@ -600,6 +600,7 @@ class LikeRecord(models.Model):
         unique_together = ('user', 'article')
 
 이렇게 like_record 로 바꿔줬는데 나는 그게 마음에 안들어서 article의 like = models.IntegerField(default=0) 이것을 num_like = models.IntegerField(default=0) 이렇게 바꿔줄거다
+그리고  python3 manage.py makemigrations  이렇게 해줬다
 
 
 
