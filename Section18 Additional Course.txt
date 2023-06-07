@@ -767,6 +767,22 @@ MESSAGE_TAGS = {
 
 <button type="button" class="btn btn-link">Link</button>
 
-즉 각 메세지 레벨에 대한 태그를 출력해서 부트스트랩의 클래스 이름과 매칭시켜줄건데 여기 보다시피 ERROR에 대한 태그는 error 인데 우리가 쓸 부트스트랩은 danger 이기 때문에 메세지 태그를 좀 오버라이드 해줘야한다
+즉 각 메세지 레벨에 대한 태그를 출력해서 부트스트랩의 클래스 이름과 매칭시켜줄건데 여기 보다시피 ERROR에 대한 태그는 error 인데 우리가 쓸 부트스트랩은 danger 이기 때문에 메세지 태그를 좀 오버라이드 해줘야한다 오버라이드 하는 방법은 위에 써있다base.py 로 가서 다음을 추가해준다
+from django.contrib.messages import constants as messages 를 위에 추가해주고
+MESSAGE_TAGS = {
+    messages.ERROR: "danger",
+}
+이거를 그 밑에 적절한 곳에 쓰자 
+
+자 이제 base.html 상단에 가서 다음을 추가하자 
+
+    {% for message in messages %}
+    <div class="text-center">
+      <div class="btn btn-{{ message.tags }} rounded-pill px-5 my-3">
+        {{ message }}
+      </div>
+    </div>
+    {% endfor %}
+
 
 
