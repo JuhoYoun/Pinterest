@@ -605,7 +605,7 @@ class LikeRecord(models.Model):
 자 다음엔 article 앱의 detial.html 로 가서 좋아요 버튼을 만들자
 h1 과 h5 태그 사이에 다음과 같이 버튼을 추가했다
             <div style="height: 2rem;">
-                <a href="#">
+                <a href="{% url 'likeapp:article_like' pk=target_article.pk %}">
                     <i style="vertical-align: middle; font-size: 1.2rem; color: #f77;">
 
                     </i>
@@ -647,6 +647,17 @@ class LikeArticleView(RedirectView):
 
         return super(LikeArticleView, self).get(self.request, *args, **kwargs)
 
+그리고 likeapp의 urls.py를 써주자 
+
+from django.urls import path, include
+
+from likeapp.views import LikeArticleView
+
+app_name = "likeapp"
+
+urlpatterns = [
+    path('article/like/<int:pk>', LikeArticleView.as_view(), name='article_like')
+]
 
 
 
