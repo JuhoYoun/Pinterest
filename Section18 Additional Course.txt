@@ -733,8 +733,9 @@ class LikeArticleView(RedirectView):
 
         return super(LikeArticleView, self).get(self.request, *args, **kwargs)
 
-
-
+이제 메세지를 템플릿에다 구현해야 하는데 article detail 페이지 뿐만 아니라 앞으로 어떤식으로 다른 페이지에서도 좋아요에 대한 메시지 뿐만 아니라 다른 메세지를 사용할 수 있으므로 base.html에 메세지를 구현한다 
+메세지앱은 기본적으로 installed app에 추가되어 있기 때문에 어디에서든 messages로 접근할 수 있다 
+또 이 메세지에 부트스트랩을 적용해 메세지 종류에 따라 색깔 등 메세지의 디자인을 바꿔줄건데
 
 
 
