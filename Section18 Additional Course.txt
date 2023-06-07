@@ -592,14 +592,14 @@ from articleapp.models import Article
 
 
 # Create your models here.
-class Like(models.Model):
+class LikeRecord(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='like_record')
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='like_record')
 
     class Meta:
         unique_together = ('user', 'article')
 
-이렇게 
+이렇게 like_record 로 바꿔줬는데 나는 그게 마음에 안들어서 article의 like = models.IntegerField(default=0) 이것을 num_like = models.IntegerField(default=0) 이렇게 바꿔줄거다
 
 
 
