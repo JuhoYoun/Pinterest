@@ -783,6 +783,59 @@ MESSAGE_TAGS = {
       </div>
     </div>
     {% endfor %}
+    
+    
+
+Transcation
+유저가 좋아요를 누르면 DB와 두가지 interaction을 한다 1. Create Like 2. Article num_like += 1  그런데 어떤 유저가 좋아요를 눌렀을 때 Like 데이터가 생겼지만 어떠한 이유로 num_like이 1 추가되지 않았다고 가정해보자
+이건 우리가 원하는 상황이 아니고 이런 상황을 막아줘야한다 -> transaction을 사용한다  transcation은 여러가지 db interaction을 마치 하나의 interaction 처럼 묶어준다 
+Django decorator를 이용해서 transaction을 사용해보자
+
+likeapp의 뷰를 다음과 같이 고쳐주자 
+
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
+from django.db import transaction
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
+from django.utils.decorators import method_decorator
+from django.views.generic import RedirectView
+
+from articleapp.models import Article
+from likeapp.models import Like
+
+
+@transaction.atomic
+def db_transaction(user, article):
+    if Like.objects.filter(user=user, article=article).exists():
+        raise ValidationError('Like already exists')
+    else:
+        Like(user=user, article=article).save()
+
+    article.num_like += 1
+    article.save()
+
+
+# Create your views here.
+@method_decorator(login_required, 'get')
+class LikeArticleView(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse('articleapp:detail', kwargs={'pk': kwargs['pk']})
+
+    def get(self, *args, **kwargs):
+        user = self.request.user
+        article = get_object_or_404(Article, pk=kwargs['pk'])
+
+        try:
+            db_transaction(user, article)
+            messages.add_message(self.request, messages.SUCCESS, 'Liked')
+        except ValidationError:
+            messages.add_message(self.request, messages.ERROR, 'You cannot like a article more than once.')
+            return HttpResponseRedirect(reverse('articleapp:detail', kwargs={'pk': kwargs['pk']}))
+
+        return super(LikeArticleView, self).get(self.request, *args, **kwargs)
 
 
 
