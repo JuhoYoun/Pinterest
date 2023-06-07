@@ -726,7 +726,7 @@ class LikeArticleView(RedirectView):
         else:
             Like(user=user, article=article).save()
 
-        article.like += 1
+        article.num_like += 1
         article.save()
 
         messages.add_message(self.request, messages.SUCCESS, 'Liked')
