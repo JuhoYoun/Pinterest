@@ -91,7 +91,15 @@ return super(ProjectDetailView, self).get_context_data(object_list=object_list, 
 return super().get_context_data(object_list=object_list, **kwargs) 이렇게 쓰는것과 기능적으로 차이가 없다고 Chatgpt가 말한다.
 
 
+###########
+DetailView와 MultipleObjectMixin은 Django에서 제공하는 View의 구성요소 중 하나로, 각각 상세 정보를 표시하거나 여러 개의 객체를 표시하는 뷰를 만들 때 사용됩니다. 이 두 가지 모두 get_context_data 메소드를 가지고 있지만, 그 역할과 작동 방식은 다릅니다.
 
+DetailView의 get_context_data 메소드는 DetailView의 주요 기능인 단일 객체를 표시하는데 사용됩니다. 이 메소드는 템플릿에 전달할 컨텍스트 데이터를 생성하고 반환합니다. 기본적으로 이 메소드는 선택한 객체의 정보를 포함하고 있습니다. 필요한 경우 이 메소드를 오버라이드하여 추가 데이터를 컨텍스트에 추가할 수 있습니다.
+
+MultipleObjectMixin의 get_context_data 메소드는 여러 객체를 리스트로 표시하는 데 사용됩니다. 이 메소드는 템플릿에 전달할 컨텍스트 데이터를 생성하고 반환하는데, 이는 페이징 처리된 객체 목록, 페이징 관련 정보 등을 포함합니다. 이 메소드 또한 필요에 따라 오버라이드하여 추가 데이터를 컨텍스트에 포함시킬 수 있습니다.
+
+요약하자면, DetailView의 get_context_data와 MultipleObjectMixin의 get_context_data는 이름은 같지만 사용되는 뷰의 종류와 그 뷰의 목적에 따라 다르게 작동합니다. DetailView는 단일 객체에 대한 상세 정보를 표시하는 데 사용되며, MultipleObjectMixin은 여러 객체를 페이징 처리하여 표시하는 데 사용됩니다.
+#############
 
 
 
