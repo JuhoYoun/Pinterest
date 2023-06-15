@@ -53,10 +53,11 @@ chatgpt:
 
 이 명령어들은 GitHub에 새로운 Git repository를 만들고, 로컬에서 작성한 코드를 원격 저장소로 push하는 과정입니다.
 
-git remote add origin https://github.com/JuhoYoun/My-Home.git: 새로운 Git repository를 생성하고 원격 저장소 URL을 설정합니다.
-git branch -M main: Git branch를 새로 만들고, 기존의 main branch를 새로운 branch로 이름을 변경합니다.
-git push -u origin main: 변경된 로컬 브랜치를 원격 저장소의 main 브랜치에 push합니다. -u 옵션은 이후에 push할 때 기본으로 원격 저장소의 main 브랜치로 push 하도록 설정하는 것입니다.
-이 과정을 마치면 GitHub의 원격 저장소에 코드가 업로드되어 공개됩니다.
+git remote add origin https://github.com/JuhoYoun/My-Home.git: 이 명령어는 원격 저장소의 URL을 origin이라는 이름으로 지정합니다. origin은 흔히 사용되는 원격 저장소의 별칭입니다.
+
+git branch -M main: 이 명령어는 현재 위치한 브랜치의 이름을 main으로 변경합니다. -M 옵션은 브랜치가 이미 존재하는 경우에도 강제로 이름을 변경합니다.
+
+git push -u origin main: 이 명령어는 main 브랜치의 변경 사항을 origin 원격 저장소로 푸시합니다. -u 옵션은 이후 git push나 git pull을 입력할 때 원격 저장소의 이름과 브랜치 이름을 생략할 수 있게 해줍니다.
 
 branch이름을 master에서 main으로 바꾸게됬는데 최근에 master라고 쓰는것을 지양하는것 
 
