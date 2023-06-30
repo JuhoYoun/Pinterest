@@ -1,0 +1,534 @@
+###########################
+HTTPS using Nginx and Let's encrypt in Docker
+https://mindsers.blog/post/https-using-nginx-certbot-docker/
+
+This post is free for all to read thanks to the investment Mindsers Club members have made in our independent publication. If this work is meaningful to you, I invite you to join the club today.
+
+As it is a really common task, this post will guide you through with a step-by-step process to protect your website (and your users) using HTTPS. The specific part here is that we will do this in a docker environment.
+
+In this post, I will use Docker Compose to make the tutorial simpler and because I like the infrastructure as code movement.
+
+Nginx as a server
+To be able to use nginx as a server for any of our projects, we have to create a Docker Compose service for it. Docker will handle the download of the corresponding image and all the other tasks we used to do manually without Docker.
+
+version: '3'
+
+services:
+  webserver:
+    image: nginx:latest
+    ports:
+      - 80:80
+      - 443:443
+At anytime during the tutorial, you can run docker compose up to start the environment and see if everything goes well.
+
+We have now a working raw installation of nginx that listens to ports 80 for HTTP and 443 for HTTPS.
+
+version: '3'
+
+services:
+  webserver:
+    image: nginx:latest
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+As I want the server to be always up and running, I tell Docker that it should take care of restarting the "webserver" service when it unexpectedly shuts down.
+
+version: '3'
+
+services:
+  webserver:
+    image: nginx:latest
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+    volumes:
+      - ./nginx/conf/:/etc/nginx/conf.d/:ro
+The ultimate goal of our installation isn't to serve the default welcome page of nginx. So, we need a way to update the nginx configuration and declare our website.
+
+To accomplish that, we use the "volumes" feature of Docker. This means we map the folder located at /etc/nginx/conf.d/ from the docker container to a folder located at ./nginx/conf/ on our local machine. Every file we add, remove or update into this folder locally will be updated into the container.
+
+Note that I add a :ro at the end of the volume declaration. ro means "read-only". The container will never have the right to update a file into this folder. It is not a big deal, but consider it as a best practice. It can avoid wasting a few precious hours of debugging.
+
+Now update the Docker Compose file as below:
+
+version: '3'
+
+services:
+  webserver:
+    image: nginx:latest
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+    volumes:
+      - ./nginx/conf/:/etc/nginx/conf.d/:ro
+      - ./certbot/www:/var/www/certbot/:ro
+And add the following configuration file into your ./nginx/conf/ local folder. Do not forget to update using your own data.
+
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name example.org www.example.org;
+    server_tokens off;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location / {
+        return 301 https://example.org$request_uri;
+    }
+}
+The configuration is simple. We explain to nginx that it has to listen to port 80 (either on IPv4 or IPv6) for the specific domain name example.org.
+
+By default, we want to redirect someone coming on port 80 to the same route but on port 443. That's what we do with the location / block.
+
+But the specificity here is the other location block. It serves the files Certbot need to authenticate our server and to create the HTTPS certificate for it.
+
+Basically, we say "always redirect to HTTPS except for the /.well-know/acme-challenge/ route".
+
+We can now reload nginx by doing a rough docker compose restart or if you want to avoid service interruptions (even for a couple of seconds) reload it inside the container using docker compose exec webserver nginx -s reload.
+
+Create the certificate using Certbot
+For now, nothing will be shown because nginx keeps redirecting you to a 443 port that's not handled by nginx yet. But everything is fine. We only want Certbot to be able to authenticate our server.
+
+To do so, we need to use the docker image for certbot and add it as a service to our Docker Compose project.
+
+version: '3'
+
+services:
+  webserver:
+    image: nginx:latest
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+    volumes:
+      - ./nginx/conf/:/etc/nginx/conf.d/:ro
+      - ./certbot/www:/var/www/certbot/:ro
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
+We now have two services, one for nginx and one for Certbot. You might have noticed they have declared the same volume. It is meant to make them communicate together.
+
+Certbot will write its files into ./certbot/www/ and nginx will serve them on port 80 to every user asking for /.well-know/acme-challenge/. That's how Certbot can authenticate our server.
+
+Note that for Certbot we used :rw which stands for "read and write" at the end of the volume declaration. If you don't, it won't be able to write into the folder and authentication will fail.
+
+You can now test that everything is working by running docker compose run --rm  certbot certonly --webroot --webroot-path /var/www/certbot/ --dry-run -d example.org. You should get a success message like "The dry run was successful".
+
+Now that we can create certificates for the server, we want to use them in nginx to handle secure connections with end users' browsers.
+
+Certbot create the certificates in the /etc/letsencrypt/ folder. Same principle as for the webroot, we'll use volumes to share the files between containers.
+
+version: '3'
+
+services:
+  webserver:
+    image: nginx:latest
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+    volumes:
+      - ./nginx/conf/:/etc/nginx/conf.d/:ro
+      - ./certbot/www:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw
+Restart your container using docker compose restart. Nginx should now have access to the folder where Certbot creates certificates.
+
+However, this folder is empty right now. Re-run Certbot without the --dry-run flag to fill the folder with certificates:
+
+$ docker compose run --rm  certbot certonly --webroot --webroot-path /var/www/certbot/ -d example.org
+Since we have those certificates, the piece left is the 443 configuration on nginx.
+
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name example.org www.example.org;
+    server_tokens off;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location / {
+        return 301 https://example.org$request_uri;
+    }
+}
+
+server {
+    listen 443 default_server ssl http2;
+    listen [::]:443 ssl http2;
+
+    server_name example.org;
+
+    ssl_certificate /etc/nginx/ssl/live/example.org/fullchain.pem;
+    ssl_certificate_key /etc/nginx/ssl/live/example.org/privkey.pem;
+    
+    location / {
+    	# ...
+    }
+}
+Reloading the nginx server now will make it able to handle secure connection using HTTPS. Nginx is using the certificates and private keys from the Certbot volumes.
+
+Renewing the certificates
+One small issue you can have with Certbot and Let's Encrypt is that the certificates last only 3 months. You will regularly need to renew the certificates you use if you don't want people to get blocked by an ugly and scary message on their browser.
+
+But since we have this Docker environment in place, it is easier than ever to renew the Let's Encrypt certificates!
+
+$ docker compose run --rm certbot renew
+This small "renew" command is enough to let your system work as expected. You just have to run it once every three months. You could even automate this process…
+
+###################################################################
+
+###################################################################
+How to Use Cron to Automate Linux Jobs on Ubuntu 20.04
+https://www.cherryservers.com/blog/how-to-use-cron-to-automate-linux-jobs-on-ubuntu-20-04
+
+
+Job scheduling applications are designed to carry out repetitive tasks as defined in a schedule based on time and event conditions. In this article you will learn how to install and start using Cron - the most popular Linux workload automation tool that is widely used in Linux community.
+
+#What is Cron?
+Cron is a Linux job scheduler that is used to setup tasks to run periodically at a fixed date or interval. Cron jobs are specific commands or shell scripts that users define in the crontab files. These files are then monitored by the Cron daemon and jobs are executed on a pre-set schedule.
+
+#Prerequisites
+To follow this guide, you should have:
+
+A machine with Ubuntu 20.04 installed and root access privileges.
+Basic Linux command-line experience.
+#Install Cron
+Most often Cron is installed to your Ubuntu machine by default. In case it is not there, you may install it yourself.
+
+Update your system’s local package list:
+
+sudo apt update
+
+And install the newest version of cron. The following command also updates Cron to the latest version, if you already have it installed:
+
+sudo apt install cron
+
+Congrats! You now have the latest version of Cron installed on your machine.
+
+#Understand How Cron Works
+Cron jobs are commands or shell scripts that are referenced in crontab files. These files are loaded into memory and monitored for pre-set actions that need to be taken. Cron wakes up every minute to examine all stored crontabs and see if any command needs to be executed in the current minute.
+
+Additionally, Cron monitors the modification time of each crontab file on the system. If any crontab has been changed, it is automatically reloaded into memory. This way Cron doesn’t need to be restarted when a crontab modification is made.
+
+💡 Pro Tip: Cron assumes that your system is running continuously 24/7, so it is perfectly suited for servers that must be online all the time. However, cron cannot execute tasks that were scheduled for a time when your system was offline. As this may be an issue for desktop computers, use anacron instead to schedule jobs at the specified intervals as closely as machine uptime permits.
+
+#Setup Your First Cron Job
+Every Cron job should be specified in a crontab – a configuration file, also known as the Cron table. Create your first crontab by using the crontab command with an option -e which stands for editing, but is also used for crontab instantiation:
+
+crontab -e
+
+crontab instantiation
+
+If you are creating crontab for the first time, you will be asked to select your default text editor. Select your preferred editor [1 – 4] and press ENTER to open a new crontab with your selected text editor. The newly created crontab is populated with some useful comments:
+
+default crontab comments
+
+Let’s now add a new Cron job to the bottom of this file:
+
+* * * * * echo “Hello World at $(date)” >> $HOME/greetings.txt
+
+Every minute this Cron task runs the command echo “Hello World at $(date)” >> $HOME/greetings.txt. This command retrieves the current date, stuffs it into the “Hello World […]” string and appends the string to a greetings.txt file that is in your home directory. If the doesn’t exist yet, it will be created.
+
+Save the file and exit. Wait a few minutes and check the greetings.txt file that should have been created in your home directory and populated with relevant data:
+
+tail ~/greetings.txt
+
+A file populated by multiple cron jobs
+
+As you can see, every minute Cron executes the given task: current time is stuffed into the “Hello World […]” string and appended to the bottom of the file.
+
+#Understand Cron Job Syntax
+Every Cron task is written in a Cron expression that consists of two parts: the time schedule and the command to be executed. While the command can be virtually any command that you would normally execute in your command-line environment, writing a proper time schedule requires some practice.
+
+The Cron task syntax consists of 6 arguments separated by spaces. First 5 arguments describe the execution time, while the last argument is a command or a full path to a shell script that is going to be executed by the default shell:
+
+[minute] [hour] [day of month] [month] [day of week] [command]
+
+Commands are executed by Cron when the minute, hour and month fields match the current time, and when at least one of the day fields – either day of month, or day of week – match the current time. The allowed values are these:
+
+Field	Allowed values
+minute	0-59
+hour	0-23
+day of month	1-31
+month	1-12 (or names: JAN - DEC)
+day of week	0-6 (or names: SUN - SAT)
+There are also some special characters that you can use to further specify the execution time:
+
+Special field value	Description	Example
+Asterisk	An asterisk represents every allowed value (first to last).	* (run every hour, month, etc.)
+Range	A range consists of two numbers separated by a hyphen.	0-5 (run from 0th to 5th hour, month, etc.)
+List	A list is a set of numbers or ranges separated by commas.	0,1,2,3,4,5 (run from 0th to 5th hour, month, etc.)
+Step	A step is used in conjunction with ranges or asterisks.	*/2 (run every second hour, month, etc.)
+Name	A name can be used with month or day of week fields. Names are case insensitive.	Jan, Feb, Mar (run every January, February, and March)
+Special string	A special string can be used instead of the first five arguments.	@reboot, @weekly (run every time at startup, and once a week)
+You may play with execution time targeting rules by using the crontab.guru website which is a great place to deepen your understanding and double check whether you defined the execution time right.
+
+💡 Pro Tip: the @reboot runs once at the cron daemon startup. It may happen before some other system daemons are started due to the boot order sequence of the machine. This may cause some of the commands not working properly.
+
+#Manage Crontab Configuration Files
+Crontab, also known as the Cron table, is a list of environment settings and Cron commands that are stored in a file and used by the cron daemon to execute tasks on a scheduled basis. There are different types of crontab files available, so let’s review them one by one.
+
+#Manage User-owned Crontab Files
+Users have their own crontab files that are stored in the spool area and named after the user’s account. Each crontab is executed as the user who owns the crontab. You can check for user-owned crontab files by listing all files in the spool directory:
+
+ls /var/spool/cron/crontabs
+
+list spool crontabs
+
+As you can see, there are currently 3 crontab files created for users named root, user1 and user2.
+
+Crontab configuration files of the individual users should not be edited directly, but rather by using the crontab command. The crontab program verifies and installs the crontab file itself without a need for root privileges.
+
+You have already used the crontab -e command that creates a new crontab for a user or allows editing an existing crontab. You may check the contents of your existing crontab file by using the following command:
+
+crontab -l
+
+list crontabs
+
+As you can see, there is a single active Cron task that we have added before.
+
+If you would like to remove your crontab file to terminate all your scheduled tasks, use the following command:
+
+crontab -r
+
+#Manage System-wide Crontab Files
+System-wide crontab files are created upon cron installation and mainly used by system services. Packages like dpkg, sysstat and many others depend on cron and use it to schedule specific tasks. In a system’s crontab there is a user field that is used to execute given tasks.
+
+System crontabs must be owned by root and cannot be edited by any other user. There is no crontab command to edit these files, so they can be accessed directly by the system administrator. Let’s now access the main system crontab:
+
+vim /etc/crontab
+
+system-wide crontab
+
+As you can see, we have SHELL and PATH environment variables defined. There are also four Cron tasks that are specific to Debian-based operating systems. These tasks are going to use run-parts utility to execute all scripts that are put in cron.hourly/, cron.daily/, cron.weekly/, cron.monthly/ on an hourly, daily, weekly and monthly basis respectively.
+
+Any script in above mentioned directories must pass the run-parts verification. A script must be executable, owned by root, and not be writable by group or others. Let’s now create a simple bash script that is going to log Bitcoin prices every hour:
+
+vim /etc/cron.hourly/get_bitcoin_price
+
+#!/usr/bin/bash
+
+result=$(curl https://api.coinbase.com/v2/prices/spot?currency=USD)
+bitcoin_price=$(jq -r '.data.amount' <<< ${result})
+echo "Bitcoin price is $bitcoin_price USD on $(date)" >> $HOME /bitcoin_prices.txt
+Our script queries a Coinbase API, gets Bitcoin price information in JSON, parses it with the jq program to cherry-pick the price and logs it along with the current datetime to bitcoin_prices.txt file in the /root home directory.
+
+A script you put into /etc/cron.daily/ directory can be any script you like to be executed on an hourly basis. Just don’t forget to write a path to your preferred shell at the top (#!/usr/bin/bash) and make your script executable:
+
+chmod u+x /etc/cron.daily/get_bitcoin_price
+
+You may double check your script to make sure it is executable, owned by root, and are not writable for group and others:
+
+list script permissions
+
+It seems our script is well-configured and ready to be executed by Cron on an hourly basis.
+
+There is also a /etc/cron.d/ directory in Debian-based systems. Cron treats all files in this directory in the same way as the main /etc/crontab file, except that crontab files put into /etc/cron.d/ do not load environment variables. It is only recommended to create separate crontab files in the /etc/cron.d/ directory if you need that extra isolation.
+
+#Manage Cron Output
+The output of cron jobs – both STDOUT and STDERR – is automatically sent to the crontab owner’s local mailbox by default. Each user’s mailbox is a standard text file that is stored in the /var/mail/ directory. You may access it directly or through the mail command, if mailutils package is installed.
+
+You may change the default behavior by specifying MAILTO directive in your crontab file. For instance, if you want the output of your Cron tasks to be sent to a user john, you should add the following line at the top of your crontab:
+
+MAILTO=john
+
+A user’s local mailbox is different than an email sent over the Internet. If you want to send an email outside of your server, you may do so by specifying the MAILTO directive accordingly:
+
+MAILTO=john@gmail.com
+
+Of course, if you are sending a cold email through the Internet network, you must have some type of an SMTP server – Sendmail, Postfix, etc – running on the same host or on your LAN.
+
+#Manage Cron Logs
+Cron logs are stored in the /var/log/syslog global logging file by default. If you want to see your Cron activity, filter the syslog file to find CRON service activity:
+
+grep CRON /var/log/syslog
+
+Filter CRON logs
+
+Crontab file activity is also logged. If you want to see it, just filter the syslog file accordingly:
+
+grep crontab /var/log/syslog
+
+Filter crontab logs
+
+It is not very convenient to filter the global log file every time. A better practice is to configure rsyslog utility to copy cron logs in a separate file. To do so edit the following file:
+
+vim /etc/rsyslog.d/50-default.conf
+
+You need to uncomment the following line:
+
+cron.* /var/log/cron.log
+
+Save the file and restart rsyslog service for the configuration to come into effect:
+
+systemctl restart rsyslog
+
+After a while you should see a new cron.log file created in the /var/log/ directory with your Cron activity logs inside:
+
+cat /var/log/cron.log
+
+A newly created separate cron log
+
+If you haven’t changed syslog configuration, every log entry follows a standard pattern:
+
+[timestamp] [hostname] [app_name] [log_message]
+
+You can see the log rows follow this pattern, for instance:
+
+Jan 14 15:12:01 ubuntu-sandbox CRON[345431]: (root) CMD (echo "Hello World at $(date)" >> $HOME/greetings.txt)
+
+Let’s dissect these fields:
+
+timestamp=Jan 14 15:12:01 – indicated the date and time when the message was generated on the system;
+hostname=ubuntu-sandbox – indicates the system that sent the message
+app_name=CRON[345431] – indicates the name and process id of the application that sent the message
+log_message=(root) CMD (echo “Hello World at $(date)” >> $HOME/greetings.txt) – the action that was taken. In this case CRON informs us that the following root user’s cronjob was executed: echo “Hello World at $(date)” >> $HOME/greetings.txt.
+💡 Pro tip: You are not going to see logging information about scripts that have been executed in the /etc/cron.{hourly, daily, weekly, monthly}/ directories, unless those scripts explicitly direct the output to the cron.log file.
+
+#Monitor Cron Jobs With Cronitor
+It may be a hassle to go back and forth through your Cron logs, especially if you have hundreds of jobs running on your system. Luckily, there are Cron job monitoring tools available in the market that help you monitor your cron jobs and get insights in real time.
+
+One such tool is Cronitor that captures the status, metrics, and output of every Cron job. With tools like Cronitor you may easily name and organize each job, as well as ensure that the right people are alerted if something happens.
+
+Monitoring 5 Cron jobs with Cronitor is free of charge and it is easy to get started. After you install Cronitor CLI and configure your API key, run the following command to scan your system crontabs for all active Cron jobs:
+
+cronitor discover
+
+You will be prompted to name your Cron jobs and, after you are done, Cronitor will immediately start monitoring them. You can check the status of your Cron jobs and configure alerts on your Cronitor dashboard:
+
+Cronitor monitoring panel
+
+#Conclusion
+Cron is a powerful tool that is often used by system administrators to automate otherwise tedious tasks. After completing this guide, you now have a well-rounded understanding of how to use Cron to schedule tasks on your Linux systems. For any further information, feel free to check the official Cron documentation page.
+
+#####################################################
+
+#####################################################
+Nginx and Let’s Encrypt with Docker in Less Than 5 Minutes
+https://pentacent.medium.com/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71
+
+The other day, I wanted to quickly launch an nginx server with Let’s Encrypt certificates. I expected the task to be easy and straightforward. Turns out: I was wrong, it took a significant amount of time and it’s quite a bit more complicated.
+
+Of course, in the grand scheme of things, it is pretty straightforward. But there are a couple of details you need to be aware of. The goal of this guide is to help you build a docker-compose setup that runs nginx in one container and a service for obtaining and renewing HTTPS certificates in another. Whether you’re using nginx as a proxy for your web app or just for serving static files, this guide is for you.
+
+TL;DR: The full code from this guide is available on GitHub.
+
+Quick Reminder: What is docker-compose?
+docker-compose is a tool for defining containers and running them. It’s a great choice when you have multiple interdependent containers but you don’t need a full-blown container cluster like Kubernetes.
+
+The official documentation puts it like this:
+
+With Compose, you use a YAML file to configure your application’s services. Then, with a single command, you create and start all the services from your configuration
+
+This guide requires docker-compose. If you don’t have it yet, take a look at the installation instructions and get it.
+Hint: If you’re installing docker-compose on CoreOS, it needs to go into /opt/bin instead of /usr/local/bin.
+
+The Setup
+Official images of nginx and an automated build of certbot, the EFF’s tool for obtaining Let’s Encrypt certificates, are available in the Docker library.
+
+Let’s begin with a basic docker-compose.yml configuration file that defines containers for both images:
+
+version: '3'
+services:
+  nginx:
+    image: nginx:1.15-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./data/nginx:/etc/nginx/conf.d
+  certbot:
+    image: certbot/certbot
+Here is a simple nginx configuration that redirects all requests to HTTPS. The second server definition sets up a proxy to example.org for demonstration purposes. This is where you would add your own configuration for proxying requests to your app or serving local files.
+
+Save this file as data/nginx/app.conf alongside docker-compose.yml. Change example.org in both occurrences of server_name to your domain name.
+
+server {
+    listen 80;
+    server_name example.org;
+    location / {
+        return 301 https://$host$request_uri;
+    }    
+}
+server {
+    listen 443 ssl;
+    server_name example.org;
+    
+    location / {
+        proxy_pass http://example.org; #for demo purposes
+    }
+}
+If you would try to run docker-compose up now, nginx would fail to start because there is no certificate. We need to make some adjustments.
+
+Linking up nginx and certbot
+Let’s Encrypt performs domain validation by requesting a well-known URL from a domain. If it receives a certain response (the “challenge”), the domain is considered validated. This is similar to how Google Search Console establishes ownership of a website. The response data is provided by certbot, so we need a way for the nginx container to serve files from certbot.
+
+First of all, we need two shared Docker volumes. One for the validation challenges, the other for the actual certificates.
+
+Add this to the volumes list of the nginx section in docker-compose.yml.
+
+- ./data/certbot/conf:/etc/letsencrypt
+- ./data/certbot/www:/var/www/certbot
+And this is the counterpart that needs to go in the certbot section:
+
+volumes:
+  - ./data/certbot/conf:/etc/letsencrypt
+  - ./data/certbot/www:/var/www/certbot
+Now we can make nginx serve the challenge files from certbot! Add this to the first (port 80) section of our nginx configuration (data/nginx/app.conf):
+
+location /.well-known/acme-challenge/ {
+    root /var/www/certbot;
+}
+After that, we need to reference the HTTPS certificates. Add the soon-to-be-created certificate and its private key to the second server section (port 443). Make sure to once again replace example.org with your domain name.
+
+ssl_certificate /etc/letsencrypt/live/example.org/fullchain.pem;
+ssl_certificate_key /etc/letsencrypt/live/example.org/privkey.pem;
+And while we’re at it: The folks at Let’s Encrypt maintain best-practice HTTPS configurations for nginx. Let’s also add them to our config file. This will score you a straight A in the SSL Labs test!
+
+include /etc/letsencrypt/options-ssl-nginx.conf;
+ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+The Chicken or the Egg?
+Now for the tricky part. We need nginx to perform the Let’s Encrypt validation But nginx won’t start if the certificates are missing.
+
+So what do we do? Create a dummy certificate, start nginx, delete the dummy and request the real certificates.
+Luckily, you don’t have to do all this manually, I have created a convenient script for this.
+
+Download the script to your working directory as init-letsencrypt.sh:
+
+curl -L https://raw.githubusercontent.com/wmnnd/nginx-certbot/master/init-letsencrypt.sh > init-letsencrypt.sh
+Edit the script to add in your domain(s) and your email address. If you’ve changed the directories of the shared Docker volumes, make sure you also adjust the data_path variable as well.
+
+Then run chmod +x init-letsencrypt.sh and sudo ./init-letsencrypt.sh.
+
+Automatic Certificate Renewal
+Last but not least, we need to make sure our certificate is renewed when it’s about to expire. The certbot image doesn’t do that automatically but we can change that!
+
+Add the following to the certbot section of docker-compose.yml:
+
+entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+This will check if your certificate is up for renewal every 12 hours as recommended by Let’s Encrypt.
+
+In the nginx section, you need to make sure that nginx reloads the newly obtained certificates:
+
+command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+This makes nginx reload its configuration (and certificates) every six hours in the background and launches nginx in the foreground.
+
+Docker-compose Me Up!
+Everything is in place now. The initial certificates have been obtained and our containers are ready to launch. Simply run docker-compose up and enjoy your HTTPS-secured website or app.
+
+################################################################
+
